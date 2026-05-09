@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | PercentCalc Pro</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #C8C8C8; margin: 0; padding: 20px; color: #000; }
+        .container { max-width: 900px; margin: 0 auto; background: #EDEDED; border: 12px solid #333; border-radius: 16px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        h1 { text-align: center; color: #333; }
+        .lang-btn { padding: 10px 20px; background: #FF8C00; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+        .box { background: white; padding: 30px; border: 3px solid #333; border-radius: 12px; margin: 25px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button onclick="switchLang()" class="lang-btn" id="langBtn">繁體中文</button>
+        
+        <h1 id="title">Contact Us</h1>
+        <p id="subtitle" style="text-align:center;">Feel free to reach out with any questions or suggestions</p>
+
+        <div class="box">
+            <h2 id="emailTitle">📧 Email</h2>
+            <p><strong>calculator0504@gmail.com</strong></p>
+            
+            <h2 id="feedbackTitle">💬 Feedback</h2>
+            <p id="feedbackText">We value your experience! Please let us know if you find any issues or have suggestions for new calculators.</p>
+        </div>
+
+        <a href="index.html" style="color:#FF8C00; font-weight:bold; display:block; text-align:center; margin-top:30px;">← Back to Home</a>
+    </div>
+
+    <script>
+        let isEnglish = true;
+        function switchLang() {
+            isEnglish = !isEnglish;
+            document.getElementById('langBtn').textContent = isEnglish ? "繁體中文" : "English";
+            
+            document.getElementById('title').textContent = isEnglish ? "Contact Us" : "聯絡我們";
+            document.getElementById('subtitle').textContent = isEnglish ? "Feel free to reach out with any questions or suggestions" : "有任何問題或建議，歡迎告訴我們";
+            document.getElementById('emailTitle').textContent = isEnglish ? "📧 Email" : "📧 電郵";
+            document.getElementById('feedbackTitle').textContent = isEnglish ? "💬 Feedback" : "💬 意見回饋";
+            document.getElementById('feedbackText').textContent = isEnglish ? "We value your experience! Please let us know if you find any issues or have suggestions." : "我們非常重視你的使用體驗！如果發現計算錯誤、想新增新工具，或有任何建議，都歡迎聯絡。";
+        }
+        window.onload = switchLang;
+    </script>
+</body>
+</html>

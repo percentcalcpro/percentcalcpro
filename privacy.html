@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | PercentCalc Pro</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #C8C8C8; margin: 0; padding: 20px; color: #000; }
+        .container { max-width: 900px; margin: 0 auto; background: #EDEDED; border: 12px solid #333; border-radius: 16px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        h1 { text-align: center; color: #333; }
+        .lang-btn { padding: 10px 20px; background: #FF8C00; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+        .content { line-height: 1.8; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button onclick="switchLang()" class="lang-btn" id="langBtn">繁體中文</button>
+        
+        <h1 id="title">Privacy Policy</h1>
+        <p id="lastUpdate" style="text-align:center;">Last Updated: May 2026</p>
+
+        <div class="content">
+            <h2 id="s1">What Data Do We Collect?</h2>
+            <p id="p1">This website does not collect any personal data. All calculations are performed locally in your browser.</p>
+
+            <h2 id="s2">Cookies and Advertising</h2>
+            <p id="p2">When Google AdSense is enabled, cookies may be used to show relevant advertisements.</p>
+
+            <h2 id="s3">Contact Us</h2>
+            <p id="p3">Any questions? Please email: <strong>calculator0504@gmail.com</strong></p>
+        </div>
+
+        <a href="index.html" style="color:#FF8C00; font-weight:bold; display:block; text-align:center; margin-top:30px;">← Back to Home</a>
+    </div>
+
+    <script>
+        let isEnglish = true;
+        function switchLang() {
+            isEnglish = !isEnglish;
+            document.getElementById('langBtn').textContent = isEnglish ? "繁體中文" : "English";
+            
+            document.getElementById('title').textContent = isEnglish ? "Privacy Policy" : "隱私權政策";
+            document.getElementById('lastUpdate').textContent = isEnglish ? "Last Updated: May 2026" : "最後更新：2026年5月";
+            document.getElementById('s1').textContent = isEnglish ? "What Data Do We Collect?" : "我們收集什麼資料？";
+            document.getElementById('p1').textContent = isEnglish ? "This website does not collect any personal data. All calculations are performed locally in your browser." : "本網站完全不收集任何個人資料。所有計算都在你的瀏覽器本地執行。";
+            document.getElementById('s2').textContent = isEnglish ? "Cookies and Advertising" : "Cookies 和廣告";
+            document.getElementById('p2').textContent = isEnglish ? "When Google AdSense is enabled, cookies may be used to show relevant advertisements." : "當網站顯示 Google AdSense 廣告時，可能會使用 Cookies。";
+            document.getElementById('s3').textContent = isEnglish ? "Contact Us" : "聯絡我們";
+            document.getElementById('p3').innerHTML = isEnglish ? 'Any questions? Please email: <strong>calculator0504@gmail.com</strong>' : '如有任何問題，請電郵：<strong>calculator0504@gmail.com</strong>';
+        }
+        window.onload = switchLang;
+    </script>
+</body>
+</html>

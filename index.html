@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 中文 SEO -->
+    <meta name="description" content="專業單位換算工具，提供百分比計算、貨幣換算、長度、重量、溫度、面積、體積、速度、能量等多種實用計算器，免費即時使用">
+    <meta name="keywords" content="單位換算, 百分比計算器, 貨幣換算, 長度換算, 重量換算, 溫度換算, BMI計算器, 免費計算工具">
+
+    <!-- 英文 SEO -->
+    <meta name="description" lang="en" content="Free online unit converter and calculators. Percentage, currency, length, weight, temperature, area, volume, speed, energy and more.">
+    <meta name="keywords" lang="en" content="unit converter, percentage calculator, currency converter, length converter, weight converter, free online tools">
+
+    <title>PercentCalc Pro - Free Online Calculators | 專業單位換算工具</title>
+
+    <!-- Google tag (gtag.js) - GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MX07WNVEGW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MX07WNVEGW');
+    </script>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5997745095823439" crossorigin="anonymous"></script>
+</head>
+    
+    <style>
+        /* 你原本的 CSS 從這裡開始 */
+
+    
+    <style>
+        /* 你原本的 CSS 樣式保持不變，從這裡開始貼你原本的 style 內容 */
+    
+ 
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #C8C8C8; margin: 0; padding: 10px; color: #000; }
+        .container { max-width: 960px; margin: 0 auto; background: #EDEDED; border: 12px solid #333; border-radius: 16px; padding: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        h1 { margin: 0; font-size: 2rem; }
+        .subtitle { color: #333; margin: 5px 0 0; }
+        .lang-select { padding: 9px 14px; font-size: 1rem; background: #FF8C00; color: white; border: none; border-radius: 8px; width: 100%; max-width: 300px; }
+        .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 15px 0; overflow-x: auto; }
+        .tab-button { padding: 10px 16px; background: #555; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; white-space: nowrap; }
+        .tab-button.active { background: #FF8C00; font-weight: bold; }
+        .calculator { display: none; background: #EDEDED; border: 8px solid #333; border-radius: 12px; padding: 20px; margin: 15px 0; }
+        .calculator.active { display: block; }
+         .converter-box { 
+            background: white; 
+            border: 3px solid #333; 
+            border-radius: 12px; 
+            padding: 20px; 
+        }
+        input, select { 
+            width: 100%; 
+            max-width: 100%; 
+            padding: 14px; 
+            font-size: 1.35rem; 
+            border: 2px solid #333; 
+            border-radius: 8px; 
+            text-align: center; 
+            margin-bottom: 10px; 
+            box-sizing: border-box; 
+        }
+
+        /* 特別針對 Discount 頁面的輸入框優化 */
+        #originalPrice, #discountRate {
+            max-width: 280px;
+            margin: 8px auto;
+            display: block;
+        }
+
+               /* 結果黑色框樣式 - 修復版 */
+        .result { 
+            margin-top: 20px; 
+            padding: 22px; 
+            background: #222; 
+            color: #FFCC00; 
+            font-size: 1.8rem; 
+            border-radius: 12px; 
+            text-align: center; 
+            font-weight: bold; 
+            min-height: 80px; 
+            width: 100%; 
+            box-sizing: border-box; 
+        }
+
+        @media (max-width: 600px) {
+            .result { 
+                font-size: 1.6rem; 
+                padding: 18px; 
+                min-height: 70px; 
+            }
+        }
+    </style>
+	
+	
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1 id="title">PercentCalc Pro</h1>
+                <p class="subtitle" id="subTitle">專業單位換算工具</p>
+            </div>
+            <select id="langSelect" class="lang-select" onchange="switchLang(this.value)">
+                <option value="zh">繁體中文</option>
+                <option value="en" selected>English</option>
+            </select>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(0)" id="btn0">貨幣</button>
+            <button class="tab-button" onclick="showTab(1)" id="btn1">折扣</button>
+            <button class="tab-button" onclick="showTab(2)" id="btn2">長度</button>
+            <button class="tab-button" onclick="showTab(3)" id="btn3">重量</button>
+            <button class="tab-button" onclick="showTab(4)" id="btn4">溫度</button>
+            <button class="tab-button" onclick="showTab(5)" id="btn5">面積</button>
+            <button class="tab-button" onclick="showTab(6)" id="btn6">體積</button>
+            <button class="tab-button" onclick="showTab(7)" id="btn7">速度</button>
+            <button class="tab-button" onclick="showTab(8)" id="btn8">能量</button>
+        </div>
+		        <!-- Tab 0: 貨幣換算 -->
+        <div id="tab0" class="calculator active">
+            <h3 id="currencyTitle">貨幣換算</h3>
+            <div class="converter-box">
+                <input id="currencyAmount" type="number" value="100" oninput="convertCurrency()" onkeypress="if(event.key==='Enter') convertCurrency()">
+                                            <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
+                    <select id="fromCurrency" onchange="convertCurrency()">
+                        <option value="HKD" selected>HKD</option>
+                        <option value="USD">USD</option>
+                        <option value="TWD">TWD</option>
+                        <option value="CNY">CNY</option>
+                        <option value="JPY">JPY</option>
+                        <option value="EUR">EUR</option>
+                        <option value="GBP">GBP</option>
+                    </select>
+                    <button onclick="swapCurrencies()" class="swap">⇄</button>
+                    <select id="toCurrency" onchange="convertCurrency()">
+                        <option value="USD" selected>USD</option>
+                        <option value="HKD">HKD</option>
+                        <option value="TWD">TWD</option>
+                        <option value="CNY">CNY</option>
+                        <option value="JPY">JPY</option>
+                        <option value="EUR">EUR</option>
+                        <option value="GBP">GBP</option>
+                    </select>
+                </div>
+                <div class="result" id="currencyResult"></div>
+            </div>
+        </div>
+
+        <!-- Tab 1: 百分比折扣 -->
+        <div id="tab1" class="calculator">
+            <h3 id="discountTitle">百分比折扣計算機</h3>
+            <div class="converter-box">
+                <label id="originalLabel">原價金額</label>
+                <input id="originalPrice" type="number" value="1000" oninput="calcDiscount()" onkeypress="if(event.key==='Enter') calcDiscount()">
+                <label id="rateLabel">折扣百分比 (%)</label>
+                <input id="discountRate" type="number" value="20" oninput="calcDiscount()" onkeypress="if(event.key==='Enter') calcDiscount()">
+                <div class="result" id="discountResult"></div>
+            </div>
+        </div>
+
+        <!-- Tab 2: 長度 -->
+        <div id="tab2" class="calculator">
+            <h3 id="lengthTitle">長度換算</h3>
+            <div class="converter-box">
+                <input id="lengthInput" type="number" value="170" oninput="convertLength()" onkeypress="if(event.key==='Enter') convertLength()">
+                <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
+                    <select id="fromLength" onchange="convertLength()">
+                        <option value="cm" selected>cm</option>
+                        <option value="inch">inch</option>
+                        <option value="m">m</option>
+                        <option value="ft">ft</option>
+                        <option value="km">km</option>
+                    </select>
+                    <button onclick="swapLength()" class="swap">⇄</button>
+                    <select id="toLength" onchange="convertLength()">
+                        <option value="inch" selected>inch</option>
+                        <option value="cm">cm</option>
+                        <option value="ft">ft</option>
+                        <option value="m">m</option>
+                        <option value="km">km</option>
+                    </select>
+                </div>
+                <div class="result" id="resultLength"></div>
+            </div>
+        </div>
+
+        <!-- Tab 3: 重量 -->
+        <div id="tab3" class="calculator">
+            <h3 id="weightTitle">重量換算</h3>
+            <div class="converter-box">
+                <input id="weightInput" type="number" value="1" oninput="convertWeight()" onkeypress="if(event.key==='Enter') convertWeight()">
+                <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
+                    <select id="fromWeight" onchange="convertWeight()">
+                        <option value="kg" selected>kg</option>
+                        <option value="lb">lb</option>
+                        <option value="g">g</option>
+                        <option value="oz">oz</option>
+                    </select>
+                    <button onclick="swapWeight()" class="swap">⇄</button>
+                    <select id="toWeight" onchange="convertWeight()">
+                        <option value="lb" selected>lb</option>
+                        <option value="kg">kg</option>
+                        <option value="g">g</option>
+                        <option value="oz">oz</option>
+                    </select>
+                </div>
+                <div class="result" id="resultWeight"></div>
+            </div>
+        </div>
+		        <!-- Tab 4: 溫度 -->
+        <div id="tab4" class="calculator">
+            <h3 id="tempTitle">溫度換算</h3>
+            <div class="converter-box">
+                <input id="tempInput" type="number" value="25" oninput="convertTemp()" onkeypress="if(event.key==='Enter') convertTemp()">
+                <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
+                    <select id="fromTemp" onchange="convertTemp()">
+                        <option value="c" selected>°C</option>
+                        <option value="f">°F</option>
+                        <option value="k">K</option>
+                    </select>
+                    <button onclick="swapTemp()" class="swap">⇄</button>
+                    <select id="toTemp" onchange="convertTemp()">
+                        <option value="f" selected>°F</option>
+                        <option value="c">°C</option>
+                        <option value="k">K</option>
+                    </select>
+                </div>
+                <div class="result" id="resultTemp"></div>
+            </div>
+        </div>
+
+        <!-- Tab 5: 面積 -->
+        <div id="tab5" class="calculator">
+            <h3 id="areaTitle">面積換算</h3>
+            <div class="converter-box">
+                <input id="areaInput" type="number" value="1" oninput="convertArea()" onkeypress="if(event.key==='Enter') convertArea()">
+                <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
+                    <select id="fromArea" onchange="convertArea()">
+                        <option value="m2" selected>m²</option>
+                        <option value="ft2">ft²</option>
+                        <option value="yd2">yd²</option>
+                        <option value="ping">坪</option>
+                    </select>
+                    <button onclick="swapArea()" class="swap">⇄</button>
+                    <select id="toArea" onchange="convertArea()">
+                        <option value="ft2" selected>ft²</option>
+                        <option value="m2">m²</option>
+                        <option value="yd2">yd²</option>
+                        <option value="ping">坪</option>
+                    </select>
+                </div>
+                <div class="result" id="resultArea"></div>
+            </div>
+        </div>
+
+        <!-- Tab 6: 體積 -->
+        <div id="tab6" class="calculator">
+            <h3 id="volumeTitle">體積換算</h3>
+            <div class="converter-box">
+                <input id="volumeInput" type="number" value="1" oninput="convertVolume()" onkeypress="if(event.key==='Enter') convertVolume()">
+                <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
+                    <select id="fromVolume" onchange="convertVolume()">
+                        <option value="l" selected>L</option>
+                        <option value="ml">mL</option>
+                        <option value="gal">gal (US)</option>
+                        <option value="qt">qt (US)</option>
+                    </select>
+                    <button onclick="swapVolume()" class="swap">⇄</button>
+                    <select id="toVolume" onchange="convertVolume()">
+                        <option value="gal" selected>gal (US)</option>
+                        <option value="l">L</option>
+                        <option value="ml">mL</option>
+                        <option value="qt">qt (US)</option>
+                    </select>
+                </div>
+                <div class="result" id="resultVolume"></div>
+            </div>
+        </div>
+		        <!-- Tab 7: 速度 -->
+        <div id="tab7" class="calculator">
+            <h3 id="speedTitle">速度換算</h3>
+            <div class="converter-box">
+                <input id="speedInput" type="number" value="100" oninput="convertSpeed()" onkeypress="if(event.key==='Enter') convertSpeed()">
+                <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
+                    <select id="fromSpeed" onchange="convertSpeed()">
+                        <option value="kmh" selected>km/h</option>
+                        <option value="mph">mph</option>
+                        <option value="ms">m/s</option>
+                        <option value="knot">knot</option>
+                    </select>
+                    <button onclick="swapSpeed()" class="swap">⇄</button>
+                    <select id="toSpeed" onchange="convertSpeed()">
+                        <option value="mph" selected>mph</option>
+                        <option value="kmh">km/h</option>
+                        <option value="ms">m/s</option>
+                        <option value="knot">knot</option>
+                    </select>
+                </div>
+                <div class="result" id="resultSpeed"></div>
+            </div>
+        </div>
+
+        <!-- Tab 8: 能量 / 功率 -->
+        <div id="tab8" class="calculator">
+            <h3 id="powerTitle">能量換算</h3>
+            <div class="converter-box">
+                <input id="powerInput" type="number" value="1" oninput="convertPower()" onkeypress="if(event.key==='Enter') convertPower()">
+                <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
+                    <select id="fromPower" onchange="convertPower()">
+                        <option value="j" selected>J</option>
+                        <option value="kj">kJ</option>
+                        <option value="kcal">kcal</option>
+                        <option value="wh">Wh</option>
+                    </select>
+                    <button onclick="swapPower()" class="swap">⇄</button>
+                    <select id="toPower" onchange="convertPower()">
+                        <option value="kcal" selected>kcal</option>
+                        <option value="j">J</option>
+                        <option value="kj">kJ</option>
+                        <option value="wh">Wh</option>
+                    </select>
+                </div>
+                <div class="result" id="resultPower"></div>
+            </div>
+        </div>
+		    </div> <!-- 結束 container -->
+
+    <script>
+        let currentLang = 'en';
+
+        const translations = {
+            zh: {
+                title: "PercentCalc Pro", subTitle: "專業單位換算工具",
+                btn0: "貨幣", btn1: "折扣", btn2: "長度", btn3: "重量", btn4: "溫度",
+                btn5: "面積", btn6: "體積", btn7: "速度", btn8: "能量",
+                currencyTitle: "貨幣換算", discountTitle: "百分比折扣計算機",
+                lengthTitle: "長度換算", weightTitle: "重量換算", tempTitle: "溫度換算",
+                areaTitle: "面積換算", volumeTitle: "體積換算", speedTitle: "速度換算",
+                powerTitle: "能量換算",
+                originalLabel: "原價金額", rateLabel: "折扣百分比 (%)"
+            },
+            en: {
+                title: "PercentCalc Pro", subTitle: "Professional Converters",
+                btn0: "Currency", btn1: "Discount", btn2: "Length", btn3: "Weight", btn4: "Temperature",
+                btn5: "Area", btn6: "Volume", btn7: "Speed", btn8: "Power",
+                currencyTitle: "Currency Converter", discountTitle: "Percentage Discount Calculator",
+                lengthTitle: "Length Converter", weightTitle: "Weight Converter", tempTitle: "Temperature Converter",
+                areaTitle: "Area Converter", volumeTitle: "Volume Converter", speedTitle: "Speed Converter",
+                powerTitle: "Power / Energy Converter",
+                originalLabel: "Original Price", rateLabel: "Discount Rate (%)"
+            }
+        };
+
+        function switchLang(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+
+            document.getElementById('title').textContent = t.title;
+            document.getElementById('subTitle').textContent = t.subTitle;
+
+            for (let i = 0; i <= 8; i++) {
+                const btn = document.getElementById('btn' + i);
+                if (btn) btn.textContent = t['btn' + i];
+            }
+
+            document.getElementById('currencyTitle').textContent = t.currencyTitle;
+            document.getElementById('discountTitle').textContent = t.discountTitle;
+            document.getElementById('lengthTitle').textContent = t.lengthTitle;
+            document.getElementById('weightTitle').textContent = t.weightTitle;
+            document.getElementById('tempTitle').textContent = t.tempTitle;
+            document.getElementById('areaTitle').textContent = t.areaTitle;
+            document.getElementById('volumeTitle').textContent = t.volumeTitle;
+            document.getElementById('speedTitle').textContent = t.speedTitle;
+            document.getElementById('powerTitle').textContent = t.powerTitle;
+
+            document.getElementById('originalLabel').textContent = t.originalLabel;
+            document.getElementById('rateLabel').textContent = t.rateLabel;
+
+            // 更新 Footer 連結文字
+            if (document.getElementById('footerPrivacy')) {
+                document.getElementById('footerPrivacy').textContent = (lang === 'en') ? "Privacy Policy" : "隱私權政策";
+            }
+            if (document.getElementById('footerContact')) {
+                document.getElementById('footerContact').textContent = (lang === 'en') ? "Contact Us" : "聯絡我們";
+            }
+
+            // 重新計算目前 TAB
+            if (document.querySelector('.calculator.active')) {
+                const activeId = document.querySelector('.calculator.active').id;
+                if (activeId === 'tab1') calcDiscount();
+                else if (activeId === 'tab0') convertCurrency();
+            }
+        }
+
+        function showTab(n) {
+            document.querySelectorAll('.calculator').forEach(el => el.classList.remove('active'));
+            const tab = document.getElementById('tab' + n);
+            if (tab) tab.classList.add('active');
+
+            document.querySelectorAll('.tab-button').forEach((btn, i) => {
+                if (btn) btn.classList.toggle('active', i === n);
+            });
+        }
+
+        // ==================== 所有計算功能 ====================
+        function calcDiscount() {
+            let price = parseFloat(document.getElementById('originalPrice').value) || 0;
+            let rate = parseFloat(document.getElementById('discountRate').value) || 0;
+            let final = price * (1 - rate/100);
+            let save = price * (rate/100);
+            if (currentLang === 'en') {
+                document.getElementById('discountResult').innerHTML = `Final Price: ${final.toFixed(2)}<br>You Save: ${save.toFixed(2)} (${rate}%)`;
+            } else {
+                document.getElementById('discountResult').innerHTML = `最終價格：${final.toFixed(2)}<br>節省金額：${save.toFixed(2)} (${rate}%)`;
+            }
+        }
+        function convertCurrency() {
+            let amount = parseFloat(document.getElementById('currencyAmount').value) || 0;
+            let from = document.getElementById('fromCurrency').value;
+            let to = document.getElementById('toCurrency').value;
+
+            if (amount <= 0) {
+                document.getElementById('currencyResult').innerHTML = "Please enter amount";
+                return;
+            }
+
+            document.getElementById('currencyResult').innerHTML = "Getting latest rate...";
+
+            // 多重穩定 API 備援
+            const apis = [
+                `https://api.exchangerate.host/latest?base=${from}&symbols=${to}`,
+                `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${from.toLowerCase()}/${to.toLowerCase()}.json`,
+                `https://api.frankfurter.app/latest?from=${from}&to=${to}`
+            ];
+
+            let index = 0;
+
+            function tryNextAPI() {
+                if (index >= apis.length) {
+                    useFallbackRate();
+                    return;
+                }
+
+                fetch(apis[index])
+                    .then(r => r.json())
+                    .then(data => {
+                        let rate = null;
+                        if (data.rates) rate = data.rates[to];
+                        else if (data[to.toLowerCase()]) rate = data[to.toLowerCase()];
+
+                        if (rate) {
+                            let result = (amount * rate).toFixed(4);
+                            document.getElementById('currencyResult').innerHTML = 
+                                `${amount} ${from} = ${result} ${to}<br><small>Live Rate</small>`;
+                        } else {
+                            index++;
+                            tryNextAPI();
+                        }
+                    })
+                    .catch(() => {
+                        index++;
+                        tryNextAPI();
+                    });
+            }
+
+            tryNextAPI();
+
+            // 後備（只在所有 API 都失敗時使用）
+            function useFallbackRate() {
+                const fallbackRates = {
+                    USD: { HKD: 7.81, TWD: 32.45, JPY: 154.8 },
+                    HKD: { USD: 0.128, TWD: 4.16, JPY: 19.82 },
+                    TWD: { USD: 0.0308, HKD: 0.2404, JPY: 4.78 },
+                    JPY: { USD: 0.00646, HKD: 0.0504, TWD: 0.209 }
+                };
+
+                let rate = (fallbackRates[from] && fallbackRates[from][to]) ? fallbackRates[from][to] : 1;
+                let result = (amount * rate).toFixed(4);
+                document.getElementById('currencyResult').innerHTML = 
+                    `${amount} ${from} = ${result} ${to}<br><small style="color:#FF6666;">Reference Rate</small>`;
+            }
+        }
+		
+        function swapCurrencies() {
+            let fromSelect = document.getElementById('fromCurrency');
+            let toSelect = document.getElementById('toCurrency');
+            
+            if (fromSelect && toSelect) {
+                // 對調貨幣
+                [fromSelect.value, toSelect.value] = [toSelect.value, fromSelect.value];
+                
+                // 立即重新計算
+                convertCurrency();
+            }
+        }
+		
+        function convertLength() {
+            let val = parseFloat(document.getElementById('lengthInput').value) || 0;
+            let from = document.getElementById('fromLength').value;
+            let to = document.getElementById('toLength').value;
+            const factors = {cm:1, inch:2.54, m:100, ft:30.48, km:100000};
+            let result = (val * (factors[from] || 1) / (factors[to] || 1)).toFixed(4);
+            document.getElementById('resultLength').innerHTML = `${val} ${from} = ${result} ${to}`;
+        }
+        function swapLength() { let a = document.getElementById('fromLength'); let b = document.getElementById('toLength'); if(a&&b)[a.value,b.value]=[b.value,a.value]; convertLength(); }
+
+        function convertWeight() {
+            let val = parseFloat(document.getElementById('weightInput').value) || 0;
+            let from = document.getElementById('fromWeight').value;
+            let to = document.getElementById('toWeight').value;
+            const factors = {kg:1, lb:0.453592, g:0.001, oz:0.0283495};
+            let result = (val * (factors[from]||1) / (factors[to]||1)).toFixed(4);
+            document.getElementById('resultWeight').innerHTML = `${val} ${from} = ${result} ${to}`;
+        }
+        function swapWeight() { let a = document.getElementById('fromWeight'); let b = document.getElementById('toWeight'); if(a&&b)[a.value,b.value]=[b.value,a.value]; convertWeight(); }
+
+        function convertTemp() {
+            let val = parseFloat(document.getElementById('tempInput').value) || 0;
+            let from = document.getElementById('fromTemp').value;
+            let to = document.getElementById('toTemp').value;
+            let result = '';
+            if (from === 'c' && to === 'f') result = `${val} °C = ${((val*9/5)+32).toFixed(2)} °F`;
+            else if (from === 'f' && to === 'c') result = `${val} °F = ${((val-32)*5/9).toFixed(2)} °C`;
+            else if (from === 'c' && to === 'k') result = `${val} °C = ${(val+273.15).toFixed(2)} K`;
+            else result = `${val} ${from} = ${val} ${to}`;
+            document.getElementById('resultTemp').innerHTML = result;
+        }
+        function swapTemp() { let a = document.getElementById('fromTemp'); let b = document.getElementById('toTemp'); if(a&&b)[a.value,b.value]=[b.value,a.value]; convertTemp(); }
+
+        function convertArea() {
+            let val = parseFloat(document.getElementById('areaInput').value) || 0;
+            let from = document.getElementById('fromArea').value;
+            let to = document.getElementById('toArea').value;
+            const factors = {m2:1, ft2:0.092903, yd2:0.836127, ping:3.305785};
+            let result = (val * (factors[from]||1) / (factors[to]||1)).toFixed(4);
+            document.getElementById('resultArea').innerHTML = `${val} ${from} = ${result} ${to}`;
+        }
+        function swapArea() { let a = document.getElementById('fromArea'); let b = document.getElementById('toArea'); if(a&&b)[a.value,b.value]=[b.value,a.value]; convertArea(); }
+
+        function convertVolume() {
+            let val = parseFloat(document.getElementById('volumeInput').value) || 0;
+            let from = document.getElementById('fromVolume').value;
+            let to = document.getElementById('toVolume').value;
+            const factors = {l:1, ml:0.001, gal:3.78541, qt:0.946353};
+            let result = (val * (factors[from]||1) / (factors[to]||1)).toFixed(4);
+            document.getElementById('resultVolume').innerHTML = `${val} ${from} = ${result} ${to}`;
+        }
+        function swapVolume() { let a = document.getElementById('fromVolume'); let b = document.getElementById('toVolume'); if(a&&b)[a.value,b.value]=[b.value,a.value]; convertVolume(); }
+
+        function convertSpeed() {
+            let val = parseFloat(document.getElementById('speedInput').value) || 0;
+            let from = document.getElementById('fromSpeed').value;
+            let to = document.getElementById('toSpeed').value;
+            const factors = {kmh:1, mph:1.60934, ms:3.6, knot:1.852};
+            let result = (val * (factors[from]||1) / (factors[to]||1)).toFixed(4);
+            document.getElementById('resultSpeed').innerHTML = `${val} ${from} = ${result} ${to}`;
+        }
+        function swapSpeed() { let a = document.getElementById('fromSpeed'); let b = document.getElementById('toSpeed'); if(a&&b)[a.value,b.value]=[b.value,a.value]; convertSpeed(); }
+
+        function convertPower() {
+            let val = parseFloat(document.getElementById('powerInput').value) || 0;
+            let from = document.getElementById('fromPower').value;
+            let to = document.getElementById('toPower').value;
+            const factors = {j:1, kj:1000, kcal:4184, wh:3600};
+            let result = (val * (factors[from]||1) / (factors[to]||1)).toFixed(4);
+            document.getElementById('resultPower').innerHTML = `${val} ${from} = ${result} ${to}`;
+        }
+        function swapPower() { let a = document.getElementById('fromPower'); let b = document.getElementById('toPower'); if(a&&b)[a.value,b.value]=[b.value,a.value]; convertPower(); }
+
+        // 初始化
+        window.onload = function() {
+            switchLang('en');   // 預設英文
+            showTab(0);
+        };
+    </script>
+        <!-- ==================== Footer ==================== -->
+        <div style="text-align:center; margin-top:40px; padding:25px; border-top:3px solid #333; background:#EDEDED;">
+            <a href="privacy.html" style="margin:0 15px; color:#FF8C00; text-decoration:none; font-weight:bold;" id="footerPrivacy">隱私權政策</a>
+            <a href="contact.html" style="margin:0 15px; color:#FF8C00; text-decoration:none; font-weight:bold;" id="footerContact">聯絡我們</a>
+            <p style="margin-top:15px; font-size:0.9rem; color:#555;">
+                © 2026 PercentCalc Pro. All calculations are performed locally in your browser.
+            </p>
+        </div>
+    </div>   <!-- container 結束 -->
+
+</body>
+</html>
+</body>
+</html>
