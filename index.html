@@ -463,7 +463,7 @@ function convertCurrency() {
         let rate = (fallbackRates[from] && fallbackRates[from][to]) ? fallbackRates[from][to] : 1;
         let result = (amount * rate).toFixed(4);
         document.getElementById('currencyResult').innerHTML = 
-            `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (2026-05-11)</small>`;
+            `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (May 11, 2026)</small>`;
     }
 }
 
