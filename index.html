@@ -9,10 +9,10 @@
     <meta name="keywords" content="單位換算, 百分比計算器, 貨幣換算, 長度換算, 重量換算, 溫度換算, BMI計算器, 免費計算工具">
 
     <!-- 英文 SEO -->
-    <meta name="description" lang="en" content="Free online unit converter and calculators. Percentage, currency, length, weight, temperature, area, volume, speed, energy and more.">
+	<meta name="description" content="Free online Currency Converter with Live Exchange Rate. Instantly convert USD, HKD, TWD, JPY, EUR, GBP and more. Updated daily.">
     <meta name="keywords" lang="en" content="unit converter, percentage calculator, currency converter, length converter, weight converter, free online tools">
 
-    <title>PercentCalc Pro - Free Online Calculators | 專業單位換算工具</title>
+    <title>Currency Converter & Live Exchange Rate | PercentCalc Pro</title>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1YLY45EW58"></script>
@@ -126,31 +126,41 @@
 		        <!-- Tab 0: 貨幣換算 -->
         <div id="tab0" class="calculator active">
             <h3 id="currencyTitle">貨幣換算</h3>
-            <div class="converter-box">
-                <input id="currencyAmount" type="number" value="100" oninput="convertCurrency()" onkeypress="if(event.key==='Enter') convertCurrency()">
-                                            <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
-                    <select id="fromCurrency" onchange="convertCurrency()">
-                        <option value="HKD" selected>HKD</option>
-                        <option value="USD">USD</option>
-                        <option value="TWD">TWD</option>
-                        <option value="CNY">CNY</option>
-                        <option value="JPY">JPY</option>
-                        <option value="EUR">EUR</option>
-                        <option value="GBP">GBP</option>
-                    </select>
-                    <button onclick="swapCurrencies()" class="swap">⇄</button>
-                    <select id="toCurrency" onchange="convertCurrency()">
-                        <option value="USD" selected>USD</option>
-                        <option value="HKD">HKD</option>
-                        <option value="TWD">TWD</option>
-                        <option value="CNY">CNY</option>
-                        <option value="JPY">JPY</option>
-                        <option value="EUR">EUR</option>
-                        <option value="GBP">GBP</option>
-                    </select>
-                </div>
-                <div class="result" id="currencyResult"></div>
-            </div>
+<div class="converter-box">
+    <input id="currencyAmount" type="number" value="100" 
+           oninput="convertCurrency()" 
+           onkeypress="if(event.key==='Enter') convertCurrency()">
+
+    <div style="display:flex; align-items:center; gap:12px; margin:20px 0;">
+        <select id="fromCurrency" onchange="convertCurrency()">
+            <option value="HKD" selected>HKD</option>
+            <option value="USD">USD</option>
+            <option value="TWD">TWD</option>
+            <option value="CNY">CNY</option>
+            <option value="JPY">JPY</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="CAD">CAD</option>
+            <option value="AUD">AUD</option>
+        </select>
+        
+        <button onclick="swapCurrencies()" class="swap" style="font-size:1.5rem; padding:8px 14px;">⇄</button>
+        
+        <select id="toCurrency" onchange="convertCurrency()">
+            <option value="USD" selected>USD</option>
+            <option value="HKD">HKD</option>
+            <option value="TWD">TWD</option>
+            <option value="CNY">CNY</option>
+            <option value="JPY">JPY</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="CAD">CAD</option>
+            <option value="AUD">AUD</option>
+        </select>
+    </div>
+
+    <div class="result" id="currencyResult"></div>
+</div>
         </div>
 
         <!-- Tab 1: 百分比折扣 -->
@@ -347,7 +357,7 @@
                 originalLabel: "原價金額", rateLabel: "折扣百分比 (%)"
             },
             en: {
-                title: "PercentCalc Pro", subTitle: "Professional Converters",
+                title: "PercentCalc Pro", subTitle: "Professional Converters - Currency Converter - Exchange Rate",
                 btn0: "Currency", btn1: "Discount", btn2: "Length", btn3: "Weight", btn4: "Temperature",
                 btn5: "Area", btn6: "Volume", btn7: "Speed", btn8: "Power",
                 currencyTitle: "Currency Converter", discountTitle: "Percentage Discount Calculator",
@@ -449,35 +459,64 @@ function convertCurrency() {
         })
         .catch(() => useFallbackRate());
 
-    // 後備匯率（2026-05-10）
-    function useFallbackRate() {
-        const fallbackRates = {
-            USD: { HKD: 7.83, TWD: 32.55, JPY: 154.80, CNY: 7.24, EUR: 0.920, GBP: 0.790 },
-            HKD: { USD: 0.1277, TWD: 4.158, JPY: 19.77, CNY: 0.924, EUR: 0.1175, GBP: 0.1010 },
-            TWD: { USD: 0.03072, HKD: 0.2405, JPY: 4.755, CNY: 0.2223, EUR: 0.02825, GBP: 0.02428 },
-            JPY: { USD: 0.00646, HKD: 0.05058, TWD: 0.2104, CNY: 0.04678, EUR: 0.00594, GBP: 0.005105 },
-            CNY: { USD: 0.1381, HKD: 1.082, TWD: 4.502, JPY: 21.39, EUR: 0.1270, GBP: 0.1091 },
-            EUR: { USD: 1.087, HKD: 8.51, TWD: 35.42, JPY: 168.4, CNY: 7.88, GBP: 0.859 },
-            GBP: { USD: 1.266, HKD: 9.91, TWD: 41.20, JPY: 196.0, CNY: 9.17, EUR: 1.164 }
-        };
+// === 後備匯率（2026-05-10 更新）===
+function useFallbackRate() {
+    const fallbackRates = {
+        USD: { 
+            HKD: 7.83, TWD: 32.55, JPY: 154.80, CNY: 7.24, 
+            EUR: 0.920, GBP: 0.790, CAD: 1.392, AUD: 1.525 
+        },
+        HKD: { 
+            USD: 0.1277, TWD: 4.158, JPY: 19.77, CNY: 0.924, 
+            EUR: 0.1175, GBP: 0.1010, CAD: 0.1778, AUD: 0.1948 
+        },
+        TWD: { 
+            USD: 0.03072, HKD: 0.2405, JPY: 4.755, CNY: 0.2223, 
+            EUR: 0.02825, GBP: 0.02428, CAD: 0.0428, AUD: 0.0469 
+        },
+        JPY: { 
+            USD: 0.00646, HKD: 0.05058, TWD: 0.2104, CNY: 0.04678, 
+            EUR: 0.00594, GBP: 0.005105, CAD: 0.00900, AUD: 0.00986 
+        },
+        CNY: { 
+            USD: 0.1381, HKD: 1.082, TWD: 4.502, JPY: 21.39, 
+            EUR: 0.1270, GBP: 0.1091, CAD: 0.1923, AUD: 0.2107 
+        },
+        EUR: { 
+            USD: 1.087, HKD: 8.51, TWD: 35.42, JPY: 168.4, 
+            GBP: 0.859, CAD: 1.513, AUD: 1.658 
+        },
+        GBP: { 
+            USD: 1.266, HKD: 9.91, TWD: 41.20, JPY: 196.0, 
+            EUR: 1.164, CAD: 1.762, AUD: 1.931 
+        },
+        CAD: { 
+            USD: 0.718, HKD: 5.62, TWD: 23.38, JPY: 111.2, 
+            EUR: 0.661, GBP: 0.568, AUD: 1.095 
+        },
+        AUD: { 
+            USD: 0.656, HKD: 5.13, TWD: 21.34, JPY: 101.5, 
+            EUR: 0.603, GBP: 0.518, CAD: 0.913 
+        }
+    };
 
-        let rate = (fallbackRates[from] && fallbackRates[from][to]) ? fallbackRates[from][to] : 1;
-        let result = (amount * rate).toFixed(4);
-        
-        document.getElementById('currencyResult').innerHTML = 
-            `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (May 10, 2026)</small>`;
-    }
+    let rate = (fallbackRates[from] && fallbackRates[from][to]) ? fallbackRates[from][to] : 1;
+    let result = (amount * rate).toFixed(4);
+    
+    document.getElementById('currencyResult').innerHTML = 
+        `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (May 10, 2026)</small>`;
+}
 }
 
 // === 調換貨幣按鈕 ===
 function swapCurrencies() {
-    let fromSelect = document.getElementById('fromCurrency');
-    let toSelect = document.getElementById('toCurrency');
-    if (fromSelect && toSelect) {
-        let temp = fromSelect.value;
-        fromSelect.value = toSelect.value;
-        toSelect.value = temp;
-        convertCurrency();   // 換完立即計算
+    let from = document.getElementById('fromCurrency');
+    let to = document.getElementById('toCurrency');
+    if (from && to) {
+        let temp = from.value;
+        from.value = to.value;
+        to.value = temp;
+        convertCurrency();
     }
 }
 		
