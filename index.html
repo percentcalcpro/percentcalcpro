@@ -422,7 +422,7 @@
                 document.getElementById('discountResult').innerHTML = `最終價格：${final.toFixed(2)}<br>節省金額：${save.toFixed(2)} (${rate}%)`;
             }
         }
-// === 貨幣換算（加強版 - 更多貨幣 + 容易每天更新）===
+// === 多 API 輪流加強版（免費 + 穩定）===
 function convertCurrency() {
     let amount = parseFloat(document.getElementById('currencyAmount').value) || 0;
     let from = document.getElementById('fromCurrency').value;
@@ -435,27 +435,48 @@ function convertCurrency() {
 
     document.getElementById('currencyResult').innerHTML = "Getting latest rate...";
 
-    // 優先使用穩定 API
-    fetch(`https://api.exchangerate.host/latest?base=${from}&symbols=${to}`)
-        .then(r => r.json())
-        .then(data => {
-            let rate = data.rates ? data.rates[to] : null;
-            if (rate && rate > 0) {
-                let result = (amount * rate).toFixed(4);
-                document.getElementById('currencyResult').innerHTML = 
-                    `${amount} ${from} = ${result} ${to}<br><small style="color:#4CAF50;">Live Rate</small>`;
-            } else {
-                useFallbackRate();
-            }
-        })
-        .catch(() => {
-            useFallbackRate();
-        });
+    // 多個免費 API 輪流嘗試
+    const apis = [
+        `https://api.exchangerate.host/latest?base=${from}&symbols=${to}`,
+        `https://api.frankfurter.app/latest?from=${from}&to=${to}`,
+        `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${from.toLowerCase()}/${to.toLowerCase()}.json`
+    ];
 
-    // === 後備匯率（容易每天手動更新）===
+    let index = 0;
+
+    function tryNextAPI() {
+        if (index >= apis.length) {
+            useFallbackRate();
+            return;
+        }
+
+        fetch(apis[index])
+            .then(r => r.json())
+            .then(data => {
+                let rate = null;
+                if (data.rates) rate = data.rates[to];
+                else if (data[to.toLowerCase()]) rate = data[to.toLowerCase()];
+
+                if (rate && rate > 0) {
+                    let result = (amount * rate).toFixed(4);
+                    document.getElementById('currencyResult').innerHTML = 
+                        `${amount} ${from} = ${result} ${to}<br><small style="color:#4CAF50;">Live Rate</small>`;
+                } else {
+                    index++;
+                    tryNextAPI();
+                }
+            })
+            .catch(() => {
+                index++;
+                tryNextAPI();
+            });
+    }
+
+    tryNextAPI();
+
+    // 後備匯率（容易手動更新）
     function useFallbackRate() {
         const fallbackRates = {
-            // 2026年5月10日 更新（請你每天或每2-3天更新下面數字）
             USD: { HKD: 7.83, TWD: 32.55, JPY: 154.8, CNY: 7.24, EUR: 0.92, GBP: 0.79 },
             HKD: { USD: 0.1277, TWD: 4.158, JPY: 19.77, CNY: 0.924, EUR: 0.117, GBP: 0.101 },
             TWD: { USD: 0.0307, HKD: 0.2405, JPY: 4.755, CNY: 0.222, EUR: 0.0282, GBP: 0.0243 },
@@ -467,9 +488,8 @@ function convertCurrency() {
 
         let rate = (fallbackRates[from] && fallbackRates[from][to]) ? fallbackRates[from][to] : 1;
         let result = (amount * rate).toFixed(4);
-        
         document.getElementById('currencyResult').innerHTML = 
-            `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (Updated 2026-05-10)</small>`;
+            `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate</small>`;
     }
 }
 
