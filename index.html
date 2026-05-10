@@ -421,20 +421,20 @@
                 document.getElementById('discountResult').innerHTML = `最終價格：${final.toFixed(2)}<br>節省金額：${save.toFixed(2)} (${rate}%)`;
             }
         }
-// === 貨幣換算（穩定版 2026-05-11）===
+// === 貨幣換算（穩定安全版 - 2026-05-10）===
 function convertCurrency() {
     let amount = parseFloat(document.getElementById('currencyAmount').value) || 0;
     let from = document.getElementById('fromCurrency').value;
     let to = document.getElementById('toCurrency').value;
 
     if (amount <= 0) {
-        document.getElementById('currencyResult').innerHTML = "Please enter amount";
+        document.getElementById('currencyResult').innerHTML = "Please enter a valid amount";
         return;
     }
 
     document.getElementById('currencyResult').innerHTML = "Getting latest rate...";
 
-    // 優先呼叫 API
+    // 呼叫免費 API
     fetch(`https://api.exchangerate.host/latest?base=${from}&symbols=${to}`)
         .then(r => r.json())
         .then(data => {
@@ -449,35 +449,36 @@ function convertCurrency() {
         })
         .catch(() => useFallbackRate());
 
+    // 後備匯率（2026-05-10）
     function useFallbackRate() {
- // === 後備匯率（2026-05-10 更新）===
-function useFallbackRate() {
-    const fallbackRates = {
-        USD: { HKD: 7.83, TWD: 32.55, JPY: 154.80, CNY: 7.24, EUR: 0.920, GBP: 0.790 },
-        HKD: { USD: 0.1277, TWD: 4.158, JPY: 19.77, CNY: 0.924, EUR: 0.1175, GBP: 0.1010 },
-        TWD: { USD: 0.03072, HKD: 0.2405, JPY: 4.755, CNY: 0.2223, EUR: 0.02825, GBP: 0.02428 },
-        JPY: { USD: 0.00646, HKD: 0.05058, TWD: 0.2104, CNY: 0.04678, EUR: 0.00594, GBP: 0.005105 },
-        CNY: { USD: 0.1381, HKD: 1.082, TWD: 4.502, JPY: 21.39, EUR: 0.1270, GBP: 0.1091 },
-        EUR: { USD: 1.087, HKD: 8.51, TWD: 35.42, JPY: 168.4, CNY: 7.88, GBP: 0.859 },
-        GBP: { USD: 1.266, HKD: 9.91, TWD: 41.20, JPY: 196.0, CNY: 9.17, EUR: 1.164 }
-    };
+        const fallbackRates = {
+            USD: { HKD: 7.83, TWD: 32.55, JPY: 154.80, CNY: 7.24, EUR: 0.920, GBP: 0.790 },
+            HKD: { USD: 0.1277, TWD: 4.158, JPY: 19.77, CNY: 0.924, EUR: 0.1175, GBP: 0.1010 },
+            TWD: { USD: 0.03072, HKD: 0.2405, JPY: 4.755, CNY: 0.2223, EUR: 0.02825, GBP: 0.02428 },
+            JPY: { USD: 0.00646, HKD: 0.05058, TWD: 0.2104, CNY: 0.04678, EUR: 0.00594, GBP: 0.005105 },
+            CNY: { USD: 0.1381, HKD: 1.082, TWD: 4.502, JPY: 21.39, EUR: 0.1270, GBP: 0.1091 },
+            EUR: { USD: 1.087, HKD: 8.51, TWD: 35.42, JPY: 168.4, CNY: 7.88, GBP: 0.859 },
+            GBP: { USD: 1.266, HKD: 9.91, TWD: 41.20, JPY: 196.0, CNY: 9.17, EUR: 1.164 }
+        };
 
-    let rate = (fallbackRates[from] && fallbackRates[from][to]) ? fallbackRates[from][to] : 1;
-    let result = (amount * rate).toFixed(4);
-    
-    document.getElementById('currencyResult').innerHTML = 
-        `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (May 10, 2026)</small>`;
-}
+        let rate = (fallbackRates[from] && fallbackRates[from][to]) ? fallbackRates[from][to] : 1;
+        let result = (amount * rate).toFixed(4);
+        
+        document.getElementById('currencyResult').innerHTML = 
+            `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (May 10, 2026)</small>`;
+    }
 }
 
-// === 調換貨幣 ===
+// === 調換貨幣按鈕 ===
 function swapCurrencies() {
-    let from = document.getElementById('fromCurrency');
-    let to = document.getElementById('toCurrency');
-    let temp = from.value;
-    from.value = to.value;
-    to.value = temp;
-    convertCurrency();
+    let fromSelect = document.getElementById('fromCurrency');
+    let toSelect = document.getElementById('toCurrency');
+    if (fromSelect && toSelect) {
+        let temp = fromSelect.value;
+        fromSelect.value = toSelect.value;
+        toSelect.value = temp;
+        convertCurrency();   // 換完立即計算
+    }
 }
 		
         function convertLength() {
