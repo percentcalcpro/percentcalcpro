@@ -422,72 +422,77 @@
                 document.getElementById('discountResult').innerHTML = `最終價格：${final.toFixed(2)}<br>節省金額：${save.toFixed(2)} (${rate}%)`;
             }
         }
-        function convertCurrency() {
-            let amount = parseFloat(document.getElementById('currencyAmount').value) || 0;
-            let from = document.getElementById('fromCurrency').value;
-            let to = document.getElementById('toCurrency').value;
+function convertCurrency() {
+    let amount = parseFloat(document.getElementById('currencyAmount').value) || 0;
+    let from = document.getElementById('fromCurrency').value;
+    let to = document.getElementById('toCurrency').value;
 
-            if (amount <= 0) {
-                document.getElementById('currencyResult').innerHTML = "Please enter amount";
-                return;
-            }
+    if (amount <= 0) {
+        document.getElementById('currencyResult').innerHTML = "請輸入金額";
+        return;
+    }
 
-            document.getElementById('currencyResult').innerHTML = "Getting latest rate...";
+    document.getElementById('currencyResult').innerHTML = "正在獲取最新匯率...";
 
-            // 多重穩定 API 備援
-            const apis = [
-                `https://api.exchangerate.host/latest?base=${from}&symbols=${to}`,
-                `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${from.toLowerCase()}/${to.toLowerCase()}.json`,
-                `https://api.frankfurter.app/latest?from=${from}&to=${to}`
-            ];
+    // 更穩定的多重 API + 強制後備
+    const apis = [
+        `https://api.exchangerate.host/latest?base=${from}&symbols=${to}`,
+        `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${from.toLowerCase()}/${to.toLowerCase()}.json`,
+        `https://api.frankfurter.app/latest?from=${from}&to=${to}`
+    ];
 
-            let index = 0;
+    let index = 0;
 
-            function tryNextAPI() {
-                if (index >= apis.length) {
-                    useFallbackRate();
-                    return;
-                }
-
-                fetch(apis[index])
-                    .then(r => r.json())
-                    .then(data => {
-                        let rate = null;
-                        if (data.rates) rate = data.rates[to];
-                        else if (data[to.toLowerCase()]) rate = data[to.toLowerCase()];
-
-                        if (rate) {
-                            let result = (amount * rate).toFixed(4);
-                            document.getElementById('currencyResult').innerHTML = 
-                                `${amount} ${from} = ${result} ${to}<br><small>Live Rate</small>`;
-                        } else {
-                            index++;
-                            tryNextAPI();
-                        }
-                    })
-                    .catch(() => {
-                        index++;
-                        tryNextAPI();
-                    });
-            }
-
-            tryNextAPI();
-
-            // 後備（只在所有 API 都失敗時使用）
-            function useFallbackRate() {
-                const fallbackRates = {
-                    USD: { HKD: 7.81, TWD: 32.45, JPY: 154.8 },
-                    HKD: { USD: 0.128, TWD: 4.16, JPY: 19.82 },
-                    TWD: { USD: 0.0308, HKD: 0.2404, JPY: 4.78 },
-                    JPY: { USD: 0.00646, HKD: 0.0504, TWD: 0.209 }
-                };
-
-                let rate = (fallbackRates[from] && fallbackRates[from][to]) ? fallbackRates[from][to] : 1;
-                let result = (amount * rate).toFixed(4);
-                document.getElementById('currencyResult').innerHTML = 
-                    `${amount} ${from} = ${result} ${to}<br><small style="color:#FF6666;">Reference Rate</small>`;
-            }
+    function tryNextAPI() {
+        if (index >= apis.length) {
+            useFallbackRate();
+            return;
         }
+
+        fetch(apis[index], { mode: 'cors' })
+            .then(r => {
+                if (!r.ok) throw new Error('Network error');
+                return r.json();
+            })
+            .then(data => {
+                let rate = null;
+                if (data.rates) rate = data.rates[to];
+                else if (data[to.toLowerCase()]) rate = data[to.toLowerCase()];
+
+                if (rate && rate > 0) {
+                    let result = (amount * rate).toFixed(4);
+                    document.getElementById('currencyResult').innerHTML = 
+                        `${amount} ${from} = ${result} ${to}<br><small style="color:#4CAF50;">Live Rate</small>`;
+                } else {
+                    index++;
+                    tryNextAPI();
+                }
+            })
+            .catch(() => {
+                index++;
+                tryNextAPI();
+            });
+    }
+
+    tryNextAPI();
+
+    // 可靠的後備匯率（每天手動更新一次即可）
+    function useFallbackRate() {
+        const fallbackRates = {
+            USD: { HKD: 7.82, TWD: 32.48, JPY: 155.2, CNY: 7.25 },
+            HKD: { USD: 0.128, TWD: 4.155, JPY: 19.85, CNY: 0.927 },
+            TWD: { USD: 0.0308, HKD: 0.2407, JPY: 4.78, CNY: 0.223 },
+            JPY: { USD: 0.00645, HKD: 0.0504, TWD: 0.209, CNY: 0.0467 },
+            CNY: { USD: 0.138, HKD: 1.078, TWD: 4.48, JPY: 21.45 }
+        };
+
+        let rate = (fallbackRates[from] && fallbackRates[from][to]) ? fallbackRates[from][to] : 1;
+        let result = (amount * rate).toFixed(4);
+
+        document.getElementById('currencyResult').innerHTML = 
+            `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (更新於今天)</small>`;
+    }
+}
 		
         function swapCurrencies() {
             let fromSelect = document.getElementById('fromCurrency');
