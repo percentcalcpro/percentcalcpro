@@ -422,7 +422,7 @@
                 document.getElementById('discountResult').innerHTML = `最終價格：${final.toFixed(2)}<br>節省金額：${save.toFixed(2)} (${rate}%)`;
             }
         }
-// === 貨幣換算 + 調換功能（已優化）===
+// === 貨幣換算（已大幅減少錯誤）===
 function convertCurrency() {
     let amount = parseFloat(document.getElementById('currencyAmount').value) || 0;
     let from = document.getElementById('fromCurrency').value;
@@ -435,43 +435,24 @@ function convertCurrency() {
 
     document.getElementById('currencyResult').innerHTML = "正在獲取最新匯率...";
 
-    const apis = [
-        `https://api.exchangerate.host/latest?base=${from}&symbols=${to}`,
-        `https://api.frankfurter.app/latest?from=${from}&to=${to}`
-    ];
-
-    let index = 0;
-
-    function tryNextAPI() {
-        if (index >= apis.length) {
+    // 優先使用穩定 API
+    fetch(`https://api.exchangerate.host/latest?base=${from}&symbols=${to}`)
+        .then(r => r.json())
+        .then(data => {
+            let rate = data.rates ? data.rates[to] : null;
+            if (rate && rate > 0) {
+                let result = (amount * rate).toFixed(4);
+                document.getElementById('currencyResult').innerHTML = 
+                    `${amount} ${from} = ${result} ${to}<br><small style="color:#4CAF50;">Live Rate</small>`;
+            } else {
+                useFallbackRate();
+            }
+        })
+        .catch(() => {
             useFallbackRate();
-            return;
-        }
+        });
 
-        fetch(apis[index])
-            .then(r => r.json())
-            .then(data => {
-                let rate = null;
-                if (data.rates) rate = data.rates[to];
-                else if (data[to]) rate = data[to];
-
-                if (rate && rate > 0) {
-                    let result = (amount * rate).toFixed(4);
-                    document.getElementById('currencyResult').innerHTML = 
-                        `${amount} ${from} = ${result} ${to}<br><small style="color:#4CAF50;">Live Rate</small>`;
-                } else {
-                    index++;
-                    tryNextAPI();
-                }
-            })
-            .catch(() => {
-                index++;
-                tryNextAPI();
-            });
-    }
-
-    tryNextAPI();
-
+    // 可靠後備匯率
     function useFallbackRate() {
         const fallbackRates = {
             USD: { HKD: 7.82, TWD: 32.48, JPY: 155.2, CNY: 7.25 },
@@ -487,13 +468,13 @@ function convertCurrency() {
     }
 }
 
-// === 調換貨幣按鈕功能 ===
+// === 調換貨幣 ===
 function swapCurrencies() {
-    let fromSelect = document.getElementById('fromCurrency');
-    let toSelect = document.getElementById('toCurrency');
-    let temp = fromSelect.value;
-    fromSelect.value = toSelect.value;
-    toSelect.value = temp;
+    let from = document.getElementById('fromCurrency');
+    let to = document.getElementById('toCurrency');
+    let temp = from.value;
+    from.value = to.value;
+    to.value = temp;
     convertCurrency();   // 自動重新計算
 }
 		
