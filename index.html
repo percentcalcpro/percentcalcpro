@@ -422,20 +422,20 @@
                 document.getElementById('discountResult').innerHTML = `最終價格：${final.toFixed(2)}<br>節省金額：${save.toFixed(2)} (${rate}%)`;
             }
         }
-// === 貨幣換算（已大幅減少錯誤）===
+// === 貨幣換算（英文版 + 更穩定）===
 function convertCurrency() {
     let amount = parseFloat(document.getElementById('currencyAmount').value) || 0;
     let from = document.getElementById('fromCurrency').value;
     let to = document.getElementById('toCurrency').value;
 
     if (amount <= 0) {
-        document.getElementById('currencyResult').innerHTML = "請輸入金額";
+        document.getElementById('currencyResult').innerHTML = "Please enter amount";
         return;
     }
 
-    document.getElementById('currencyResult').innerHTML = "正在獲取最新匯率...";
+    document.getElementById('currencyResult').innerHTML = "Getting latest rate...";
 
-    // 優先使用穩定 API
+    // 只使用最穩定的 API
     fetch(`https://api.exchangerate.host/latest?base=${from}&symbols=${to}`)
         .then(r => r.json())
         .then(data => {
@@ -468,7 +468,7 @@ function convertCurrency() {
     }
 }
 
-// === 調換貨幣 ===
+// === 調換貨幣按鈕 ===
 function swapCurrencies() {
     let from = document.getElementById('fromCurrency');
     let to = document.getElementById('toCurrency');
