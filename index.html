@@ -122,9 +122,10 @@
             <button class="tab-button" onclick="showTab(6)" id="btn6">體積</button>
             <button class="tab-button" onclick="showTab(7)" id="btn7">速度</button>
             <button class="tab-button" onclick="showTab(8)" id="btn8">能量</button>
+			<button class="tab-button" onclick="showTab(9)">BMI</button>
         </div>
 		        <!-- Tab 0: 貨幣換算 -->
-        <div id="tab0" class="calculator active">
+				<div id="tab-currency" class="tab-content" style="display: none;">
             <h3 id="currencyTitle">貨幣換算</h3>
 <div class="converter-box">
     <input id="currencyAmount" type="number" value="100" 
@@ -164,7 +165,7 @@
         </div>
 
         <!-- Tab 1: 百分比折扣 -->
-        <div id="tab1" class="calculator">
+ 				<div id="tab-discount" class="tab-content" style="display: none;">
             <h3 id="discountTitle">百分比折扣計算機</h3>
             <div class="converter-box">
                 <label id="originalLabel">原價金額</label>
@@ -176,7 +177,7 @@
         </div>
 
         <!-- Tab 2: 長度 -->
-        <div id="tab2" class="calculator">
+ 				<div id="tab-length" class="tab-content" style="display: none;">
             <h3 id="lengthTitle">長度換算</h3>
             <div class="converter-box">
                 <input id="lengthInput" type="number" value="170" oninput="convertLength()" onkeypress="if(event.key==='Enter') convertLength()">
@@ -202,7 +203,7 @@
         </div>
 
         <!-- Tab 3: 重量 -->
-        <div id="tab3" class="calculator">
+				<div id="tab-weight" class="tab-content" style="display: none;">
             <h3 id="weightTitle">重量換算</h3>
             <div class="converter-box">
                 <input id="weightInput" type="number" value="1" oninput="convertWeight()" onkeypress="if(event.key==='Enter') convertWeight()">
@@ -225,7 +226,7 @@
             </div>
         </div>
 		        <!-- Tab 4: 溫度 -->
-        <div id="tab4" class="calculator">
+				<div id="tab-temp" class="tab-content" style="display: none;">
             <h3 id="tempTitle">溫度換算</h3>
             <div class="converter-box">
                 <input id="tempInput" type="number" value="25" oninput="convertTemp()" onkeypress="if(event.key==='Enter') convertTemp()">
@@ -247,7 +248,7 @@
         </div>
 
         <!-- Tab 5: 面積 -->
-        <div id="tab5" class="calculator">
+				<div id="tab-area" class="tab-content" style="display: none;">
             <h3 id="areaTitle">面積換算</h3>
             <div class="converter-box">
                 <input id="areaInput" type="number" value="1" oninput="convertArea()" onkeypress="if(event.key==='Enter') convertArea()">
@@ -271,7 +272,7 @@
         </div>
 
         <!-- Tab 6: 體積 -->
-        <div id="tab6" class="calculator">
+				<div id="tab-volume" class="tab-content" style="display: none;">
             <h3 id="volumeTitle">體積換算</h3>
             <div class="converter-box">
                 <input id="volumeInput" type="number" value="1" oninput="convertVolume()" onkeypress="if(event.key==='Enter') convertVolume()">
@@ -294,7 +295,7 @@
             </div>
         </div>
 		        <!-- Tab 7: 速度 -->
-        <div id="tab7" class="calculator">
+				<div id="tab-speed" class="tab-content" style="display: none;">
             <h3 id="speedTitle">速度換算</h3>
             <div class="converter-box">
                 <input id="speedInput" type="number" value="100" oninput="convertSpeed()" onkeypress="if(event.key==='Enter') convertSpeed()">
@@ -317,10 +318,10 @@
             </div>
         </div>
 
-        <!-- Tab 8: 能量 / 功率 -->
-        <div id="tab8" class="calculator">
-            <h3 id="powerTitle">能量換算</h3>
-            <div class="converter-box">
+<!-- Tab 8: 能量 / 功率 -->
+<div id="tab-power" class="tab-content" style="display: none;">
+    <h3 id="powerTitle">能量換算</h3>
+    <div class="converter-box">
                 <input id="powerInput" type="number" value="1" oninput="convertPower()" onkeypress="if(event.key==='Enter') convertPower()">
                 <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
                     <select id="fromPower" onchange="convertPower()">
@@ -340,84 +341,163 @@
                 <div class="result" id="resultPower"></div>
             </div>
         </div>
+		
+<!-- ====================== BMI 計算器 Tab ====================== -->
+<div id="tab-bmi" class="tab-content" style="display: none;">
+    <h1 style="text-align:center; margin:30px 0 8px 0; font-size:2.4rem;">Professional Converters</h1>
+    
+ 
+    </p>
+
+   <h3 id="bmiTitle" style="text-align:center; margin:10px 0 25px 0;">BMI 身體質量指數計算器</h3>
+
+    <div class="converter-box" style="max-width:460px; margin:0 auto; padding:25px;">
+        <div style="margin-bottom:20px;">
+            <label id="bmiHeightLabel">Height (cm)：</label>
+            <input id="bmiHeight" type="number" value="170" oninput="calcBMI()" style="width:100%; padding:12px;">
+        </div>
+        <div style="margin-bottom:25px;">
+            <label id="bmiWeightLabel">Body Weight (kg)：</label>
+            <input id="bmiWeight" type="number" value="65" oninput="calcBMI()" style="width:100%; padding:12px;">
+        </div>
+
+        <button onclick="calcBMI()" id="bmiButton" style="width:100%; padding:14px; background:#FF8C00; color:white; border:none; border-radius:8px;">
+            Calculate BMI
+        </button>
+
+        <div id="bmiResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:90px;"></div>
+    </div>
+</div>
+
 		    </div> <!-- 結束 container -->
 
     <script>
         let currentLang = 'en';
 
-        const translations = {
-            zh: {
-                title: "PercentCalc Pro", subTitle: "專業單位換算工具",
-                btn0: "貨幣", btn1: "折扣", btn2: "長度", btn3: "重量", btn4: "溫度",
-                btn5: "面積", btn6: "體積", btn7: "速度", btn8: "能量",
-                currencyTitle: "貨幣換算", discountTitle: "百分比折扣計算機",
-                lengthTitle: "長度換算", weightTitle: "重量換算", tempTitle: "溫度換算",
-                areaTitle: "面積換算", volumeTitle: "體積換算", speedTitle: "速度換算",
-                powerTitle: "能量換算",
-                originalLabel: "原價金額", rateLabel: "折扣百分比 (%)"
-            },
-            en: {
-                title: "PercentCalc Pro", subTitle: "Professional Converters - Currency Converter - Exchange Rate",
-                btn0: "Currency", btn1: "Discount", btn2: "Length", btn3: "Weight", btn4: "Temperature",
-                btn5: "Area", btn6: "Volume", btn7: "Speed", btn8: "Power",
-                currencyTitle: "Currency Converter", discountTitle: "Percentage Discount Calculator",
-                lengthTitle: "Length Converter", weightTitle: "Weight Converter", tempTitle: "Temperature Converter",
-                areaTitle: "Area Converter", volumeTitle: "Volume Converter", speedTitle: "Speed Converter",
-                powerTitle: "Power / Energy Converter",
-                originalLabel: "Original Price", rateLabel: "Discount Rate (%)"
-            }
-        };
+const translations = {
+    zh: {
+        title: "PercentCalc Pro",
+        subTitle: "專業單位換算工具",
+        btn0: "貨幣", btn1: "折扣", btn2: "長度", btn3: "重量", btn4: "溫度",
+        btn5: "面積", btn6: "體積", btn7: "速度", btn8: "能量", btn9: "BMI",
+        currencyTitle: "貨幣換算",
+        discountTitle: "百分比折扣計算機",
+        lengthTitle: "長度換算",
+        weightTitle: "重量換算",
+        tempTitle: "溫度換算",
+        areaTitle: "面積換算",
+        volumeTitle: "體積換算",
+        speedTitle: "速度換算",
+        powerTitle: "能量換算",
+        bmiTitle: "BMI 身體質量指數計算器",
+        originalLabel: "原價金額",
+        rateLabel: "折扣百分比 (%)"
+    },
+    en: {
+        title: "PercentCalc Pro",
+        subTitle: "Professional Converters",
+        btn0: "Currency", btn1: "Discount", btn2: "Length", btn3: "Weight", btn4: "Temperature",
+        btn5: "Area", btn6: "Volume", btn7: "Speed", btn8: "Power", btn9: "BMI",
+        currencyTitle: "Currency Converter",
+        discountTitle: "Percentage Discount Calculator",
+        lengthTitle: "Length Converter",
+        weightTitle: "Weight Converter",
+        tempTitle: "Temperature Converter",
+        areaTitle: "Area Converter",
+        volumeTitle: "Volume Converter",
+        speedTitle: "Speed Converter",
+        powerTitle: "Power / Energy Converter",
+        bmiTitle: "BMI Calculator - Body Mass Index",
+        originalLabel: "Original Price",
+        rateLabel: "Discount Rate (%)"
+    }
+};
 
-        function switchLang(lang) {
-            currentLang = lang;
-            const t = translations[lang];
+function switchLang(lang) {
+    currentLang = lang;
+    const t = translations[lang];
 
-            document.getElementById('title').textContent = t.title;
-            document.getElementById('subTitle').textContent = t.subTitle;
+    // 更新主標題
+    if (document.getElementById('title')) {
+        document.getElementById('title').textContent = t.title;
+    }
+    if (document.getElementById('subTitle')) {
+        document.getElementById('subTitle').textContent = t.subTitle;
+    }
 
-            for (let i = 0; i <= 8; i++) {
-                const btn = document.getElementById('btn' + i);
-                if (btn) btn.textContent = t['btn' + i];
-            }
-
-            document.getElementById('currencyTitle').textContent = t.currencyTitle;
-            document.getElementById('discountTitle').textContent = t.discountTitle;
-            document.getElementById('lengthTitle').textContent = t.lengthTitle;
-            document.getElementById('weightTitle').textContent = t.weightTitle;
-            document.getElementById('tempTitle').textContent = t.tempTitle;
-            document.getElementById('areaTitle').textContent = t.areaTitle;
-            document.getElementById('volumeTitle').textContent = t.volumeTitle;
-            document.getElementById('speedTitle').textContent = t.speedTitle;
-            document.getElementById('powerTitle').textContent = t.powerTitle;
-
-            document.getElementById('originalLabel').textContent = t.originalLabel;
-            document.getElementById('rateLabel').textContent = t.rateLabel;
-
-            // 更新 Footer 連結文字
-            if (document.getElementById('footerPrivacy')) {
-                document.getElementById('footerPrivacy').textContent = (lang === 'en') ? "Privacy Policy" : "隱私權政策";
-            }
-            if (document.getElementById('footerContact')) {
-                document.getElementById('footerContact').textContent = (lang === 'en') ? "Contact Us" : "聯絡我們";
-            }
-
-            // 重新計算目前 TAB
-            if (document.querySelector('.calculator.active')) {
-                const activeId = document.querySelector('.calculator.active').id;
-                if (activeId === 'tab1') calcDiscount();
-                else if (activeId === 'tab0') convertCurrency();
-            }
+    // 更新所有 Tab 按鈕 (0~9)
+    for (let i = 0; i <= 9; i++) {
+        const btn = document.getElementById('btn' + i);
+        if (btn) {
+            btn.textContent = t['btn' + i] || '';
         }
+    }
 
-        function showTab(n) {
-            document.querySelectorAll('.calculator').forEach(el => el.classList.remove('active'));
-            const tab = document.getElementById('tab' + n);
-            if (tab) tab.classList.add('active');
+    // 更新各 Tab 標題
+    if (document.getElementById('currencyTitle')) document.getElementById('currencyTitle').textContent = t.currencyTitle;
+    if (document.getElementById('discountTitle')) document.getElementById('discountTitle').textContent = t.discountTitle;
+    if (document.getElementById('lengthTitle')) document.getElementById('lengthTitle').textContent = t.lengthTitle;
+    if (document.getElementById('weightTitle')) document.getElementById('weightTitle').textContent = t.weightTitle;
+    if (document.getElementById('tempTitle')) document.getElementById('tempTitle').textContent = t.tempTitle;
+    if (document.getElementById('areaTitle')) document.getElementById('areaTitle').textContent = t.areaTitle;
+    if (document.getElementById('volumeTitle')) document.getElementById('volumeTitle').textContent = t.volumeTitle;
+    if (document.getElementById('speedTitle')) document.getElementById('speedTitle').textContent = t.speedTitle;
+    if (document.getElementById('powerTitle')) document.getElementById('powerTitle').textContent = t.powerTitle;
 
-            document.querySelectorAll('.tab-button').forEach((btn, i) => {
-                if (btn) btn.classList.toggle('active', i === n);
-            });
+    // ==================== BMI 語言切換 ====================
+    if (document.getElementById('bmiTitle')) {
+        document.getElementById('bmiTitle').textContent = t.bmiTitle;
+    }
+    if (document.getElementById('bmiSubtitle')) {
+        document.getElementById('bmiSubtitle').textContent = t.bmiTitle;
+    }
+
+    // 更新 Footer
+    if (document.getElementById('footerPrivacy')) {
+        document.getElementById('footerPrivacy').textContent = (lang === 'en') ? "Privacy Policy" : "隱私權政策";
+    }
+    if (document.getElementById('footerContact')) {
+        document.getElementById('footerContact').textContent = (lang === 'en') ? "Contact Us" : "聯絡我們";
+    }
+
+    // 強制刷新目前顯示的 Tab
+    const currentActive = document.querySelector('.tab-content[style*="block"]');
+    if (currentActive) {
+        const id = currentActive.id;
+        if (id === 'tab-bmi') {
+            calcBMI();
         }
+    }
+}
+
+function showTab(n) {
+    // 隱藏所有 Tab
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.style.display = 'none';
+    });
+
+    // 顯示對應 Tab
+    let tabId = '';
+    if (n === 0) tabId = 'tab-currency';
+    else if (n === 1) tabId = 'tab-discount';
+    else if (n === 2) tabId = 'tab-length';
+    else if (n === 3) tabId = 'tab-weight';
+    else if (n === 4) tabId = 'tab-temp';
+    else if (n === 5) tabId = 'tab-area';
+    else if (n === 6) tabId = 'tab-volume';
+    else if (n === 7) tabId = 'tab-speed';
+    else if (n === 8) tabId = 'tab-power';
+    else if (n === 9) tabId = 'tab-bmi';
+
+    const activeTab = document.getElementById(tabId);
+    if (activeTab) {
+        activeTab.style.display = 'block';
+    } else {
+        // 預設顯示 Currency Tab
+        const defaultTab = document.getElementById('tab-currency');
+        if (defaultTab) defaultTab.style.display = 'block';
+    }
+}
 
         // ==================== 所有計算功能 ====================
         function calcDiscount() {
@@ -598,6 +678,39 @@ function swapCurrencies() {
             switchLang('en');   // 預設英文
             showTab(0);
         };
+		
+// ==================== BMI 計算器 ====================
+function calcBMI() {
+    const height = parseFloat(document.getElementById('bmiHeight').value);
+    const weight = parseFloat(document.getElementById('bmiWeight').value);
+    const resultDiv = document.getElementById('bmiResult');
+
+    if (!height || !weight || height <= 0 || weight <= 0) {
+        resultDiv.innerHTML = currentLang === 'en' 
+            ? "Please enter valid height and weight" 
+            : "請輸入有效身高和體重";
+        return;
+    }
+
+    const bmi = (weight / Math.pow(height / 100, 2)).toFixed(1);
+    let comment = "";
+
+    if (bmi < 18.5) {
+        comment = currentLang === 'en' ? "Underweight" : "偏瘦";
+    } else if (bmi < 24) {
+        comment = `<span style="color:#4CAF50;">${currentLang === 'en' ? "Normal" : "正常範圍"}</span>`;
+    } else if (bmi < 27) {
+        comment = `<span style="color:#FF9800;">${currentLang === 'en' ? "Overweight" : "過重"}</span>`;
+    } else {
+        comment = `<span style="color:#f44336;">${currentLang === 'en' ? "Obese" : "肥胖"}</span>`;
+    }
+
+    resultDiv.innerHTML = currentLang === 'en' 
+        ? `Your BMI is <strong>${bmi}</strong><br>${comment}`
+        : `你的 BMI 是 <strong>${bmi}</strong><br>${comment}`;
+}
+		
+		
     </script>
         <!-- ==================== Footer ==================== -->
         <div style="text-align:center; margin-top:40px; padding:25px; border-top:3px solid #333; background:#EDEDED;">
