@@ -113,18 +113,20 @@
             </select>
         </div>
 
-        <div class="tabs">
-            <button class="tab-button active" onclick="showTab(0)" id="btn0">貨幣</button>
-            <button class="tab-button" onclick="showTab(1)" id="btn1">折扣</button>
-            <button class="tab-button" onclick="showTab(2)" id="btn2">長度</button>
-            <button class="tab-button" onclick="showTab(3)" id="btn3">重量</button>
-            <button class="tab-button" onclick="showTab(4)" id="btn4">溫度</button>
-            <button class="tab-button" onclick="showTab(5)" id="btn5">面積</button>
-            <button class="tab-button" onclick="showTab(6)" id="btn6">體積</button>
-            <button class="tab-button" onclick="showTab(7)" id="btn7">速度</button>
-            <button class="tab-button" onclick="showTab(8)" id="btn8">能量</button>
-			<button class="tab-button" onclick="showTab(9)">BMI</button>
-        </div>
+<div class="tabs">
+    <button class="tab-button active" data-tab="0" onclick="showTab(0)" id="btn0">貨幣</button>
+    <button class="tab-button" data-tab="1" onclick="showTab(1)" id="btn1">折扣</button>
+    <button class="tab-button" data-tab="2" onclick="showTab(2)" id="btn2">長度</button>
+    <button class="tab-button" data-tab="3" onclick="showTab(3)" id="btn3">重量</button>
+    <button class="tab-button" data-tab="4" onclick="showTab(4)" id="btn4">溫度</button>
+    <button class="tab-button" data-tab="5" onclick="showTab(5)" id="btn5">面積</button>
+    <button class="tab-button" data-tab="6" onclick="showTab(6)" id="btn6">體積</button>
+    <button class="tab-button" data-tab="7" onclick="showTab(7)" id="btn7">速度</button>
+    <button class="tab-button" data-tab="8" onclick="showTab(8)" id="btn8">能量</button>
+    <button class="tab-button" data-tab="9" onclick="showTab(9)" id="btn9">BMI</button>
+	<button class="tab-button" data-tab="10" onclick="showTab(10)" id="btn10">BMR</button>
+</div>
+
 		        <!-- Tab 0: 貨幣換算 -->
 				<div id="tab-currency" class="tab-content" style="display: none;">
             <h3 id="currencyTitle">貨幣換算</h3>
@@ -345,28 +347,67 @@
 		
 <!-- ====================== BMI 計算器 Tab ====================== -->
 <div id="tab-bmi" class="tab-content" style="display: none;">
-    <h1 style="text-align:center; margin:30px 0 8px 0; font-size:2.4rem;">Professional Converters</h1>
+    <h3 id="bmiTitle" style="text-align:center; margin:30px 0 10px 0; font-size:2.3rem;">BMI 身體質量指數計算器</h3>
+    <p id="bmiSubtitle" style="text-align:center; color:#555; margin-bottom:25px;">Body Mass Index Calculator</p>
     
- 
-    </p>
-
-   <h3 id="bmiTitle" style="text-align:center; margin:10px 0 25px 0;">BMI 身體質量指數計算器</h3>
-
-    <div class="converter-box" style="max-width:460px; margin:0 auto; padding:25px;">
+    <div class="converter-box" style="max-width:480px; margin:0 auto; padding:25px;">
         <div style="margin-bottom:20px;">
-            <label id="bmiHeightLabel">Height (cm)：</label>
-            <input id="bmiHeight" type="number" value="170" oninput="calcBMI()" style="width:100%; padding:12px;">
+            <label id="bmiHeightLabel">身高 (厘米)</label>
+            <input id="bmiHeight" type="number" value="170" oninput="calcBMI()" 
+                   style="width:100%; padding:12px; font-size:1.1rem; margin-top:8px;">
         </div>
+        
         <div style="margin-bottom:25px;">
-            <label id="bmiWeightLabel">Body Weight (kg)：</label>
-            <input id="bmiWeight" type="number" value="65" oninput="calcBMI()" style="width:100%; padding:12px;">
+            <label id="bmiWeightLabel">體重 (公斤)</label>
+            <input id="bmiWeight" type="number" value="65" oninput="calcBMI()" 
+                   style="width:100%; padding:12px; font-size:1.1rem; margin-top:8px;">
         </div>
-
-        <button onclick="calcBMI()" id="bmiButton" style="width:100%; padding:14px; background:#FF8C00; color:white; border:none; border-radius:8px;">
-            Calculate BMI
+        
+        <button onclick="calcBMI()" style="width:100%; padding:14px; background:#FF8C00; color:white; border:none; border-radius:8px; font-size:1.1rem;">
+            計算 BMI
         </button>
+        
+        <div id="bmiResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:110px; padding:15px; background:#f9f9f9; border-radius:8px;">
+        </div>
+    </div>
+</div>
 
-        <div id="bmiResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:90px;"></div>
+<!-- ====================== BMR & TDEE Tab ====================== -->
+<div id="tab-bmr" class="tab-content" style="display: none;">
+    <h3 id="bmrTitle" style="text-align:center; margin:30px 0 10px 0; font-size:2.3rem;">BMR & TDEE 計算器</h3>
+    <p id="bmrSubtitle" style="text-align:center; color:#555; margin-bottom:25px;">Basal Metabolic Rate & Total Daily Energy Expenditure</p>
+    
+    <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
+        
+        <div style="margin-bottom:18px;">
+            <label id="bmrGenderLabel">性別</label>
+            <select id="bmrGender" onchange="calcBMR()" style="width:100%; padding:12px; margin-top:8px;">
+                <option value="male" id="maleOption">男性</option>
+                <option value="female" id="femaleOption">女性</option>
+            </select>
+        </div>
+        
+        <div style="margin-bottom:18px;">
+            <label id="bmrAgeLabel">年齡 (歲)</label>
+            <input id="bmrAge" type="number" value="30" oninput="calcBMR()" style="width:100%; padding:12px; margin-top:8px;">
+        </div>
+        
+        <div style="margin-bottom:18px;">
+            <label id="bmrHeightLabel">身高 (cm)</label>
+            <input id="bmrHeight" type="number" value="170" oninput="calcBMR()" style="width:100%; padding:12px; margin-top:8px;">
+        </div>
+        
+        <div style="margin-bottom:25px;">
+            <label id="bmrWeightLabel">體重 (kg)</label>
+            <input id="bmrWeight" type="number" value="65" oninput="calcBMR()" style="width:100%; padding:12px; margin-top:8px;">
+        </div>
+        
+        <button onclick="calcBMR()" style="width:100%; padding:14px; background:#FF8C00; color:white; border:none; border-radius:8px; font-size:1.1rem;">
+            計算
+        </button>
+        
+        <div id="bmrResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:140px; padding:15px; background:#f9f9f9; border-radius:8px;">
+        </div>
     </div>
 </div>
 
@@ -379,8 +420,21 @@ const translations = {
     zh: {
         title: "PercentCalc Pro",
         subTitle: "專業單位換算工具",
-        btn0: "貨幣", btn1: "折扣", btn2: "長度", btn3: "重量", btn4: "溫度",
-        btn5: "面積", btn6: "體積", btn7: "速度", btn8: "能量", btn9: "BMI",
+        
+        // Tab 按鈕
+        btn0: "貨幣",
+        btn1: "折扣",
+        btn2: "長度",
+        btn3: "重量",
+        btn4: "溫度",
+        btn5: "面積",
+        btn6: "體積",
+        btn7: "速度",
+        btn8: "能量",
+        btn9: "BMI",
+        btn10: "BMR",           // 新增
+        
+        // 各計算器標題
         currencyTitle: "貨幣換算",
         discountTitle: "百分比折扣計算機",
         lengthTitle: "長度換算",
@@ -391,14 +445,38 @@ const translations = {
         speedTitle: "速度換算",
         powerTitle: "能量換算",
         bmiTitle: "BMI 身體質量指數計算器",
+        bmrTitle: "BMR & TDEE 計算器",     // 新增
+        
+        // Discount 專用
         originalLabel: "原價金額",
-        rateLabel: "折扣百分比 (%)"
+        rateLabel: "折扣百分比 (%)",
+        
+        // BMR 專用
+        bmrSubtitle: "基礎代謝率 & 每日總熱量消耗",
+        bmrGenderLabel: "性別",
+        bmrAgeLabel: "年齡 (歲)",
+        bmrHeightLabel: "身高 (cm)",
+        bmrWeightLabel: "體重 (kg)"
     },
+    
     en: {
         title: "PercentCalc Pro",
         subTitle: "Professional Converters",
-        btn0: "Currency", btn1: "Discount", btn2: "Length", btn3: "Weight", btn4: "Temperature",
-        btn5: "Area", btn6: "Volume", btn7: "Speed", btn8: "Power", btn9: "BMI",
+        
+        // Tab 按鈕
+        btn0: "Currency",
+        btn1: "Discount",
+        btn2: "Length",
+        btn3: "Weight",
+        btn4: "Temperature",
+        btn5: "Area",
+        btn6: "Volume",
+        btn7: "Speed",
+        btn8: "Power",
+        btn9: "BMI",
+        btn10: "BMR",           // 新增
+        
+        // 各計算器標題
         currencyTitle: "Currency Converter",
         discountTitle: "Percentage Discount Calculator",
         lengthTitle: "Length Converter",
@@ -408,9 +486,19 @@ const translations = {
         volumeTitle: "Volume Converter",
         speedTitle: "Speed Converter",
         powerTitle: "Power / Energy Converter",
-        bmiTitle: "BMI Calculator - Body Mass Index",
+        bmiTitle: "BMI Calculator",
+        bmrTitle: "BMR & TDEE Calculator",     // 新增
+        
+        // Discount 專用
         originalLabel: "Original Price",
-        rateLabel: "Discount Rate (%)"
+        rateLabel: "Discount Rate (%)",
+        
+        // BMR 專用
+        bmrSubtitle: "Basal Metabolic Rate & Total Daily Energy Expenditure",
+        bmrGenderLabel: "Gender",
+        bmrAgeLabel: "Age (years)",
+        bmrHeightLabel: "Height (cm)",
+        bmrWeightLabel: "Weight (kg)"
     }
 };
 
@@ -418,23 +506,17 @@ function switchLang(lang) {
     currentLang = lang;
     const t = translations[lang];
 
-    // 更新主標題
-    if (document.getElementById('title')) {
-        document.getElementById('title').textContent = t.title;
-    }
-    if (document.getElementById('subTitle')) {
-        document.getElementById('subTitle').textContent = t.subTitle;
-    }
+    // ==================== 主標題 ====================
+    if (document.getElementById('title')) document.getElementById('title').textContent = t.title;
+    if (document.getElementById('subTitle')) document.getElementById('subTitle').textContent = t.subTitle;
 
-    // 更新所有 Tab 按鈕 (0~9)
-    for (let i = 0; i <= 9; i++) {
+    // ==================== Tab 按鈕 ====================
+    for (let i = 0; i <= 10; i++) {
         const btn = document.getElementById('btn' + i);
-        if (btn) {
-            btn.textContent = t['btn' + i] || '';
-        }
+        if (btn) btn.textContent = t['btn' + i];
     }
 
-    // 更新各 Tab 標題
+    // ==================== 各計算器標題 ====================
     if (document.getElementById('currencyTitle')) document.getElementById('currencyTitle').textContent = t.currencyTitle;
     if (document.getElementById('discountTitle')) document.getElementById('discountTitle').textContent = t.discountTitle;
     if (document.getElementById('lengthTitle')) document.getElementById('lengthTitle').textContent = t.lengthTitle;
@@ -444,30 +526,50 @@ function switchLang(lang) {
     if (document.getElementById('volumeTitle')) document.getElementById('volumeTitle').textContent = t.volumeTitle;
     if (document.getElementById('speedTitle')) document.getElementById('speedTitle').textContent = t.speedTitle;
     if (document.getElementById('powerTitle')) document.getElementById('powerTitle').textContent = t.powerTitle;
+    if (document.getElementById('bmiTitle')) document.getElementById('bmiTitle').textContent = t.bmiTitle;
+    if (document.getElementById('bmrTitle')) document.getElementById('bmrTitle').textContent = t.bmrTitle;
 
-    // ==================== BMI 語言切換 ====================
-    if (document.getElementById('bmiTitle')) {
-        document.getElementById('bmiTitle').textContent = t.bmiTitle;
+    // ==================== Discount 專用 ====================
+    if (document.getElementById('originalLabel')) document.getElementById('originalLabel').textContent = t.originalLabel;
+    if (document.getElementById('rateLabel')) document.getElementById('rateLabel').textContent = t.rateLabel;
+
+    // ==================== BMR 專用 ====================
+    if (document.getElementById('bmrSubtitle')) document.getElementById('bmrSubtitle').textContent = t.bmrSubtitle;
+    if (document.getElementById('bmrGenderLabel')) document.getElementById('bmrGenderLabel').textContent = t.bmrGenderLabel;
+    if (document.getElementById('bmrAgeLabel')) document.getElementById('bmrAgeLabel').textContent = t.bmrAgeLabel;
+    if (document.getElementById('bmrHeightLabel')) document.getElementById('bmrHeightLabel').textContent = t.bmrHeightLabel;
+    if (document.getElementById('bmrWeightLabel')) document.getElementById('bmrWeightLabel').textContent = t.bmrWeightLabel;
+
+    // BMI 專用
+    if (document.getElementById('bmiHeightLabel')) document.getElementById('bmiHeightLabel').textContent = (lang === 'zh') ? '身高 (厘米)' : 'Height (cm)';
+    if (document.getElementById('bmiWeightLabel')) document.getElementById('bmiWeightLabel').textContent = (lang === 'zh') ? '體重 (公斤)' : 'Weight (kg)';
+    if (document.getElementById('bmiSubtitle')) document.getElementById('bmiSubtitle').textContent = (lang === 'zh') ? 'Body Mass Index Calculator' : 'Body Mass Index Calculator';
+
+    // ==================== BMR Gender 選項 ====================
+    if (document.getElementById('maleOption')) {
+        document.getElementById('maleOption').textContent = (lang === 'zh') ? '男性' : 'Male';
     }
-    if (document.getElementById('bmiSubtitle')) {
-        document.getElementById('bmiSubtitle').textContent = t.bmiTitle;
+    if (document.getElementById('femaleOption')) {
+        document.getElementById('femaleOption').textContent = (lang === 'zh') ? '女性' : 'Female';
     }
 
-    // 更新 Footer
-    if (document.getElementById('footerPrivacy')) {
-        document.getElementById('footerPrivacy').textContent = (lang === 'en') ? "Privacy Policy" : "隱私權政策";
-    }
-    if (document.getElementById('footerContact')) {
-        document.getElementById('footerContact').textContent = (lang === 'en') ? "Contact Us" : "聯絡我們";
-    }
+    // ==================== 重新顯示目前 Tab ====================
+    const activeTab = document.querySelector('.tab-content[style*="block"]');
+    if (activeTab) {
+        const id = activeTab.id;
+        let n = 0;
+        if (id === 'tab-discount') n = 1;
+        else if (id === 'tab-length') n = 2;
+        else if (id === 'tab-weight') n = 3;
+        else if (id === 'tab-temp') n = 4;
+        else if (id === 'tab-area') n = 5;
+        else if (id === 'tab-volume') n = 6;
+        else if (id === 'tab-speed') n = 7;
+        else if (id === 'tab-power') n = 8;
+        else if (id === 'tab-bmi') n = 9;
+        else if (id === 'tab-bmr') n = 10;
 
-    // 強制刷新目前顯示的 Tab
-    const currentActive = document.querySelector('.tab-content[style*="block"]');
-    if (currentActive) {
-        const id = currentActive.id;
-        if (id === 'tab-bmi') {
-            calcBMI();
-        }
+        showTab(n);
     }
 }
 
@@ -478,7 +580,7 @@ function showTab(n) {
     });
 
     // 顯示對應 Tab
-    let tabId = '';
+    let tabId = 'tab-currency';
     if (n === 0) tabId = 'tab-currency';
     else if (n === 1) tabId = 'tab-discount';
     else if (n === 2) tabId = 'tab-length';
@@ -488,16 +590,26 @@ function showTab(n) {
     else if (n === 6) tabId = 'tab-volume';
     else if (n === 7) tabId = 'tab-speed';
     else if (n === 8) tabId = 'tab-power';
-    else if (n === 9) tabId = 'tab-bmi';
+    else if (n === 9) tabId = 'tab-bmi';   // ← 確保 BMI 被正確處理
+    else if (n === 10) tabId = 'tab-bmr';
 
     const activeTab = document.getElementById(tabId);
     if (activeTab) {
         activeTab.style.display = 'block';
-    } else {
-        // 預設顯示 Currency Tab
-        const defaultTab = document.getElementById('tab-currency');
-        if (defaultTab) defaultTab.style.display = 'block';
     }
+
+    // 更新橙色高亮
+    document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+        if (parseInt(btn.getAttribute('data-tab')) === n) {
+            btn.classList.add('active');
+        }
+    });
+
+    // 重新計算結果
+    if (n === 1) calcDiscount();
+    if (n === 9) calcBMI();     // ← 確保 BMI 會重新計算
+    if (n === 10) calcBMR();
 }
 
         // ==================== 所有計算功能 ====================
@@ -709,6 +821,39 @@ function calcBMI() {
     resultDiv.innerHTML = currentLang === 'en' 
         ? `Your BMI is <strong>${bmi}</strong><br>${comment}`
         : `你的 BMI 是 <strong>${bmi}</strong><br>${comment}`;
+}
+
+// ====================== BMR & TDEE 計算 ======================
+function calcBMR() {
+    const gender = document.getElementById('bmrGender').value;
+    const age = parseFloat(document.getElementById('bmrAge').value);
+    const height = parseFloat(document.getElementById('bmrHeight').value);
+    const weight = parseFloat(document.getElementById('bmrWeight').value);
+    const resultDiv = document.getElementById('bmrResult');
+
+    if (!age || !height || !weight) {
+        resultDiv.innerHTML = currentLang === 'zh' ? "請輸入完整資料" : "Please enter complete information";
+        return;
+    }
+
+    let bmr = 0;
+    if (gender === 'male') {
+        bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+    } else {
+        bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+    }
+
+    const tdee = (bmr * 1.2).toFixed(0);
+
+    resultDiv.innerHTML = `
+        <strong>BMR: ${bmr.toFixed(0)} kcal/day</strong><br>
+        <span style="color:#4CAF50;">TDEE (${currentLang === 'zh' ? '輕度活動' : 'Light Activity'}): ${tdee} kcal/day</span><br><br>
+        <small style="color:#666;">
+            ${currentLang === 'zh' ? 
+            'BMR = 基礎代謝率<br>TDEE = 每日總熱量消耗' : 
+            'BMR = Basal Metabolic Rate<br>TDEE = Total Daily Energy Expenditure'}
+        </small>
+    `;
 }
 		
 		
