@@ -652,44 +652,44 @@ function convertCurrency() {
         })
         .catch(() => useFallbackRate());
 
-// === 後備匯率（2026-05-12 更新）===
+// === 後備匯率（2026-05-13 更新）===
 function useFallbackRate() {
     const fallbackRates = {
-        USD: { 
-            HKD: 7.82, TWD: 32.48, JPY: 154.40, CNY: 7.26, 
-            EUR: 0.917, GBP: 0.787, CAD: 1.388, AUD: 1.518 
+        USD: {
+            HKD: 7.83, TWD: 32.55, JPY: 154.80, CNY: 7.28,
+            EUR: 0.915, GBP: 0.785, CAD: 1.385, AUD: 1.515
         },
-        HKD: { 
-            USD: 0.1279, TWD: 4.153, JPY: 19.74, CNY: 0.928, 
-            EUR: 0.1172, GBP: 0.1006, CAD: 0.1775, AUD: 0.1941 
+        HKD: {
+            USD: 0.1277, TWD: 4.158, JPY: 19.77, CNY: 0.930,
+            EUR: 0.1169, GBP: 0.1003, CAD: 0.1770, AUD: 0.1935
         },
-        TWD: { 
-            USD: 0.03079, HKD: 0.2409, JPY: 4.753, CNY: 0.2235, 
-            EUR: 0.02823, GBP: 0.02423, CAD: 0.0427, AUD: 0.0467 
+        TWD: {
+            USD: 0.03072, HKD: 0.2405, JPY: 4.755, CNY: 0.2236,
+            EUR: 0.02810, GBP: 0.02412, CAD: 0.04255, AUD: 0.04655
         },
-        JPY: { 
-            USD: 0.00648, HKD: 0.05067, TWD: 0.2104, CNY: 0.04702, 
-            EUR: 0.00594, GBP: 0.00510, CAD: 0.00900, AUD: 0.00983 
+        JPY: {
+            USD: 0.00646, HKD: 0.05058, TWD: 0.2103, CNY: 0.04700,
+            EUR: 0.00591, GBP: 0.00507, CAD: 0.00895, AUD: 0.00978
         },
-        CNY: { 
-            USD: 0.1377, HKD: 1.078, TWD: 4.475, JPY: 21.27, 
-            EUR: 0.1264, GBP: 0.1085, CAD: 0.1912, AUD: 0.2091 
+        CNY: {
+            USD: 0.1374, HKD: 1.075, TWD: 4.465, JPY: 21.25,
+            EUR: 0.1258, GBP: 0.1080, CAD: 0.1905, AUD: 0.2082
         },
-        EUR: { 
-            USD: 1.090, HKD: 8.54, TWD: 35.48, JPY: 168.9, 
-            GBP: 0.858, CAD: 1.514, AUD: 1.655 
+        EUR: {
+            USD: 1.093, HKD: 8.56, TWD: 35.55, JPY: 169.3,
+            GBP: 0.859, CAD: 1.512, AUD: 1.652
         },
-        GBP: { 
-            USD: 1.271, HKD: 9.95, TWD: 41.38, JPY: 197.1, 
-            EUR: 1.165, CAD: 1.764, AUD: 1.929 
+        GBP: {
+            USD: 1.274, HKD: 9.97, TWD: 41.45, JPY: 197.5,
+            EUR: 1.164, CAD: 1.767, AUD: 1.932
         },
-        CAD: { 
-            USD: 0.721, HKD: 5.64, TWD: 23.42, JPY: 111.5, 
-            EUR: 0.661, GBP: 0.567, AUD: 1.093 
+        CAD: {
+            USD: 0.722, HKD: 5.65, TWD: 23.48, JPY: 111.8,
+            EUR: 0.661, GBP: 0.566, AUD: 1.092
         },
-        AUD: { 
-            USD: 0.659, HKD: 5.16, TWD: 21.42, JPY: 102.0, 
-            EUR: 0.604, GBP: 0.519, CAD: 0.915 
+        AUD: {
+            USD: 0.661, HKD: 5.17, TWD: 21.48, JPY: 102.3,
+            EUR: 0.605, GBP: 0.518, CAD: 0.916
         }
     };
 
@@ -697,7 +697,7 @@ function useFallbackRate() {
     let result = (amount * rate).toFixed(4);
     
     document.getElementById('currencyResult').innerHTML = 
-        `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (May 12, 2026)</small>`;
+        `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (May 13, 2026)</small>`;
 }
 }
 
