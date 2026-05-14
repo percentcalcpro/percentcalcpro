@@ -146,6 +146,7 @@
             <option value="GBP">GBP</option>
             <option value="CAD">CAD</option>
             <option value="AUD">AUD</option>
+			          <option value="KRW">KRW</option>
         </select>
         
         <button onclick="swapCurrencies()" class="swap" style="font-size:1.5rem; padding:8px 14px;">⇄</button>
@@ -160,6 +161,7 @@
             <option value="GBP">GBP</option>
             <option value="CAD">CAD</option>
             <option value="AUD">AUD</option>
+			  <option value="KRW">KRW</option>
         </select>
     </div>
 
@@ -655,49 +657,53 @@ function convertCurrency() {
 // === 後備匯率（2026-05-13 更新）===
 function useFallbackRate() {
     const fallbackRates = {
-        USD: {
+       USD: {
             HKD: 7.83, TWD: 32.55, JPY: 154.80, CNY: 7.28,
-            EUR: 0.915, GBP: 0.785, CAD: 1.385, AUD: 1.515
+            EUR: 0.915, GBP: 0.785, CAD: 1.385, AUD: 1.515, KRW: 1395
         },
         HKD: {
             USD: 0.1277, TWD: 4.158, JPY: 19.77, CNY: 0.930,
-            EUR: 0.1169, GBP: 0.1003, CAD: 0.1770, AUD: 0.1935
+            EUR: 0.1169, GBP: 0.1003, CAD: 0.1770, AUD: 0.1935, KRW: 178.4
         },
         TWD: {
             USD: 0.03072, HKD: 0.2405, JPY: 4.755, CNY: 0.2236,
-            EUR: 0.02810, GBP: 0.02412, CAD: 0.04255, AUD: 0.04655
+            EUR: 0.02810, GBP: 0.02412, CAD: 0.04255, AUD: 0.04655, KRW: 42.92
         },
         JPY: {
             USD: 0.00646, HKD: 0.05058, TWD: 0.2103, CNY: 0.04700,
-            EUR: 0.00591, GBP: 0.00507, CAD: 0.00895, AUD: 0.00978
+            EUR: 0.00591, GBP: 0.00507, CAD: 0.00895, AUD: 0.00978, KRW: 9.02
         },
         CNY: {
             USD: 0.1374, HKD: 1.075, TWD: 4.465, JPY: 21.25,
-            EUR: 0.1258, GBP: 0.1080, CAD: 0.1905, AUD: 0.2082
+            EUR: 0.1258, GBP: 0.1080, CAD: 0.1905, AUD: 0.2082, KRW: 192.8
         },
         EUR: {
             USD: 1.093, HKD: 8.56, TWD: 35.55, JPY: 169.3,
-            GBP: 0.859, CAD: 1.512, AUD: 1.652
+            GBP: 0.859, CAD: 1.512, AUD: 1.652, KRW: 1528
         },
         GBP: {
             USD: 1.274, HKD: 9.97, TWD: 41.45, JPY: 197.5,
-            EUR: 1.164, CAD: 1.767, AUD: 1.932
+            EUR: 1.164, CAD: 1.767, AUD: 1.932, KRW: 1780
         },
         CAD: {
             USD: 0.722, HKD: 5.65, TWD: 23.48, JPY: 111.8,
-            EUR: 0.661, GBP: 0.566, AUD: 1.092
+            EUR: 0.661, GBP: 0.566, AUD: 1.092, KRW: 1004
         },
         AUD: {
             USD: 0.661, HKD: 5.17, TWD: 21.48, JPY: 102.3,
-            EUR: 0.605, GBP: 0.518, CAD: 0.916
+            EUR: 0.605, GBP: 0.518, CAD: 0.916, KRW: 919
+        },
+        KRW: {
+            USD: 0.000717, HKD: 0.005605, TWD: 0.02330, JPY: 0.1109,
+            CNY: 0.005186, EUR: 0.000654, GBP: 0.000562, CAD: 0.000996, AUD: 0.001088
         }
     };
 
     let rate = (fallbackRates[from] && fallbackRates[from][to]) ? fallbackRates[from][to] : 1;
     let result = (amount * rate).toFixed(4);
     
-    document.getElementById('currencyResult').innerHTML = 
-        `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (May 13, 2026)</small>`;
+    document.getElementById('currencyResult').innerHTML =
+        `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (May 14, 2026)</small>`;
 }
 }
 
