@@ -354,39 +354,41 @@
             </div>
         </div>
 		
-<!-- ====================== BMI 計算器 Tab ====================== -->
+<!-- Tab 9: BMI 計算器 -->
 <div id="tab-bmi" class="tab-content" style="display: none;">
-    <h3 id="bmiTitle" style="text-align:center; margin:30px 0 10px 0; font-size:2.3rem;">BMI 身體質量指數計算器</h3>
-    <p id="bmiSubtitle" style="text-align:center; color:#555; margin-bottom:25px;">Body Mass Index Calculator</p>
+    <h3 id="bmiTitle">BMI 身體質量指數計算器</h3>
     
-    <div class="converter-box" style="max-width:480px; margin:0 auto; padding:25px;">
+    <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
         <div style="margin-bottom:20px;">
             <label id="bmiHeightLabel">身高 (厘米)</label>
-            <input id="bmiHeight" type="number" value="170" oninput="calcBMI()" 
-                   style="width:100%; padding:12px; font-size:1.1rem; margin-top:8px;">
+            <input id="bmiHeight" type="number" value="170" oninput="calcBMI()" style="width:100%; padding:12px; margin-top:8px;">
         </div>
-        
         <div style="margin-bottom:25px;">
             <label id="bmiWeightLabel">體重 (公斤)</label>
-            <input id="bmiWeight" type="number" value="65" oninput="calcBMI()" 
-                   style="width:100%; padding:12px; font-size:1.1rem; margin-top:8px;">
+            <input id="bmiWeight" type="number" value="65" oninput="calcBMI()" style="width:100%; padding:12px; margin-top:8px;">
         </div>
-        
         <button onclick="calcBMI()" style="width:100%; padding:14px; background:#FF8C00; color:white; border:none; border-radius:8px; font-size:1.1rem;">
             計算 BMI
         </button>
-        
-        <div id="bmiResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:110px; padding:15px; background:#f9f9f9; border-radius:8px;">
-        </div>
+        <div id="bmiResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:90px; padding:15px; background:#f9f9f9; border-radius:8px;"></div>
     </div>
+
+    <!-- BMI 說明文字 -->
+    <div id="bmiDescription" class="description" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-bmi-title">BMI 是什麼？</h3>
+        <p id="desc-bmi-text">BMI（身體質量指數）是用來評估體重是否健康的常用指標。透過身高和體重計算得出，能幫助判斷是否偏瘦、正常、過重或肥胖。</p>
+        <p><strong id="desc-bmi-tip">使用提示：</strong> <span id="desc-bmi-tip-text">BMI 只供參考，運動員或肌肉量高的人可能會顯示較高數值，建議結合體脂率一起參考。</span></p>
+    </div>
+</div>
 </div>
 
 <!-- ====================== BMR & TDEE Tab ====================== -->
 <div id="tab-bmr" class="tab-content" style="display: none;">
-    <h3 id="bmrTitle" style="text-align:center; margin:30px 0 10px 0; font-size:2.3rem;">BMR & TDEE 計算器</h3>
+    <h3 id="bmrTitle">BMR & TDEE 計算器</h3>
     <p id="bmrSubtitle" style="text-align:center; color:#555; margin-bottom:25px;">Basal Metabolic Rate & Total Daily Energy Expenditure</p>
    
     <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
+       
         <div style="margin-bottom:18px;">
             <label id="bmrGenderLabel">性別</label>
             <select id="bmrGender" onchange="calcBMR()" style="width:100%; padding:12px; margin-top:8px;">
@@ -416,9 +418,15 @@
        
         <div id="bmrResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:140px; padding:15px; background:#f9f9f9; border-radius:8px;">
         </div>
+
+        <!-- ✅ 說明文字放在 converter-box 內部，最後面 -->
+        <div id="bmrDescription" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+            <h3 id="desc-bmr-title">BMR & TDEE 是什麼？</h3>
+            <p id="desc-bmr-text">BMR（基礎代謝率）是指人在休息狀態下維持生命所需的最低熱量。TDEE（每日總熱量消耗）則是包含日常活動後的總熱量消耗，是減肥、增肌的重要參考數據。</p>
+            <p><strong id="desc-bmr-tip">使用提示：</strong> <span id="desc-bmr-tip-text">想減肥可將每日熱量控制在 TDEE 以下，想增肌則控制在 TDEE 以上。建議配合運動和均衡飲食。</span></p>
+        </div>
     </div>
 </div>
-
 
 		    </div> <!-- 結束 container -->
 
@@ -564,6 +572,42 @@ function switchLang(lang) {
     // ==================== 貨幣說明文字 - 中英文切換 ====================
     if (document.getElementById('desc-currency-title')) {
         document.getElementById('desc-currency-title').textContent = (lang === 'en') ? "Currency Converter" : "貨幣換算工具";
+		
+		    // ==================== BMI 說明文字切換 ====================
+    if (document.getElementById('desc-bmi-title')) {
+        document.getElementById('desc-bmi-title').textContent = (lang === 'en') ? "What is BMI?" : "BMI 是什麼？";
+    }
+    if (document.getElementById('desc-bmi-text')) {
+        document.getElementById('desc-bmi-text').textContent = (lang === 'en') 
+            ? "BMI (Body Mass Index) is a common indicator used to assess whether your weight is healthy based on height and weight." 
+            : "BMI（身體質量指數）是用來評估體重是否健康的常用指標，透過身高和體重計算得出。";
+    }
+    if (document.getElementById('desc-bmi-tip')) {
+        document.getElementById('desc-bmi-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-bmi-tip-text')) {
+        document.getElementById('desc-bmi-tip-text').textContent = (lang === 'en') 
+            ? "BMI is for reference only. Athletes or people with high muscle mass may show higher values." 
+            : "BMI 只供參考，運動員或肌肉量高的人可能會顯示較高數值，建議結合體脂率一起參考。";
+    }
+
+    // ==================== BMR 說明文字切換 ====================
+    if (document.getElementById('desc-bmr-title')) {
+        document.getElementById('desc-bmr-title').textContent = (lang === 'en') ? "What is BMR & TDEE?" : "BMR & TDEE 是什麼？";
+    }
+    if (document.getElementById('desc-bmr-text')) {
+        document.getElementById('desc-bmr-text').textContent = (lang === 'en') 
+            ? "BMR (Basal Metabolic Rate) is the minimum calories needed to maintain life at rest. TDEE (Total Daily Energy Expenditure) is the total calories burned including daily activities." 
+            : "BMR（基礎代謝率）是指人在休息狀態下維持生命所需的最低熱量。TDEE（每日總熱量消耗）則是包含日常活動後的總熱量消耗。";
+    }
+    if (document.getElementById('desc-bmr-tip')) {
+        document.getElementById('desc-bmr-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-bmr-tip-text')) {
+        document.getElementById('desc-bmr-tip-text').textContent = (lang === 'en') 
+            ? "To lose weight, keep daily calories below TDEE. To gain muscle, keep above TDEE. Combine with exercise and balanced diet." 
+            : "想減肥可將每日熱量控制在 TDEE 以下，想增肌則控制在 TDEE 以上。建議配合運動和均衡飲食。";
+    }
 		
 		// ←←←←← 在這裡貼上 Footer 程式碼 ←←←←←
     // ==================== Footer 連結文字切換 ====================
