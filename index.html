@@ -127,47 +127,53 @@
 	<button class="tab-button" data-tab="10" onclick="showTab(10)" id="btn10">BMR</button>
 </div>
 
-		        <!-- Tab 0: 貨幣換算 -->
-				<div id="tab-currency" class="tab-content" style="display: none;">
-            <h3 id="currencyTitle">貨幣換算</h3>
-<div class="converter-box">
-    <input id="currencyAmount" type="number" value="100" 
-           oninput="convertCurrency()" 
-           onkeypress="if(event.key==='Enter') convertCurrency()">
-
-    <div style="display:flex; align-items:center; gap:12px; margin:20px 0;">
-        <select id="fromCurrency" onchange="convertCurrency()">
-            <option value="HKD" selected>HKD</option>
-            <option value="USD">USD</option>
-            <option value="TWD">TWD</option>
-            <option value="CNY">CNY</option>
-            <option value="JPY">JPY</option>
-            <option value="EUR">EUR</option>
-            <option value="GBP">GBP</option>
-            <option value="CAD">CAD</option>
-            <option value="AUD">AUD</option>
-			          <option value="KRW">KRW</option>
-        </select>
+<!-- Tab 0: 貨幣換算 -->
+<div id="tab-currency" class="tab-content active">
+    <h3 id="currencyTitle">貨幣換算</h3>
+    
+    <div class="converter-box">
+        <input id="currencyAmount" type="number" value="100" oninput="convertCurrency()" onkeypress="if(event.key==='Enter') convertCurrency()">
         
-        <button onclick="swapCurrencies()" class="swap" style="font-size:1.5rem; padding:8px 14px;">⇄</button>
+        <div style="display:flex; align-items:center; gap:12px; margin:20px 0;">
+            <select id="fromCurrency" onchange="convertCurrency()">
+                <option value="HKD" selected>HKD</option>
+                <option value="USD">USD</option>
+                <option value="TWD">TWD</option>
+                <option value="CNY">CNY</option>
+                <option value="JPY">JPY</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="CAD">CAD</option>
+                <option value="AUD">AUD</option>
+                <option value="KRW">KRW</option>
+            </select>
+            <button onclick="swapCurrencies()" style="font-size:1.6rem; padding:8px 16px;">⇄</button>
+            <select id="toCurrency" onchange="convertCurrency()">
+                <option value="USD" selected>USD</option>
+                <option value="HKD">HKD</option>
+                <option value="TWD">TWD</option>
+                <option value="CNY">CNY</option>
+                <option value="JPY">JPY</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="CAD">CAD</option>
+                <option value="AUD">AUD</option>
+                <option value="KRW">KRW</option>
+            </select>
+        </div>
         
-        <select id="toCurrency" onchange="convertCurrency()">
-            <option value="USD" selected>USD</option>
-            <option value="HKD">HKD</option>
-            <option value="TWD">TWD</option>
-            <option value="CNY">CNY</option>
-            <option value="JPY">JPY</option>
-            <option value="EUR">EUR</option>
-            <option value="GBP">GBP</option>
-            <option value="CAD">CAD</option>
-            <option value="AUD">AUD</option>
-			  <option value="KRW">KRW</option>
-        </select>
+        <div class="result" id="currencyResult"></div>
     </div>
 
-    <div class="result" id="currencyResult"></div>
+    <!-- ✅ 中英文切換的說明文字 -->
+    <div id="currencyDescription" class="description" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-currency-title">貨幣換算工具</h3>
+        <p id="desc-currency-text">提供即時匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等主要貨幣。適合旅行、網購、匯款或投資使用。</p>
+        <p><strong id="desc-currency-tip">使用提示：</strong> <span id="desc-currency-tip-text">匯率會定期更新，請以最新匯率為準進行大額交易。</span></p>
+    </div>
 </div>
-        </div>
+       
+
 
         <!-- Tab 1: 百分比折扣 -->
  				<div id="tab-discount" class="tab-content" style="display: none;">
@@ -180,6 +186,7 @@
                 <div class="result" id="discountResult"></div>
             </div>
         </div>
+		
 
         <!-- Tab 2: 長度 -->
  				<div id="tab-length" class="tab-content" style="display: none;">
@@ -378,9 +385,8 @@
 <div id="tab-bmr" class="tab-content" style="display: none;">
     <h3 id="bmrTitle" style="text-align:center; margin:30px 0 10px 0; font-size:2.3rem;">BMR & TDEE 計算器</h3>
     <p id="bmrSubtitle" style="text-align:center; color:#555; margin-bottom:25px;">Basal Metabolic Rate & Total Daily Energy Expenditure</p>
-    
+   
     <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
-        
         <div style="margin-bottom:18px;">
             <label id="bmrGenderLabel">性別</label>
             <select id="bmrGender" onchange="calcBMR()" style="width:100%; padding:12px; margin-top:8px;">
@@ -388,30 +394,31 @@
                 <option value="female" id="femaleOption">女性</option>
             </select>
         </div>
-        
+       
         <div style="margin-bottom:18px;">
             <label id="bmrAgeLabel">年齡 (歲)</label>
             <input id="bmrAge" type="number" value="30" oninput="calcBMR()" style="width:100%; padding:12px; margin-top:8px;">
         </div>
-        
+       
         <div style="margin-bottom:18px;">
             <label id="bmrHeightLabel">身高 (cm)</label>
             <input id="bmrHeight" type="number" value="170" oninput="calcBMR()" style="width:100%; padding:12px; margin-top:8px;">
         </div>
-        
+       
         <div style="margin-bottom:25px;">
             <label id="bmrWeightLabel">體重 (kg)</label>
             <input id="bmrWeight" type="number" value="65" oninput="calcBMR()" style="width:100%; padding:12px; margin-top:8px;">
         </div>
-        
+       
         <button onclick="calcBMR()" style="width:100%; padding:14px; background:#FF8C00; color:white; border:none; border-radius:8px; font-size:1.1rem;">
             計算
         </button>
-        
+       
         <div id="bmrResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:140px; padding:15px; background:#f9f9f9; border-radius:8px;">
         </div>
     </div>
 </div>
+
 
 		    </div> <!-- 結束 container -->
 
@@ -508,11 +515,10 @@ function switchLang(lang) {
     currentLang = lang;
     const t = translations[lang];
 
-    // ==================== 主標題 ====================
+    // 主標題與 Tab 按鈕
     if (document.getElementById('title')) document.getElementById('title').textContent = t.title;
     if (document.getElementById('subTitle')) document.getElementById('subTitle').textContent = t.subTitle;
 
-    // ==================== Tab 按鈕 ====================
     for (let i = 0; i <= 10; i++) {
         const btn = document.getElementById('btn' + i);
         if (btn) btn.textContent = t['btn' + i];
@@ -542,7 +548,7 @@ function switchLang(lang) {
     if (document.getElementById('bmrHeightLabel')) document.getElementById('bmrHeightLabel').textContent = t.bmrHeightLabel;
     if (document.getElementById('bmrWeightLabel')) document.getElementById('bmrWeightLabel').textContent = t.bmrWeightLabel;
 
-    // BMI 專用
+    // ==================== BMI 專用 ====================
     if (document.getElementById('bmiHeightLabel')) document.getElementById('bmiHeightLabel').textContent = (lang === 'zh') ? '身高 (厘米)' : 'Height (cm)';
     if (document.getElementById('bmiWeightLabel')) document.getElementById('bmiWeightLabel').textContent = (lang === 'zh') ? '體重 (公斤)' : 'Weight (kg)';
     if (document.getElementById('bmiSubtitle')) document.getElementById('bmiSubtitle').textContent = (lang === 'zh') ? 'Body Mass Index Calculator' : 'Body Mass Index Calculator';
@@ -553,6 +559,35 @@ function switchLang(lang) {
     }
     if (document.getElementById('femaleOption')) {
         document.getElementById('femaleOption').textContent = (lang === 'zh') ? '女性' : 'Female';
+    }
+
+    // ==================== 貨幣說明文字 - 中英文切換 ====================
+    if (document.getElementById('desc-currency-title')) {
+        document.getElementById('desc-currency-title').textContent = (lang === 'en') ? "Currency Converter" : "貨幣換算工具";
+		
+		// ←←←←← 在這裡貼上 Footer 程式碼 ←←←←←
+    // ==================== Footer 連結文字切換 ====================
+    if (document.getElementById('footerPrivacy')) {
+        document.getElementById('footerPrivacy').textContent = (lang === 'en') ? "Privacy Policy" : "隱私權政策";
+    }
+    if (document.getElementById('footerContact')) {
+        document.getElementById('footerContact').textContent = (lang === 'en') ? "Contact Us" : "聯絡我們";
+    }
+		
+		
+    }
+    if (document.getElementById('desc-currency-text')) {
+        document.getElementById('desc-currency-text').textContent = (lang === 'en') 
+            ? "Real-time exchange rates for major currencies (USD, HKD, TWD, JPY, KRW, EUR, GBP, CAD, AUD). Ideal for travel, online shopping, remittance and investment." 
+            : "提供即時匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等主要貨幣。適合旅行、網購、匯款或投資使用。";
+    }
+    if (document.getElementById('desc-currency-tip')) {
+        document.getElementById('desc-currency-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-currency-tip-text')) {
+        document.getElementById('desc-currency-tip-text').textContent = (lang === 'en') 
+            ? "Rates are updated regularly. Please use the latest rate for large transactions." 
+            : "匯率會定期更新，請以最新匯率為準進行大額交易。";
     }
 
     // ==================== 重新顯示目前 Tab ====================
@@ -570,49 +605,41 @@ function switchLang(lang) {
         else if (id === 'tab-power') n = 8;
         else if (id === 'tab-bmi') n = 9;
         else if (id === 'tab-bmr') n = 10;
-
         showTab(n);
     }
 }
 
-function showTab(n) {
-    // 隱藏所有 Tab
-    document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.style.display = 'none';
-    });
+// ==================== TAB 切換 (修正版) ====================
+    function showTab(n) {
+        console.log("切換到 Tab:", n);
 
-    // 顯示對應 Tab
-    let tabId = 'tab-currency';
-    if (n === 0) tabId = 'tab-currency';
-    else if (n === 1) tabId = 'tab-discount';
-    else if (n === 2) tabId = 'tab-length';
-    else if (n === 3) tabId = 'tab-weight';
-    else if (n === 4) tabId = 'tab-temp';
-    else if (n === 5) tabId = 'tab-area';
-    else if (n === 6) tabId = 'tab-volume';
-    else if (n === 7) tabId = 'tab-speed';
-    else if (n === 8) tabId = 'tab-power';
-    else if (n === 9) tabId = 'tab-bmi';   // ← 確保 BMI 被正確處理
-    else if (n === 10) tabId = 'tab-bmr';
+        // 隱藏所有 Tab
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.style.display = 'none';
+        });
 
-    const activeTab = document.getElementById(tabId);
-    if (activeTab) {
-        activeTab.style.display = 'block';
-    }
+        // 顯示對應 Tab
+        const tabIds = ['tab-currency','tab-discount','tab-length','tab-weight','tab-temp',
+                       'tab-area','tab-volume','tab-speed','tab-power','tab-bmi','tab-bmr'];
 
-    // 更新橙色高亮
-    document.querySelectorAll('.tab-button').forEach(btn => {
-        btn.classList.remove('active');
-        if (parseInt(btn.getAttribute('data-tab')) === n) {
-            btn.classList.add('active');
+        const activeTab = document.getElementById(tabIds[n]);
+        if (activeTab) {
+            activeTab.style.display = 'block';
         }
-    });
 
-    // 重新計算結果
-    if (n === 1) calcDiscount();
-    if (n === 9) calcBMI();     // ← 確保 BMI 會重新計算
-    if (n === 10) calcBMR();
-}
+        // 更新 TAB 按鈕顏色
+        document.querySelectorAll('.tab-button').forEach(btn => {
+            btn.classList.remove('active');
+            if (parseInt(btn.getAttribute('data-tab')) === n) {
+                btn.classList.add('active');
+            }
+        });
+
+        // 重新計算當前 Tab
+        if (n === 1) calcDiscount();
+        if (n === 9) calcBMI();
+        if (n === 10) calcBMR();
+    }
 
         // ==================== 所有計算功能 ====================
         function calcDiscount() {
@@ -654,56 +681,56 @@ function convertCurrency() {
         })
         .catch(() => useFallbackRate());
 
-// === 後備匯率（2026-05-13 更新）===
+// === 後備匯率（2026-05-16 更新）===
 function useFallbackRate() {
     const fallbackRates = {
-       USD: {
-            HKD: 7.83, TWD: 32.55, JPY: 154.80, CNY: 7.28,
-            EUR: 0.915, GBP: 0.785, CAD: 1.385, AUD: 1.515, KRW: 1395
+        USD: {
+            HKD: 7.84, TWD: 32.58, JPY: 155.20, CNY: 7.29,
+            EUR: 0.914, GBP: 0.784, CAD: 1.383, AUD: 1.512, KRW: 1398
         },
         HKD: {
-            USD: 0.1277, TWD: 4.158, JPY: 19.77, CNY: 0.930,
-            EUR: 0.1169, GBP: 0.1003, CAD: 0.1770, AUD: 0.1935, KRW: 178.4
+            USD: 0.1276, TWD: 4.155, JPY: 19.80, CNY: 0.929,
+            EUR: 0.1166, GBP: 0.1000, CAD: 0.1765, AUD: 0.1928, KRW: 178.2
         },
         TWD: {
-            USD: 0.03072, HKD: 0.2405, JPY: 4.755, CNY: 0.2236,
-            EUR: 0.02810, GBP: 0.02412, CAD: 0.04255, AUD: 0.04655, KRW: 42.92
+            USD: 0.03069, HKD: 0.2407, JPY: 4.765, CNY: 0.2238,
+            EUR: 0.02805, GBP: 0.02408, CAD: 0.04245, AUD: 0.04640, KRW: 42.85
         },
         JPY: {
-            USD: 0.00646, HKD: 0.05058, TWD: 0.2103, CNY: 0.04700,
-            EUR: 0.00591, GBP: 0.00507, CAD: 0.00895, AUD: 0.00978, KRW: 9.02
+            USD: 0.006445, HKD: 0.05050, TWD: 0.2099, CNY: 0.04695,
+            EUR: 0.00589, GBP: 0.00505, CAD: 0.00891, AUD: 0.00974, KRW: 9.01
         },
         CNY: {
-            USD: 0.1374, HKD: 1.075, TWD: 4.465, JPY: 21.25,
-            EUR: 0.1258, GBP: 0.1080, CAD: 0.1905, AUD: 0.2082, KRW: 192.8
+            USD: 0.1372, HKD: 1.072, TWD: 4.468, JPY: 21.30,
+            EUR: 0.1255, GBP: 0.1077, CAD: 0.1898, AUD: 0.2075, KRW: 192.1
         },
         EUR: {
-            USD: 1.093, HKD: 8.56, TWD: 35.55, JPY: 169.3,
-            GBP: 0.859, CAD: 1.512, AUD: 1.652, KRW: 1528
+            USD: 1.094, HKD: 8.57, TWD: 35.62, JPY: 169.8,
+            GBP: 0.858, CAD: 1.513, AUD: 1.655, KRW: 1532
         },
         GBP: {
-            USD: 1.274, HKD: 9.97, TWD: 41.45, JPY: 197.5,
-            EUR: 1.164, CAD: 1.767, AUD: 1.932, KRW: 1780
+            USD: 1.275, HKD: 9.98, TWD: 41.52, JPY: 197.8,
+            EUR: 1.166, CAD: 1.769, AUD: 1.935, KRW: 1785
         },
         CAD: {
-            USD: 0.722, HKD: 5.65, TWD: 23.48, JPY: 111.8,
-            EUR: 0.661, GBP: 0.566, AUD: 1.092, KRW: 1004
+            USD: 0.723, HKD: 5.66, TWD: 23.55, JPY: 112.1,
+            EUR: 0.661, GBP: 0.565, AUD: 1.093, KRW: 1010
         },
         AUD: {
-            USD: 0.661, HKD: 5.17, TWD: 21.48, JPY: 102.3,
-            EUR: 0.605, GBP: 0.518, CAD: 0.916, KRW: 919
+            USD: 0.662, HKD: 5.18, TWD: 21.55, JPY: 102.6,
+            EUR: 0.604, GBP: 0.517, CAD: 0.915, KRW: 922
         },
         KRW: {
-            USD: 0.000717, HKD: 0.005605, TWD: 0.02330, JPY: 0.1109,
-            CNY: 0.005186, EUR: 0.000654, GBP: 0.000562, CAD: 0.000996, AUD: 0.001088
+            USD: 0.000715, HKD: 0.00561, TWD: 0.02332, JPY: 0.1107,
+            CNY: 0.005205, EUR: 0.000652, GBP: 0.000560, CAD: 0.000990, AUD: 0.001085
         }
     };
 
     let rate = (fallbackRates[from] && fallbackRates[from][to]) ? fallbackRates[from][to] : 1;
     let result = (amount * rate).toFixed(4);
-    
+   
     document.getElementById('currencyResult').innerHTML =
-        `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (May 14, 2026)</small>`;
+        `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (May 16, 2026)</small>`;
 }
 }
 
@@ -792,11 +819,16 @@ function swapCurrencies() {
         }
         function swapPower() { let a = document.getElementById('fromPower'); let b = document.getElementById('toPower'); if(a&&b)[a.value,b.value]=[b.value,a.value]; convertPower(); }
 
-        // 初始化
-        window.onload = function() {
-            switchLang('en');   // 預設英文
-            showTab(0);
-        };
+// ==================== 初始化 ====================
+window.onload = function() {
+    console.log("✅ 主頁載入完成");
+    
+    currentLang = 'zh';           // 強制中文
+    document.getElementById('langSelect').value = 'zh';   // 讓下拉框顯示繁體中文
+    
+    switchLang('zh');             // 執行中文
+    showTab(0);
+};
 		
 // ==================== BMI 計算器 ====================
 function calcBMI() {
@@ -864,14 +896,14 @@ function calcBMR() {
 		
 		
     </script>
-        <!-- ==================== Footer ==================== -->
-        <div style="text-align:center; margin-top:40px; padding:25px; border-top:3px solid #333; background:#EDEDED;">
-            <a href="privacy.html" style="margin:0 15px; color:#FF8C00; text-decoration:none; font-weight:bold;" id="footerPrivacy">隱私權政策</a>
-            <a href="contact.html" style="margin:0 15px; color:#FF8C00; text-decoration:none; font-weight:bold;" id="footerContact">聯絡我們</a>
-            <p style="margin-top:15px; font-size:0.9rem; color:#555;">
-                © 2026 PercentCalc Pro. All calculations are performed locally in your browser.
-            </p>
-        </div>
+<!-- Footer -->
+<div style="text-align:center; margin-top:40px; padding:25px; border-top:3px solid #333; background:#EDEDED;">
+    <a href="privacy.html" style="margin:0 15px; color:#FF8C00; text-decoration:none; font-weight:bold;">Privacy Policy</a>
+    <a href="contact.html" style="margin:0 15px; color:#FF8C00; text-decoration:none; font-weight:bold;">Contact Us</a>
+    <p style="margin-top:15px; font-size:0.9rem; color:#555;">
+        © 2026 PercentCalc Pro. All calculations are performed locally in your browser.
+    </p>
+</div>
     </div>   <!-- container 結束 -->
 
 </body>

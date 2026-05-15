@@ -10,25 +10,31 @@
         .container { max-width: 900px; margin: 0 auto; background: #EDEDED; border: 12px solid #333; border-radius: 16px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
         h1 { text-align: center; color: #333; }
         .lang-btn { padding: 10px 20px; background: #FF8C00; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
-        .box { background: white; padding: 30px; border: 3px solid #333; border-radius: 12px; margin: 25px 0; }
+        .content { line-height: 1.8; font-size: 1.1rem; }
     </style>
 </head>
 <body>
     <div class="container">
         <button onclick="switchLang()" class="lang-btn" id="langBtn">繁體中文</button>
-        
+       
         <h1 id="title">Contact Us</h1>
-        <p id="subtitle" style="text-align:center;">Feel free to reach out with any questions or suggestions</p>
-
-        <div class="box">
-            <h2 id="emailTitle">📧 Email</h2>
-            <p><strong>calculator0504@gmail.com</strong></p>
-            
-            <h2 id="feedbackTitle">💬 Feedback</h2>
-            <p id="feedbackText">We value your experience! Please let us know if you find any issues or have suggestions for new calculators.</p>
+        <p id="lastUpdate" style="text-align:center;">Last Updated: May 16, 2026</p>
+       
+        <div class="content">
+            <h2 id="s1">Any Questions or Suggestions?</h2>
+            <p id="p1">We welcome all feedback, bug reports, feature suggestions, and general inquiries.</p>
+           
+            <h2 id="s2">Email</h2>
+            <p id="p2">calculator0504@gmail.com</p>
+           
+            <h2 id="s3">Response Time</h2>
+            <p id="p3">We usually reply within 48 hours (business days).</p>
+           
+            <h2 id="s4">Thank You</h2>
+            <p id="p4">Thank you for using PercentCalc Pro. Your feedback helps us improve.</p>
         </div>
-
-        <a href="index.html" style="color:#FF8C00; font-weight:bold; display:block; text-align:center; margin-top:30px;">← Back to Home</a>
+       
+        <a href="index.html" style="color:#FF8C00; font-weight:bold; display:block; text-align:center; margin-top:40px; font-size:1.1rem;">← Back to Home</a>
     </div>
 
     <script>
@@ -38,12 +44,21 @@
             document.getElementById('langBtn').textContent = isEnglish ? "繁體中文" : "English";
             
             document.getElementById('title').textContent = isEnglish ? "Contact Us" : "聯絡我們";
-            document.getElementById('subtitle').textContent = isEnglish ? "Feel free to reach out with any questions or suggestions" : "有任何問題或建議，歡迎告訴我們";
-            document.getElementById('emailTitle').textContent = isEnglish ? "📧 Email" : "📧 電郵";
-            document.getElementById('feedbackTitle').textContent = isEnglish ? "💬 Feedback" : "💬 意見回饋";
-            document.getElementById('feedbackText').textContent = isEnglish ? "We value your experience! Please let us know if you find any issues or have suggestions." : "我們非常重視你的使用體驗！如果發現計算錯誤、想新增新工具，或有任何建議，都歡迎聯絡。";
+            document.getElementById('lastUpdate').textContent = isEnglish ? "Last Updated: May 16, 2026" : "最後更新：2026年5月16日";
+            
+            document.getElementById('s1').textContent = isEnglish ? "Any Questions or Suggestions?" : "有任何問題或建議？";
+            document.getElementById('p1').textContent = isEnglish ? "We welcome all feedback, bug reports, feature suggestions, and general inquiries." : "我們歡迎所有意見、問題、錯誤回報及功能建議。";
+            
+            document.getElementById('s2').textContent = isEnglish ? "Email" : "電郵";
+            document.getElementById('p2').textContent = "calculator0504@gmail.com";
+            
+            document.getElementById('s3').textContent = isEnglish ? "Response Time" : "回覆時間";
+            document.getElementById('p3').textContent = isEnglish ? "We usually reply within 48 hours." : "我們通常會在 48 小時內回覆。";
+            
+            document.getElementById('s4').textContent = isEnglish ? "Thank You" : "感謝";
+            document.getElementById('p4').textContent = isEnglish ? "Thank you for using PercentCalc Pro." : "感謝您使用 PercentCalc Pro！";
         }
-        window.onload = switchLang;
+        window.onload = function() { switchLang(); }; // 預設英文
     </script>
 </body>
 </html>

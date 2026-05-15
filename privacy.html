@@ -16,40 +16,69 @@
 <body>
     <div class="container">
         <button onclick="switchLang()" class="lang-btn" id="langBtn">繁體中文</button>
-        
+       
         <h1 id="title">Privacy Policy</h1>
-        <p id="lastUpdate" style="text-align:center;">Last Updated: May 2026</p>
-
+        <p id="lastUpdate" style="text-align:center;">Last Updated: May 16, 2026</p>
+       
         <div class="content">
             <h2 id="s1">What Data Do We Collect?</h2>
-            <p id="p1">This website does not collect any personal data. All calculations are performed locally in your browser.</p>
-
-            <h2 id="s2">Cookies and Advertising</h2>
-            <p id="p2">When Google AdSense is enabled, cookies may be used to show relevant advertisements.</p>
-
-            <h2 id="s3">Contact Us</h2>
-            <p id="p3">Any questions? Please email: <strong>calculator0504@gmail.com</strong></p>
+            <p id="p1">We do not collect, store, or share any personal information. All calculations are done completely in your browser locally.</p>
+           
+            <h2 id="s2">Cookies and Third-Party Services</h2>
+            <p id="p2">This site uses Google AdSense and Google Analytics. These services may use cookies.</p>
+           
+            <h2 id="s3">How We Use the Data</h2>
+            <p id="p3">We use this data only to improve the website and show relevant advertisements.</p>
+           
+            <h2 id="s4">Children's Privacy</h2>
+            <p id="p4">Our website is not directed to children under 13.</p>
+           
+            <h2 id="s5">Your Rights</h2>
+            <p id="p5">You can contact us to access or delete your data.</p>
+           
+            <h2 id="s6">Contact Us</h2>
+            <p id="p6">Email: <strong>calculator0504@gmail.com</strong></p>
         </div>
-
-        <a href="index.html" style="color:#FF8C00; font-weight:bold; display:block; text-align:center; margin-top:30px;">← Back to Home</a>
+       
+        <a href="index.html" style="color:#FF8C00; font-weight:bold; display:block; text-align:center; margin-top:40px; font-size:1.1rem;">← Back to Home</a>
     </div>
 
     <script>
         let isEnglish = true;
+
         function switchLang() {
             isEnglish = !isEnglish;
             document.getElementById('langBtn').textContent = isEnglish ? "繁體中文" : "English";
-            
+
+            // 切換標題
             document.getElementById('title').textContent = isEnglish ? "Privacy Policy" : "隱私權政策";
-            document.getElementById('lastUpdate').textContent = isEnglish ? "Last Updated: May 2026" : "最後更新：2026年5月";
+            document.getElementById('lastUpdate').textContent = isEnglish ? "Last Updated: May 16, 2026" : "最後更新：2026年5月16日";
+
+            // 內容切換
             document.getElementById('s1').textContent = isEnglish ? "What Data Do We Collect?" : "我們收集什麼資料？";
-            document.getElementById('p1').textContent = isEnglish ? "This website does not collect any personal data. All calculations are performed locally in your browser." : "本網站完全不收集任何個人資料。所有計算都在你的瀏覽器本地執行。";
-            document.getElementById('s2').textContent = isEnglish ? "Cookies and Advertising" : "Cookies 和廣告";
-            document.getElementById('p2').textContent = isEnglish ? "When Google AdSense is enabled, cookies may be used to show relevant advertisements." : "當網站顯示 Google AdSense 廣告時，可能會使用 Cookies。";
-            document.getElementById('s3').textContent = isEnglish ? "Contact Us" : "聯絡我們";
-            document.getElementById('p3').innerHTML = isEnglish ? 'Any questions? Please email: <strong>calculator0504@gmail.com</strong>' : '如有任何問題，請電郵：<strong>calculator0504@gmail.com</strong>';
+            document.getElementById('p1').textContent = isEnglish ? "We do not collect, store, or share any personal information. All calculations are done completely in your browser locally." : "本網站不收集、儲存或分享任何個人資料。所有計算都在瀏覽器本地執行。";
+
+            document.getElementById('s2').textContent = isEnglish ? "Cookies and Third-Party Services" : "Cookies 和第三方服務";
+            document.getElementById('p2').textContent = isEnglish ? "This site uses Google AdSense and Google Analytics. These services may use cookies." : "本網站使用 Google AdSense 和 Google Analytics，可能會使用 Cookies。";
+
+            document.getElementById('s3').textContent = isEnglish ? "How We Use the Data" : "資料使用目的";
+            document.getElementById('p3').textContent = isEnglish ? "We use this data only to improve the website and show relevant advertisements." : "資料只用於改善網站和顯示相關廣告。";
+
+            document.getElementById('s4').textContent = isEnglish ? "Children's Privacy" : "兒童隱私";
+            document.getElementById('p4').textContent = isEnglish ? "Our website is not directed to children under 13." : "本網站並非針對 13 歲以下兒童。";
+
+            document.getElementById('s5').textContent = isEnglish ? "Your Rights" : "您的權利";
+            document.getElementById('p5').textContent = isEnglish ? "You can contact us to access or delete your data." : "您可隨時聯絡我們查閱或刪除資料。";
+
+            document.getElementById('s6').textContent = isEnglish ? "Contact Us" : "聯絡我們";
+            document.getElementById('p6').innerHTML = isEnglish ? 'Email: <strong>calculator0504@gmail.com</strong>' : '電郵： <strong>calculator0504@gmail.com</strong>';
         }
-        window.onload = switchLang;
+
+        // 一載入就顯示英文
+        window.onload = function() {
+            isEnglish = true;
+            switchLang();
+        };
     </script>
 </body>
 </html>
