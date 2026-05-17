@@ -175,30 +175,29 @@
        
 
 
- <!-- Tab 1: 折扣計算器 -->
+ <!-- Tab 1: 折扣計算 -->
 <div id="tab-discount" class="tab-content" style="display: none;">
     <h3 id="discountTitle">百分比折扣計算機</h3>
     
     <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
         <div style="margin-bottom:20px;">
-            <label id="originalLabel">原價金額</label>
-            <input id="originalPrice" type="number" value="1000" oninput="calcDiscount()" style="width:100%; padding:12px; margin-top:8px;">
+            <label id="originalLabel">Original Price</label>
+            <input id="originalPrice" type="number" value="1000" oninput="calcDiscount()" style="width:100%; padding:14px; font-size:1.35rem;">
         </div>
+        
         <div style="margin-bottom:25px;">
-            <label id="rateLabel">折扣百分比 (%)</label>
-            <input id="discountRate" type="number" value="20" oninput="calcDiscount()" style="width:100%; padding:12px; margin-top:8px;">
+            <label id="rateLabel">Discount Rate (%)</label>
+            <input id="discountRate" type="number" value="20" oninput="calcDiscount()" style="width:100%; padding:14px; font-size:1.35rem;">
         </div>
-        <button onclick="calcDiscount()" style="width:100%; padding:14px; background:#FF8C00; color:white; border:none; border-radius:8px; font-size:1.1rem;">
-            計算
-        </button>
-        <div id="discountResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:90px; padding:15px; background:#f9f9f9; border-radius:8px;"></div>
+        
+        <div class="result" id="discountResult" style="min-height:80px;"></div>
     </div>
 
-    <!-- 折扣說明文字 -->
-    <div id="discountDescription" class="description" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+    <!-- 說明文字 -->
+    <div id="discountDescription" style="margin-top:30px; padding:25px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
         <h3 id="desc-discount-title">百分比折扣計算機</h3>
-        <p id="desc-discount-text">快速計算折扣後的實際價格和節省金額，適合購物、促銷活動或計算優惠使用。</p>
-        <p><strong id="desc-discount-tip">使用提示：</strong> <span id="desc-discount-tip-text">輸入原價和折扣百分比即可即時看到結果，適合網購比價或店內折扣計算。</span></p>
+        <p id="desc-discount-text">快速計算折扣後價格和節省金額。適合網購、促銷活動、定價策略使用。</p>
+        <p><strong id="desc-discount-tip">使用提示：</strong> <span id="desc-discount-tip-text">輸入原價和折扣百分比，即時顯示最終價格和節省金額。</span></p>
     </div>
 </div>
 		
@@ -968,17 +967,21 @@ function switchLang(lang) {
     }
 
         // ==================== 所有計算功能 ====================
-        function calcDiscount() {
-            let price = parseFloat(document.getElementById('originalPrice').value) || 0;
-            let rate = parseFloat(document.getElementById('discountRate').value) || 0;
-            let final = price * (1 - rate/100);
-            let save = price * (rate/100);
-            if (currentLang === 'en') {
-                document.getElementById('discountResult').innerHTML = `Final Price: ${final.toFixed(2)}<br>You Save: ${save.toFixed(2)} (${rate}%)`;
-            } else {
-                document.getElementById('discountResult').innerHTML = `最終價格：${final.toFixed(2)}<br>節省金額：${save.toFixed(2)} (${rate}%)`;
-            }
-        }
+function calcDiscount() {
+    let price = parseFloat(document.getElementById('originalPrice').value) || 0;
+    let rate = parseFloat(document.getElementById('discountRate').value) || 0;
+    let final = price * (1 - rate / 100);
+    let save = price * (rate / 100);
+
+    if (currentLang === 'en') {
+        document.getElementById('discountResult').innerHTML = 
+            `Final Price: ${final.toFixed(2)}<br>You Save: ${save.toFixed(2)} (${rate}%)`;
+    } else {
+        document.getElementById('discountResult').innerHTML = 
+            `最終價格：${final.toFixed(2)}<br>節省金額：${save.toFixed(2)} (${rate}%)`;
+    }
+}
+
 // === 貨幣換算（穩定安全版 - 2026-05-10）===
 function convertCurrency() {
     let amount = parseFloat(document.getElementById('currencyAmount').value) || 0;
