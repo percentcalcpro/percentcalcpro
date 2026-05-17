@@ -175,184 +175,277 @@
        
 
 
-        <!-- Tab 1: 百分比折扣 -->
- 				<div id="tab-discount" class="tab-content" style="display: none;">
-            <h3 id="discountTitle">百分比折扣計算機</h3>
-            <div class="converter-box">
-                <label id="originalLabel">原價金額</label>
-                <input id="originalPrice" type="number" value="1000" oninput="calcDiscount()" onkeypress="if(event.key==='Enter') calcDiscount()">
-                <label id="rateLabel">折扣百分比 (%)</label>
-                <input id="discountRate" type="number" value="20" oninput="calcDiscount()" onkeypress="if(event.key==='Enter') calcDiscount()">
-                <div class="result" id="discountResult"></div>
-            </div>
+ <!-- Tab 1: 折扣計算器 -->
+<div id="tab-discount" class="tab-content" style="display: none;">
+    <h3 id="discountTitle">百分比折扣計算機</h3>
+    
+    <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
+        <div style="margin-bottom:20px;">
+            <label id="originalLabel">原價金額</label>
+            <input id="originalPrice" type="number" value="1000" oninput="calcDiscount()" style="width:100%; padding:12px; margin-top:8px;">
         </div>
+        <div style="margin-bottom:25px;">
+            <label id="rateLabel">折扣百分比 (%)</label>
+            <input id="discountRate" type="number" value="20" oninput="calcDiscount()" style="width:100%; padding:12px; margin-top:8px;">
+        </div>
+        <button onclick="calcDiscount()" style="width:100%; padding:14px; background:#FF8C00; color:white; border:none; border-radius:8px; font-size:1.1rem;">
+            計算
+        </button>
+        <div id="discountResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:90px; padding:15px; background:#f9f9f9; border-radius:8px;"></div>
+    </div>
+
+    <!-- 折扣說明文字 -->
+    <div id="discountDescription" class="description" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-discount-title">百分比折扣計算機</h3>
+        <p id="desc-discount-text">快速計算折扣後的實際價格和節省金額，適合購物、促銷活動或計算優惠使用。</p>
+        <p><strong id="desc-discount-tip">使用提示：</strong> <span id="desc-discount-tip-text">輸入原價和折扣百分比即可即時看到結果，適合網購比價或店內折扣計算。</span></p>
+    </div>
+</div>
 		
 
-        <!-- Tab 2: 長度 -->
- 				<div id="tab-length" class="tab-content" style="display: none;">
-            <h3 id="lengthTitle">長度換算</h3>
-            <div class="converter-box">
-                <input id="lengthInput" type="number" value="170" oninput="convertLength()" onkeypress="if(event.key==='Enter') convertLength()">
-                <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
-                    <select id="fromLength" onchange="convertLength()">
-                        <option value="cm" selected>cm</option>
-                        <option value="inch">inch</option>
-                        <option value="m">m</option>
-                        <option value="ft">ft</option>
-                        <option value="km">km</option>
-                    </select>
-                    <button onclick="swapLength()" class="swap">⇄</button>
-                    <select id="toLength" onchange="convertLength()">
-                        <option value="inch" selected>inch</option>
-                        <option value="cm">cm</option>
-                        <option value="ft">ft</option>
-                        <option value="m">m</option>
-                        <option value="km">km</option>
-                    </select>
-                </div>
-                <div class="result" id="resultLength"></div>
-            </div>
+<!-- Tab 2: 長度換算 -->
+<div id="tab-length" class="tab-content" style="display: none;">
+    <h3 id="lengthTitle">長度換算</h3>
+    
+    <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
+        <input id="lengthInput" type="number" value="100" oninput="convertLength()" onkeypress="if(event.key==='Enter') convertLength()" style="width:100%; padding:14px; font-size:1.35rem; margin-bottom:15px;">
+        
+        <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
+            <select id="fromLength" onchange="convertLength()" style="flex:1; padding:12px;">
+                <option value="cm" selected>cm</option>
+                <option value="inch">inch</option>
+                <option value="m">m</option>
+                <option value="ft">ft</option>
+                <option value="km">km</option>
+                <option value="mile">mile</option>
+            </select>
+            <button onclick="swapLength()" style="font-size:1.6rem; padding:8px 16px;">⇄</button>
+            <select id="toLength" onchange="convertLength()" style="flex:1; padding:12px;">
+                <option value="inch" selected>inch</option>
+                <option value="cm">cm</option>
+                <option value="m">m</option>
+                <option value="ft">ft</option>
+                <option value="km">km</option>
+                <option value="mile">mile</option>
+            </select>
         </div>
+        
+        <!-- 結果 BAR -->
+        <div class="result" id="lengthResult"></div>
+    </div>
 
-        <!-- Tab 3: 重量 -->
-				<div id="tab-weight" class="tab-content" style="display: none;">
-            <h3 id="weightTitle">重量換算</h3>
-            <div class="converter-box">
-                <input id="weightInput" type="number" value="1" oninput="convertWeight()" onkeypress="if(event.key==='Enter') convertWeight()">
-                <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
-                    <select id="fromWeight" onchange="convertWeight()">
-                        <option value="kg" selected>kg</option>
-                        <option value="lb">lb</option>
-                        <option value="g">g</option>
-                        <option value="oz">oz</option>
-                    </select>
-                    <button onclick="swapWeight()" class="swap">⇄</button>
-                    <select id="toWeight" onchange="convertWeight()">
-                        <option value="lb" selected>lb</option>
-                        <option value="kg">kg</option>
-                        <option value="g">g</option>
-                        <option value="oz">oz</option>
-                    </select>
-                </div>
-                <div class="result" id="resultWeight"></div>
-            </div>
-        </div>
-		        <!-- Tab 4: 溫度 -->
-				<div id="tab-temp" class="tab-content" style="display: none;">
-            <h3 id="tempTitle">溫度換算</h3>
-            <div class="converter-box">
-                <input id="tempInput" type="number" value="25" oninput="convertTemp()" onkeypress="if(event.key==='Enter') convertTemp()">
-                <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
-                    <select id="fromTemp" onchange="convertTemp()">
-                        <option value="c" selected>°C</option>
-                        <option value="f">°F</option>
-                        <option value="k">K</option>
-                    </select>
-                    <button onclick="swapTemp()" class="swap">⇄</button>
-                    <select id="toTemp" onchange="convertTemp()">
-                        <option value="f" selected>°F</option>
-                        <option value="c">°C</option>
-                        <option value="k">K</option>
-                    </select>
-                </div>
-                <div class="result" id="resultTemp"></div>
-            </div>
-        </div>
+    <!-- 說明文字 -->
+    <div id="lengthDescription" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-length-title">長度換算工具</h3>
+        <p id="desc-length-text">支援公分、英吋、公尺、英尺、公里、英里等多種單位換算，適合購物、裝修、旅行或工程使用。</p>
+        <p><strong id="desc-length-tip">使用提示：</strong> <span id="desc-length-tip-text">可即時雙向換算，常用於國際購物尺寸轉換或地圖距離計算。</span></p>
+    </div>
+</div>
 
-        <!-- Tab 5: 面積 -->
-				<div id="tab-area" class="tab-content" style="display: none;">
-            <h3 id="areaTitle">面積換算</h3>
-            <div class="converter-box">
-                <input id="areaInput" type="number" value="1" oninput="convertArea()" onkeypress="if(event.key==='Enter') convertArea()">
-                <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
-                    <select id="fromArea" onchange="convertArea()">
-                        <option value="m2" selected>m²</option>
-                        <option value="ft2">ft²</option>
-                        <option value="yd2">yd²</option>
-                        <option value="ping">坪</option>
-                    </select>
-                    <button onclick="swapArea()" class="swap">⇄</button>
-                    <select id="toArea" onchange="convertArea()">
-                        <option value="ft2" selected>ft²</option>
-                        <option value="m2">m²</option>
-                        <option value="yd2">yd²</option>
-                        <option value="ping">坪</option>
-                    </select>
-                </div>
-                <div class="result" id="resultArea"></div>
-            </div>
+<!-- Tab 3: 重量換算 -->
+<div id="tab-weight" class="tab-content" style="display: none;">
+    <h3 id="weightTitle">重量換算</h3>
+    
+    <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
+        <input id="weightInput" type="number" value="1" oninput="convertWeight()" onkeypress="if(event.key==='Enter') convertWeight()" style="width:100%; padding:14px; font-size:1.35rem; margin-bottom:15px;">
+        
+        <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
+            <select id="fromWeight" onchange="convertWeight()" style="flex:1; padding:12px;">
+                <option value="kg" selected>kg</option>
+                <option value="lb">lb</option>
+                <option value="g">g</option>
+                <option value="oz">oz</option>
+            </select>
+            <button onclick="swapWeight()" style="font-size:1.6rem; padding:8px 16px;">⇄</button>
+            <select id="toWeight" onchange="convertWeight()" style="flex:1; padding:12px;">
+                <option value="lb" selected>lb</option>
+                <option value="kg">kg</option>
+                <option value="g">g</option>
+                <option value="oz">oz</option>
+            </select>
         </div>
+        
+        <div class="result" id="resultWeight"></div>
+    </div>
 
-        <!-- Tab 6: 體積 -->
-				<div id="tab-volume" class="tab-content" style="display: none;">
-            <h3 id="volumeTitle">體積換算</h3>
-            <div class="converter-box">
-                <input id="volumeInput" type="number" value="1" oninput="convertVolume()" onkeypress="if(event.key==='Enter') convertVolume()">
-                <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
-                    <select id="fromVolume" onchange="convertVolume()">
-                        <option value="l" selected>L</option>
-                        <option value="ml">mL</option>
-                        <option value="gal">gal (US)</option>
-                        <option value="qt">qt (US)</option>
-                    </select>
-                    <button onclick="swapVolume()" class="swap">⇄</button>
-                    <select id="toVolume" onchange="convertVolume()">
-                        <option value="gal" selected>gal (US)</option>
-                        <option value="l">L</option>
-                        <option value="ml">mL</option>
-                        <option value="qt">qt (US)</option>
-                    </select>
-                </div>
-                <div class="result" id="resultVolume"></div>
-            </div>
+    <!-- 重量說明文字 -->
+    <div id="weightDescription" class="description" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-weight-title">重量換算工具</h3>
+        <p id="desc-weight-text">支援公斤、磅、公克、盎司、台斤等常見重量單位換算，適合烹飪、購物、物流、健身或國際貿易使用。</p>
+        <p><strong id="desc-weight-tip">使用提示：</strong> <span id="desc-weight-tip-text">國際購物常用公斤轉磅，烹飪時常用公克與盎司轉換。</span></p>
+    </div>
+</div>
+<!-- Tab 4: 溫度換算 -->
+<div id="tab-temp" class="tab-content" style="display: none;">
+    <h3 id="tempTitle">溫度換算</h3>
+    
+    <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
+        <input id="tempInput" type="number" value="25" oninput="convertTemp()" onkeypress="if(event.key==='Enter') convertTemp()" style="width:100%; padding:14px; font-size:1.35rem; margin-bottom:15px;">
+        
+        <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
+            <select id="fromTemp" onchange="convertTemp()" style="flex:1; padding:12px;">
+                <option value="c" selected>°C</option>
+                <option value="f">°F</option>
+                <option value="k">K</option>
+            </select>
+            <button onclick="swapTemp()" style="font-size:1.6rem; padding:8px 16px;">⇄</button>
+            <select id="toTemp" onchange="convertTemp()" style="flex:1; padding:12px;">
+                <option value="f" selected>°F</option>
+                <option value="c">°C</option>
+                <option value="k">K</option>
+            </select>
         </div>
-		        <!-- Tab 7: 速度 -->
-				<div id="tab-speed" class="tab-content" style="display: none;">
-            <h3 id="speedTitle">速度換算</h3>
-            <div class="converter-box">
-                <input id="speedInput" type="number" value="100" oninput="convertSpeed()" onkeypress="if(event.key==='Enter') convertSpeed()">
-                <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
-                    <select id="fromSpeed" onchange="convertSpeed()">
-                        <option value="kmh" selected>km/h</option>
-                        <option value="mph">mph</option>
-                        <option value="ms">m/s</option>
-                        <option value="knot">knot</option>
-                    </select>
-                    <button onclick="swapSpeed()" class="swap">⇄</button>
-                    <select id="toSpeed" onchange="convertSpeed()">
-                        <option value="mph" selected>mph</option>
-                        <option value="kmh">km/h</option>
-                        <option value="ms">m/s</option>
-                        <option value="knot">knot</option>
-                    </select>
-                </div>
-                <div class="result" id="resultSpeed"></div>
-            </div>
-        </div>
+        
+        <div class="result" id="resultTemp"></div>
+    </div>
 
-<!-- Tab 8: 能量 / 功率 -->
+    <!-- 溫度說明文字 -->
+    <div id="tempDescription" class="description" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-temp-title">溫度換算工具</h3>
+        <p id="desc-temp-text">支援攝氏 (°C)、華氏 (°F)、克耳文 (K) 三種溫度單位即時換算，適合旅行、烹飪、科學實驗或日常使用。</p>
+        <p><strong id="desc-temp-tip">使用提示：</strong> <span id="desc-temp-tip-text">歐美國家多用華氏，亞洲多用攝氏，科學計算則常用克耳文。</span></p>
+    </div>
+</div>
+
+<!-- Tab 5: 面積換算 -->
+<div id="tab-area" class="tab-content" style="display: none;">
+    <h3 id="areaTitle">面積換算</h3>
+    
+    <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
+        <input id="areaInput" type="number" value="100" oninput="convertArea()" onkeypress="if(event.key==='Enter') convertArea()" style="width:100%; padding:14px; font-size:1.35rem; margin-bottom:15px;">
+        
+        <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
+            <select id="fromArea" onchange="convertArea()" style="flex:1; padding:12px;">
+                <option value="m2" selected>m²</option>
+                <option value="ft2">ft²</option>
+                <option value="yd2">yd²</option>
+                <option value="ping">坪</option>
+                <option value="hectare">公頃</option>
+            </select>
+            <button onclick="swapArea()" style="font-size:1.6rem; padding:8px 16px;">⇄</button>
+            <select id="toArea" onchange="convertArea()" style="flex:1; padding:12px;">
+                <option value="ft2" selected>ft²</option>
+                <option value="m2">m²</option>
+                <option value="yd2">yd²</option>
+                <option value="ping">坪</option>
+                <option value="hectare">公頃</option>
+            </select>
+        </div>
+        
+        <div class="result" id="resultArea"></div>
+    </div>
+
+    <!-- 說明文字（新版） -->
+    <div id="areaDescription" class="description" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-area-title">面積換算工具</h3>
+        <p id="desc-area-text">專業的面積單位換算器，支援平方公尺、平方英尺、坪、公頃、英畝等多種單位。適合房地產買賣、室內裝修、土地測量、農業規劃或國際物業比較使用。</p>
+        <p><strong id="desc-area-tip">使用提示：</strong> <span id="desc-area-tip-text">香港、台灣常用「坪」，國際多用平方公尺或平方英尺。買樓時可即時轉換不同單位價格進行比較。</span></p>
+    </div>
+</div>
+
+
+<!-- Tab 6: 體積換算 -->
+<div id="tab-volume" class="tab-content" style="display: none;">
+    <h3 id="volumeTitle">體積換算</h3>
+    
+    <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
+        <input id="volumeInput" type="number" value="1" oninput="convertVolume()" onkeypress="if(event.key==='Enter') convertVolume()" style="width:100%; padding:14px; font-size:1.35rem; margin-bottom:15px;">
+        
+        <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
+            <select id="fromVolume" onchange="convertVolume()" style="flex:1; padding:12px;">
+                <option value="l" selected>L</option>
+                <option value="ml">ml</option>
+                <option value="gal">gal (US)</option>
+                <option value="cup">cup</option>
+                <option value="m3">m³</option>
+            </select>
+            <button onclick="swapVolume()" style="font-size:1.6rem; padding:8px 16px;">⇄</button>
+            <select id="toVolume" onchange="convertVolume()" style="flex:1; padding:12px;">
+                <option value="gal" selected>gal (US)</option>
+                <option value="l">L</option>
+                <option value="ml">ml</option>
+                <option value="cup">cup</option>
+                <option value="m3">m³</option>
+            </select>
+        </div>
+        
+        <div class="result" id="resultVolume"></div>
+    </div>
+
+    <!-- 體積說明文字 -->
+    <div id="volumeDescription" class="description" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-volume-title">體積換算工具</h3>
+        <p id="desc-volume-text">支援公升、毫升、加侖、杯、立方公尺等多種體積單位換算，適合烹飪、飲料、物流或科學實驗使用。</p>
+        <p><strong id="desc-volume-tip">使用提示：</strong> <span id="desc-volume-tip-text">國際食譜常用毫升與加侖轉換，物流常用立方公尺計算。</span></p>
+    </div>
+</div>
+<!-- Tab 7: 速度換算 -->
+<div id="tab-speed" class="tab-content" style="display: none;">
+    <h3 id="speedTitle">速度換算</h3>
+    
+    <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
+        <input id="speedInput" type="number" value="100" oninput="convertSpeed()" onkeypress="if(event.key==='Enter') convertSpeed()" style="width:100%; padding:14px; font-size:1.35rem; margin-bottom:15px;">
+        
+        <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
+            <select id="fromSpeed" onchange="convertSpeed()" style="flex:1; padding:12px;">
+                <option value="kmh" selected>km/h</option>
+                <option value="mph">mph</option>
+                <option value="ms">m/s</option>
+                <option value="knot">knot</option>
+            </select>
+            <button onclick="swapSpeed()" style="font-size:1.6rem; padding:8px 16px;">⇄</button>
+            <select id="toSpeed" onchange="convertSpeed()" style="flex:1; padding:12px;">
+                <option value="mph" selected>mph</option>
+                <option value="kmh">km/h</option>
+                <option value="ms">m/s</option>
+                <option value="knot">knot</option>
+            </select>
+        </div>
+        
+        <div class="result" id="resultSpeed"></div>
+    </div>
+
+    <!-- 速度說明文字 -->
+    <div id="speedDescription" class="description" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-speed-title">速度換算工具</h3>
+        <p id="desc-speed-text">支援公里/小時、英里/小時、公尺/秒、節（knot）等多種速度單位換算，適合駕駛、航海、運動或科學計算使用。</p>
+        <p><strong id="desc-speed-tip">使用提示：</strong> <span id="desc-speed-tip-text">汽車常用 km/h，飛機/船隻常用 knot，科學計算常用 m/s。</span></p>
+    </div>
+</div>
+
+<!-- Tab 8: 能量 / 功率換算 -->
 <div id="tab-power" class="tab-content" style="display: none;">
-    <h3 id="powerTitle">能量換算</h3>
-    <div class="converter-box">
-                <input id="powerInput" type="number" value="1" oninput="convertPower()" onkeypress="if(event.key==='Enter') convertPower()">
-                <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
-                    <select id="fromPower" onchange="convertPower()">
-                        <option value="j" selected>J</option>
-                        <option value="kj">kJ</option>
-                        <option value="kcal">kcal</option>
-                        <option value="wh">Wh</option>
-                    </select>
-                    <button onclick="swapPower()" class="swap">⇄</button>
-                    <select id="toPower" onchange="convertPower()">
-                        <option value="kcal" selected>kcal</option>
-                        <option value="j">J</option>
-                        <option value="kj">kJ</option>
-                        <option value="wh">Wh</option>
-                    </select>
-                </div>
-                <div class="result" id="resultPower"></div>
-            </div>
+    <h3 id="powerTitle">能量 / 功率換算</h3>
+    
+    <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
+        <input id="powerInput" type="number" value="1000" oninput="convertPower()" onkeypress="if(event.key==='Enter') convertPower()" style="width:100%; padding:14px; font-size:1.35rem; margin-bottom:15px;">
+        
+        <div style="display:flex; align-items:center; gap:12px; margin:15px 0;">
+            <select id="fromPower" onchange="convertPower()" style="flex:1; padding:12px;">
+                <option value="j" selected>J</option>
+                <option value="kj">kJ</option>
+                <option value="kcal">kcal</option>
+                <option value="wh">Wh</option>
+            </select>
+            <button onclick="swapPower()" style="font-size:1.6rem; padding:8px 16px;">⇄</button>
+            <select id="toPower" onchange="convertPower()" style="flex:1; padding:12px;">
+                <option value="kcal" selected>kcal</option>
+                <option value="j">J</option>
+                <option value="kj">kJ</option>
+                <option value="wh">Wh</option>
+            </select>
         </div>
+        
+        <div class="result" id="resultPower"></div>
+    </div>
+
+    <!-- 能量說明文字 -->
+    <div id="powerDescription" class="description" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-power-title">能量 / 功率換算工具</h3>
+        <p id="desc-power-text">支援焦耳 (J)、千焦 (kJ)、卡路里 (kcal)、瓦時 (Wh) 等能量單位換算，適合物理、營養學、工程或健身使用。</p>
+        <p><strong id="desc-power-tip">使用提示：</strong> <span id="desc-power-tip-text">食物熱量常用 kcal，物理計算常用 J 或 kJ。</span></p>
+    </div>
+</div>
 		
 <!-- Tab 9: BMI 計算器 -->
 <div id="tab-bmi" class="tab-content" style="display: none;">
@@ -544,6 +637,11 @@ function switchLang(lang) {
     if (document.getElementById('powerTitle')) document.getElementById('powerTitle').textContent = t.powerTitle;
     if (document.getElementById('bmiTitle')) document.getElementById('bmiTitle').textContent = t.bmiTitle;
     if (document.getElementById('bmrTitle')) document.getElementById('bmrTitle').textContent = t.bmrTitle;
+	
+	    // About Us 連結切換
+    if (document.getElementById('footerAbout')) {
+        document.getElementById('footerAbout').textContent = (lang === 'en') ? "About Us" : "關於我們";
+    }
 
     // ==================== Discount 專用 ====================
     if (document.getElementById('originalLabel')) document.getElementById('originalLabel').textContent = t.originalLabel;
@@ -572,6 +670,186 @@ function switchLang(lang) {
     // ==================== 貨幣說明文字 - 中英文切換 ====================
     if (document.getElementById('desc-currency-title')) {
         document.getElementById('desc-currency-title').textContent = (lang === 'en') ? "Currency Converter" : "貨幣換算工具";
+		
+// 貨幣說明文字
+    if (document.getElementById('desc-currency-title')) {
+        document.getElementById('desc-currency-title').textContent = (lang === 'en') ? "Currency Converter" : "貨幣換算工具";
+    }
+    if (document.getElementById('desc-currency-text')) {
+        document.getElementById('desc-currency-text').textContent = (lang === 'en')
+            ? "Real-time exchange rates for major currencies (USD, HKD, TWD, JPY, KRW, EUR, GBP, CAD, AUD). Ideal for travel, online shopping, remittance and investment."
+            : "提供即時匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等主要貨幣。適合旅行、網購、匯款或投資使用。";
+    }
+    if (document.getElementById('desc-currency-tip')) {
+        document.getElementById('desc-currency-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-currency-tip-text')) {
+        document.getElementById('desc-currency-tip-text').textContent = (lang === 'en')
+            ? "Rates are updated regularly. Please use the latest rate for large transactions."
+            : "匯率會定期更新，請以最新匯率為準進行大額交易。";
+    }
+
+// 貨幣
+    if (document.getElementById('desc-currency-title')) {
+        document.getElementById('desc-currency-title').textContent = (lang === 'en') ? "Currency Converter" : "貨幣換算工具";
+    }
+    if (document.getElementById('desc-currency-text')) {
+        document.getElementById('desc-currency-text').textContent = (lang === 'en')
+            ? "Real-time exchange rates for major currencies (USD, HKD, TWD, JPY, KRW, EUR, GBP, CAD, AUD). Ideal for travel, online shopping, remittance and investment."
+            : "提供即時匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等主要貨幣。適合旅行、網購、匯款或投資使用。";
+    }
+    if (document.getElementById('desc-currency-tip')) {
+        document.getElementById('desc-currency-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-currency-tip-text')) {
+        document.getElementById('desc-currency-tip-text').textContent = (lang === 'en')
+            ? "Rates are updated regularly. Please use the latest rate for large transactions."
+            : "匯率會定期更新，請以最新匯率為準進行大額交易。";
+    }
+
+    // 折扣
+    if (document.getElementById('desc-discount-title')) {
+        document.getElementById('desc-discount-title').textContent = (lang === 'en') ? "Percentage Discount Calculator" : "百分比折扣計算機";
+    }
+    if (document.getElementById('desc-discount-text')) {
+        document.getElementById('desc-discount-text').textContent = (lang === 'en') 
+            ? "Quickly calculate final price and savings after discount." 
+            : "快速計算折扣後的實際價格和節省金額。";
+    }
+    if (document.getElementById('desc-discount-tip')) {
+        document.getElementById('desc-discount-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-discount-tip-text')) {
+        document.getElementById('desc-discount-tip-text').textContent = (lang === 'en') 
+            ? "Enter original price and discount rate to see result instantly." 
+            : "輸入原價和折扣百分比即可即時看到結果。";
+    }
+
+    // 長度
+    if (document.getElementById('desc-length-title')) {
+        document.getElementById('desc-length-title').textContent = (lang === 'en') ? "Length Converter" : "長度換算工具";
+    }
+    if (document.getElementById('desc-length-text')) {
+        document.getElementById('desc-length-text').textContent = (lang === 'en') 
+            ? "Supports cm, inch, meter, feet, km, mile and more." 
+            : "支援公分、英吋、公尺、英尺、公里、英里等多種單位換算。";
+    }
+    if (document.getElementById('desc-length-tip')) {
+        document.getElementById('desc-length-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-length-tip-text')) {
+        document.getElementById('desc-length-tip-text').textContent = (lang === 'en') 
+            ? "Instant bidirectional conversion." 
+            : "可即時雙向換算。";
+    }
+
+    // 重量
+    if (document.getElementById('desc-weight-title')) {
+        document.getElementById('desc-weight-title').textContent = (lang === 'en') ? "Weight Converter" : "重量換算工具";
+    }
+    if (document.getElementById('desc-weight-text')) {
+        document.getElementById('desc-weight-text').textContent = (lang === 'en') 
+            ? "Supports kg, lb, g, oz and more." 
+            : "支援公斤、磅、公克、盎司等多種重量單位換算。";
+    }
+    if (document.getElementById('desc-weight-tip')) {
+        document.getElementById('desc-weight-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-weight-tip-text')) {
+        document.getElementById('desc-weight-tip-text').textContent = (lang === 'en') 
+            ? "Common for shopping and cooking." 
+            : "國際購物常用公斤轉磅。";
+    }
+
+    // 溫度
+    if (document.getElementById('desc-temp-title')) {
+        document.getElementById('desc-temp-title').textContent = (lang === 'en') ? "Temperature Converter" : "溫度換算工具";
+    }
+    if (document.getElementById('desc-temp-text')) {
+        document.getElementById('desc-temp-text').textContent = (lang === 'en') 
+            ? "Supports °C, °F, K." 
+            : "支援攝氏、華氏、克耳文等多種溫度單位。";
+    }
+    if (document.getElementById('desc-temp-tip')) {
+        document.getElementById('desc-temp-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-temp-tip-text')) {
+        document.getElementById('desc-temp-tip-text').textContent = (lang === 'en') 
+            ? "US uses °F, Asia uses °C." 
+            : "歐美多用華氏，亞洲多用攝氏。";
+    }
+
+    // ==================== 面積說明文字 ====================
+    if (document.getElementById('desc-area-title')) {
+        document.getElementById('desc-area-title').textContent = (lang === 'en') ? "Area Converter" : "面積換算工具";
+    }
+    if (document.getElementById('desc-area-text')) {
+        document.getElementById('desc-area-text').textContent = (lang === 'en') 
+            ? "Professional area unit converter supporting square meters, square feet, ping, hectares, acres and more. Ideal for real estate, renovation, land survey and international property comparison." 
+            : "專業的面積單位換算器，支援平方公尺、平方英尺、坪、公頃、英畝等多種單位。適合房地產買賣、室內裝修、土地測量、農業規劃或國際物業比較使用。";
+    }
+    if (document.getElementById('desc-area-tip')) {
+        document.getElementById('desc-area-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-area-tip-text')) {
+        document.getElementById('desc-area-tip-text').textContent = (lang === 'en') 
+            ? "Ping is commonly used in HK/Taiwan for property. Use square meters or square feet for international comparison when buying properties." 
+            : "香港、台灣常用「坪」，國際多用平方公尺或平方英尺。買樓時可即時轉換不同單位價格進行比較。";
+    }
+
+    // 體積
+    if (document.getElementById('desc-volume-title')) {
+        document.getElementById('desc-volume-title').textContent = (lang === 'en') ? "Volume Converter" : "體積換算工具";
+    }
+    if (document.getElementById('desc-volume-text')) {
+        document.getElementById('desc-volume-text').textContent = (lang === 'en') 
+            ? "Supports L, ml, gal, m³ and more." 
+            : "支援公升、毫升、加侖、立方公尺等多種體積單位。";
+    }
+    if (document.getElementById('desc-volume-tip')) {
+        document.getElementById('desc-volume-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-volume-tip-text')) {
+        document.getElementById('desc-volume-tip-text').textContent = (lang === 'en') 
+            ? "Common for cooking and logistics." 
+            : "烹飪和物流常用。";
+    }
+
+    // 速度
+    if (document.getElementById('desc-speed-title')) {
+        document.getElementById('desc-speed-title').textContent = (lang === 'en') ? "Speed Converter" : "速度換算工具";
+    }
+    if (document.getElementById('desc-speed-text')) {
+        document.getElementById('desc-speed-text').textContent = (lang === 'en') 
+            ? "Supports km/h, mph, m/s, knot and more." 
+            : "支援公里/小時、英里/小時、公尺/秒、節等多種速度單位。";
+    }
+    if (document.getElementById('desc-speed-tip')) {
+        document.getElementById('desc-speed-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-speed-tip-text')) {
+        document.getElementById('desc-speed-tip-text').textContent = (lang === 'en') 
+            ? "Cars use km/h, ships use knot." 
+            : "汽車常用 km/h，船隻常用 knot。";
+    }
+
+    // 能量
+    if (document.getElementById('desc-power-title')) {
+        document.getElementById('desc-power-title').textContent = (lang === 'en') ? "Power / Energy Converter" : "能量 / 功率換算工具";
+    }
+    if (document.getElementById('desc-power-text')) {
+        document.getElementById('desc-power-text').textContent = (lang === 'en') 
+            ? "Supports J, kJ, kcal, Wh and more." 
+            : "支援焦耳、千焦、卡路里、瓦時等多種能量單位。";
+    }
+    if (document.getElementById('desc-power-tip')) {
+        document.getElementById('desc-power-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-power-tip-text')) {
+        document.getElementById('desc-power-tip-text').textContent = (lang === 'en') 
+            ? "Food energy uses kcal, physics uses J/kJ." 
+            : "食物熱量常用 kcal，物理計算常用 J 或 kJ。";
+			
 		
 		    // ==================== BMI 說明文字切換 ====================
     if (document.getElementById('desc-bmi-title')) {
@@ -633,6 +911,10 @@ function switchLang(lang) {
             ? "Rates are updated regularly. Please use the latest rate for large transactions." 
             : "匯率會定期更新，請以最新匯率為準進行大額交易。";
     }
+	
+	// 保存語言設定
+    localStorage.setItem('siteLang', currentLang);
+}
 
     // ==================== 重新顯示目前 Tab ====================
     const activeTab = document.querySelector('.tab-content[style*="block"]');
@@ -729,44 +1011,44 @@ function convertCurrency() {
 function useFallbackRate() {
     const fallbackRates = {
        USD: {
-            HKD: 7.83, TWD: 32.55, JPY: 154.80, CNY: 7.28,
-            EUR: 0.915, GBP: 0.785, CAD: 1.385, AUD: 1.515, KRW: 1395
+            HKD: 7.84, TWD: 32.62, JPY: 155.20, CNY: 7.29,
+            EUR: 0.912, GBP: 0.782, CAD: 1.382, AUD: 1.512, KRW: 1402
         },
         HKD: {
-            USD: 0.1277, TWD: 4.158, JPY: 19.77, CNY: 0.930,
-            EUR: 0.1169, GBP: 0.1003, CAD: 0.1770, AUD: 0.1935, KRW: 178.4
+            USD: 0.1276, TWD: 4.162, JPY: 19.80, CNY: 0.931,
+            EUR: 0.1164, GBP: 0.0998, CAD: 0.1764, AUD: 0.1929, KRW: 178.8
         },
         TWD: {
-            USD: 0.03072, HKD: 0.2405, JPY: 4.755, CNY: 0.2236,
-            EUR: 0.02810, GBP: 0.02412, CAD: 0.04255, AUD: 0.04655, KRW: 42.92
+            USD: 0.03065, HKD: 0.2402, JPY: 4.758, CNY: 0.2234,
+            EUR: 0.02796, GBP: 0.02398, CAD: 0.04238, AUD: 0.04635, KRW: 42.98
         },
         JPY: {
-            USD: 0.00646, HKD: 0.05058, TWD: 0.2103, CNY: 0.04700,
-            EUR: 0.00591, GBP: 0.00507, CAD: 0.00895, AUD: 0.00978, KRW: 9.02
+            USD: 0.006445, HKD: 0.05052, TWD: 0.2102, CNY: 0.04695,
+            EUR: 0.00588, GBP: 0.00504, CAD: 0.00891, AUD: 0.00974, KRW: 9.03
         },
         CNY: {
-            USD: 0.1374, HKD: 1.075, TWD: 4.465, JPY: 21.25,
-            EUR: 0.1258, GBP: 0.1080, CAD: 0.1905, AUD: 0.2082, KRW: 192.8
+            USD: 0.1372, HKD: 1.073, TWD: 4.458, JPY: 21.30,
+            EUR: 0.1251, GBP: 0.1074, CAD: 0.1896, AUD: 0.2074, KRW: 192.3
         },
         EUR: {
-            USD: 1.093, HKD: 8.56, TWD: 35.55, JPY: 169.3,
-            GBP: 0.859, CAD: 1.512, AUD: 1.652, KRW: 1528
+            USD: 1.096, HKD: 8.59, TWD: 35.72, JPY: 170.1,
+            GBP: 0.857, CAD: 1.516, AUD: 1.658, KRW: 1538
         },
         GBP: {
-            USD: 1.274, HKD: 9.97, TWD: 41.45, JPY: 197.5,
-            EUR: 1.164, CAD: 1.767, AUD: 1.932, KRW: 1780
+            USD: 1.278, HKD: 10.01, TWD: 41.72, JPY: 198.4,
+            EUR: 1.167, CAD: 1.772, AUD: 1.937, KRW: 1795
         },
         CAD: {
-            USD: 0.722, HKD: 5.65, TWD: 23.48, JPY: 111.8,
-            EUR: 0.661, GBP: 0.566, AUD: 1.092, KRW: 1004
+            USD: 0.724, HKD: 5.67, TWD: 23.55, JPY: 112.3,
+            EUR: 0.660, GBP: 0.564, AUD: 1.094, KRW: 1015
         },
         AUD: {
-            USD: 0.661, HKD: 5.17, TWD: 21.48, JPY: 102.3,
-            EUR: 0.605, GBP: 0.518, CAD: 0.916, KRW: 919
+            USD: 0.662, HKD: 5.19, TWD: 21.58, JPY: 102.8,
+            EUR: 0.603, GBP: 0.516, CAD: 0.914, KRW: 925
         },
         KRW: {
-            USD: 0.000717, HKD: 0.005605, TWD: 0.02330, JPY: 0.1109,
-            CNY: 0.005186, EUR: 0.000654, GBP: 0.000562, CAD: 0.000996, AUD: 0.001088
+            USD: 0.000713, HKD: 0.00559, TWD: 0.02327, JPY: 0.1106,
+            CNY: 0.00520, EUR: 0.000650, GBP: 0.000557, CAD: 0.000986, AUD: 0.001082
         }
     };
 
@@ -774,7 +1056,7 @@ function useFallbackRate() {
     let result = (amount * rate).toFixed(4);
     
     document.getElementById('currencyResult').innerHTML =
-        `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (May 14, 2026)</small>`;
+        `${amount} ${from} = ${result} ${to}<br><small style="color:#FF9800;">Reference Rate (May 17, 2026)</small>`;
 }
 }
 
@@ -790,16 +1072,25 @@ function swapCurrencies() {
     }
 }
 		
-        function convertLength() {
-            let val = parseFloat(document.getElementById('lengthInput').value) || 0;
-            let from = document.getElementById('fromLength').value;
-            let to = document.getElementById('toLength').value;
-            const factors = {cm:1, inch:2.54, m:100, ft:30.48, km:100000};
-            let result = (val * (factors[from] || 1) / (factors[to] || 1)).toFixed(4);
-            document.getElementById('resultLength').innerHTML = `${val} ${from} = ${result} ${to}`;
-        }
-        function swapLength() { let a = document.getElementById('fromLength'); let b = document.getElementById('toLength'); if(a&&b)[a.value,b.value]=[b.value,a.value]; convertLength(); }
+function convertLength() {
+    let val = parseFloat(document.getElementById('lengthInput').value) || 0;
+    let from = document.getElementById('fromLength').value;
+    let to = document.getElementById('toLength').value;
+    
+    const factors = {cm:1, inch:2.54, m:100, ft:30.48, km:100000, mile:160934};
+    let result = (val * (factors[from] || 1) / (factors[to] || 1)).toFixed(4);
+    
+    document.getElementById('lengthResult').innerHTML = `${val} ${from} = ${result} ${to}`;
+}
 
+function swapLength() {
+    let a = document.getElementById('fromLength');
+    let b = document.getElementById('toLength');
+    if (a && b) {
+        [a.value, b.value] = [b.value, a.value];
+        convertLength();
+    }
+}
         function convertWeight() {
             let val = parseFloat(document.getElementById('weightInput').value) || 0;
             let from = document.getElementById('fromWeight').value;
@@ -823,15 +1114,25 @@ function swapCurrencies() {
         }
         function swapTemp() { let a = document.getElementById('fromTemp'); let b = document.getElementById('toTemp'); if(a&&b)[a.value,b.value]=[b.value,a.value]; convertTemp(); }
 
-        function convertArea() {
-            let val = parseFloat(document.getElementById('areaInput').value) || 0;
-            let from = document.getElementById('fromArea').value;
-            let to = document.getElementById('toArea').value;
-            const factors = {m2:1, ft2:0.092903, yd2:0.836127, ping:3.305785};
-            let result = (val * (factors[from]||1) / (factors[to]||1)).toFixed(4);
-            document.getElementById('resultArea').innerHTML = `${val} ${from} = ${result} ${to}`;
-        }
-        function swapArea() { let a = document.getElementById('fromArea'); let b = document.getElementById('toArea'); if(a&&b)[a.value,b.value]=[b.value,a.value]; convertArea(); }
+function convertArea() {
+    let val = parseFloat(document.getElementById('areaInput').value) || 0;
+    let from = document.getElementById('fromArea').value;
+    let to = document.getElementById('toArea').value;
+    
+    const factors = {m2:1, ft2:0.092903, yd2:0.836127, ping:3.305785, hectare:10000};
+    let result = (val * (factors[from] || 1) / (factors[to] || 1)).toFixed(4);
+    
+    document.getElementById('resultArea').innerHTML = `${val} ${from} = ${result} ${to}`;
+}
+
+function swapArea() {
+    let a = document.getElementById('fromArea');
+    let b = document.getElementById('toArea');
+    if (a && b) {
+        [a.value, b.value] = [b.value, a.value];
+        convertArea();
+    }
+}
 
         function convertVolume() {
             let val = parseFloat(document.getElementById('volumeInput').value) || 0;
@@ -943,10 +1244,11 @@ function calcBMR() {
 		
 		
     </script>
-<!-- Footer -->
+<!-- ==================== Footer ==================== -->
 <div style="text-align:center; margin-top:40px; padding:25px; border-top:3px solid #333; background:#EDEDED;">
-    <a href="privacy.html" style="margin:0 15px; color:#FF8C00; text-decoration:none; font-weight:bold;">Privacy Policy</a>
-    <a href="contact.html" style="margin:0 15px; color:#FF8C00; text-decoration:none; font-weight:bold;">Contact Us</a>
+    <a href="privacy.html" style="margin:0 12px; color:#FF8C00; text-decoration:none; font-weight:bold;" id="footerPrivacy">Privacy Policy</a>
+    <a href="contact.html" style="margin:0 12px; color:#FF8C00; text-decoration:none; font-weight:bold;" id="footerContact">Contact Us</a>
+    <a href="about.html" style="margin:0 12px; color:#FF8C00; text-decoration:none; font-weight:bold;" id="footerAbout">About Us</a>
     <p style="margin-top:15px; font-size:0.9rem; color:#555;">
         © 2026 PercentCalc Pro. All calculations are performed locally in your browser.
     </p>
