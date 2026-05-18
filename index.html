@@ -180,7 +180,8 @@
     <button class="tab-button" data-tab="7" onclick="showTab(7)" id="btn7">速度</button>
     <button class="tab-button" data-tab="8" onclick="showTab(8)" id="btn8">能量</button>
     <button class="tab-button" data-tab="9" onclick="showTab(9)" id="btn9">BMI</button>
-	<button class="tab-button" data-tab="10" onclick="showTab(10)" id="btn10">BMR</button>
+    <button class="tab-button" data-tab="10" onclick="showTab(10)" id="btn10">BMR</button>
+    <button class="tab-button" data-tab="11" onclick="showTab(11)" id="btn11">卡路里</button>
 </div>
 
 <!-- Tab 0: 貨幣換算 -->
@@ -569,6 +570,59 @@
     </div>
 </div>
 
+<!-- ====================== Tab 11: 卡路里計算器 ====================== -->
+<div id="tab-calorie" class="tab-content" style="display: none;">
+    <h3 id="calorieTitle">每日卡路里需求計算器</h3>
+    <p id="calorieSubtitle" style="text-align:center; color:#555; margin:0 0 25px 0;">Daily Calorie Needs Calculator</p>
+    
+    <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
+ <div style="margin-bottom:18px;">
+            <label id="calGenderLabel">Gender / 性別</label>
+            <select id="calGender" onchange="calcCalorie()" style="width:100%; padding:12px; margin-top:8px;">
+                <option value="male" id="calMaleOption">Male</option>
+                <option value="female" id="calFemaleOption">Female</option>
+            </select>
+        </div>
+        
+        <div style="margin-bottom:18px;">
+            <label id="calAgeLabel">Age (years) / 年齡 (歲)</label>
+            <input id="calAge" type="number" value="30" oninput="calcCalorie()" style="width:100%; padding:12px; margin-top:8px;">
+        </div>
+        
+        <div style="margin-bottom:18px;">
+            <label id="calHeightLabel">Height (cm) / 身高 (cm)</label>
+            <input id="calHeight" type="number" value="170" oninput="calcCalorie()" style="width:100%; padding:12px; margin-top:8px;">
+        </div>
+        
+        <div style="margin-bottom:18px;">
+            <label id="calWeightLabel">Weight (kg) / 體重 (kg)</label>
+            <input id="calWeight" type="number" value="65" oninput="calcCalorie()" style="width:100%; padding:12px; margin-top:8px;">
+        </div>
+        
+        <div style="margin-bottom:25px;">
+  <div style="margin-bottom:25px;">
+            <label id="calActivityLabel">Activity Level / 活動水平</label>
+            <select id="calActivity" onchange="calcCalorie()" style="width:100%; padding:12px; margin-top:8px;">
+                <option value="1.2" id="act1">Sedentary</option>
+                <option value="1.375" id="act2" selected>Light Exercise</option>
+                <option value="1.55" id="act3">Moderate</option>
+                <option value="1.725" id="act4">Active</option>
+                <option value="1.9" id="act5">Extra Active</option>
+            </select>
+        </div>
+        
+        <div id="calorieResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:160px; padding:15px; background:#f9f9f9; border-radius:8px;">
+        </div>
+    </div>
+
+    <!-- 說明文字 -->
+    <div id="calorieDescription" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-calorie-title">每日卡路里需求計算器</h3>
+        <p id="desc-calorie-text">根據年齡、性別、身高、體重和活動水平計算每日所需熱量。</p>
+        <p><strong id="desc-calorie-tip">使用提示：</strong> <span id="desc-calorie-tip-text">減脂建議每日少吃 300-500 kcal，增肌則多吃 300-500 kcal。</span></p>
+    </div>
+</div>
+
     <script>
         let currentLang = 'en';
 
@@ -589,6 +643,7 @@ const translations = {
         btn8: "能量",
         btn9: "BMI",
         btn10: "BMR",           // 新增
+		btn11: "卡路里",
         
         // 各計算器標題
         currencyTitle: "貨幣換算",
@@ -631,6 +686,7 @@ const translations = {
         btn8: "Power",
         btn9: "BMI",
         btn10: "BMR",           // 新增
+		btn11: "Calories",
         
         // 各計算器標題
         currencyTitle: "Currency Converter",
@@ -666,10 +722,10 @@ function switchLang(lang) {
     if (document.getElementById('title')) document.getElementById('title').textContent = t.title;
     if (document.getElementById('subTitle')) document.getElementById('subTitle').textContent = t.subTitle;
 
-    for (let i = 0; i <= 10; i++) {
-        const btn = document.getElementById('btn' + i);
-        if (btn) btn.textContent = t['btn' + i];
-    }
+ for (let i = 0; i <= 11; i++) {
+    const btn = document.getElementById('btn' + i);
+    if (btn) btn.textContent = t['btn' + i];
+}
 
     // ==================== 各計算器標題 ====================
     if (document.getElementById('currencyTitle')) document.getElementById('currencyTitle').textContent = t.currencyTitle;
@@ -712,6 +768,45 @@ function switchLang(lang) {
     if (document.getElementById('femaleOption')) {
         document.getElementById('femaleOption').textContent = (lang === 'zh') ? '女性' : 'Female';
     }
+	
+	// ====================== 卡路里計算器 ======================
+function calcCalorie() {
+    const gender = document.getElementById('calGender').value;
+    const age = parseFloat(document.getElementById('calAge').value) || 30;
+    const height = parseFloat(document.getElementById('calHeight').value) || 170;
+    const weight = parseFloat(document.getElementById('calWeight').value) || 65;
+    const activity = parseFloat(document.getElementById('calActivity').value) || 1.375;
+
+    let bmr = 0;
+    if (gender === 'male') {
+        bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+    } else {
+        bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+    }
+
+    const tdee = (bmr * activity).toFixed(0);
+    const maintain = tdee;
+    const lose = (tdee - 500).toFixed(0);
+    const gain = (parseFloat(tdee) + 500).toFixed(0);
+
+    if (currentLang === 'en') {
+        document.getElementById('calorieResult').innerHTML = `
+            <strong>BMR: ${bmr.toFixed(0)} kcal/day</strong><br>
+            TDEE: ${tdee} kcal/day<br><br>
+            <span style="color:#4CAF50;">Maintain Weight: ${maintain} kcal</span><br>
+            <span style="color:#FF9800;">Lose Weight: ${lose} kcal</span><br>
+            <span style="color:#2196F3;">Gain Muscle: ${gain} kcal</span>
+        `;
+    } else {
+        document.getElementById('calorieResult').innerHTML = `
+            <strong>BMR: ${bmr.toFixed(0)} kcal/天</strong><br>
+            TDEE: ${tdee} kcal/天<br><br>
+            <span style="color:#4CAF50;">維持體重：${maintain} kcal</span><br>
+            <span style="color:#FF9800;">減脂：${lose} kcal</span><br>
+            <span style="color:#2196F3;">增肌：${gain} kcal</span>
+        `;
+    }
+}
 
     // ==================== 貨幣說明文字 - 中英文切換 ====================
     if (document.getElementById('desc-currency-title')) {
@@ -932,6 +1027,7 @@ function switchLang(lang) {
             ? "To lose weight, keep daily calories below TDEE. To gain muscle, keep above TDEE. Combine with exercise and balanced diet." 
             : "想減肥可將每日熱量控制在 TDEE 以下，想增肌則控制在 TDEE 以上。建議配合運動和均衡飲食。";
     }
+	
 		
 		// ←←←←← 在這裡貼上 Footer 程式碼 ←←←←←
     // ==================== Footer 連結文字切換 ====================
@@ -960,6 +1056,46 @@ function switchLang(lang) {
 	
 	// 保存語言設定
     localStorage.setItem('siteLang', currentLang);
+	
+		    // ==================== 卡路里 Tab 語言切換 ====================
+    if (document.getElementById('calorieTitle')) {
+        document.getElementById('calorieTitle').textContent = (lang === 'en') ? "Daily Calorie Needs Calculator" : "每日卡路里需求計算器";
+    }
+    if (document.getElementById('calorieSubtitle')) {
+        document.getElementById('calorieSubtitle').textContent = (lang === 'en') ? "Daily Calorie Needs Calculator" : "";
+    }
+    if (document.getElementById('calGenderLabel')) {
+        document.getElementById('calGenderLabel').textContent = (lang === 'en') ? "Gender" : "性別";
+    }
+    if (document.getElementById('calAgeLabel')) {
+        document.getElementById('calAgeLabel').textContent = (lang === 'en') ? "Age (years)" : "年齡 (歲)";
+    }
+    if (document.getElementById('calHeightLabel')) {
+        document.getElementById('calHeightLabel').textContent = (lang === 'en') ? "Height (cm)" : "身高 (cm)";
+    }
+    if (document.getElementById('calWeightLabel')) {
+        document.getElementById('calWeightLabel').textContent = (lang === 'en') ? "Weight (kg)" : "體重 (kg)";
+    }
+    if (document.getElementById('calActivityLabel')) {
+        document.getElementById('calActivityLabel').textContent = (lang === 'en') ? "Activity Level" : "活動水平";
+    }
+    if (document.getElementById('desc-calorie-title')) {
+        document.getElementById('desc-calorie-title').textContent = (lang === 'en') ? "Daily Calorie Needs Calculator" : "每日卡路里需求計算器";
+    }
+    if (document.getElementById('desc-calorie-text')) {
+        document.getElementById('desc-calorie-text').textContent = (lang === 'en') 
+            ? "Calculate your daily calorie requirement based on age, gender, height, weight and activity level." 
+            : "根據年齡、性別、身高、體重和活動水平計算每日所需熱量。";
+    }
+    if (document.getElementById('desc-calorie-tip')) {
+        document.getElementById('desc-calorie-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-calorie-tip-text')) {
+        document.getElementById('desc-calorie-tip-text').textContent = (lang === 'en') 
+            ? "For weight loss: eat 300-500 kcal below TDEE. For muscle gain: eat 300-500 kcal above TDEE." 
+            : "減脂建議每日少吃 300-500 kcal，增肌則多吃 300-500 kcal。";
+    }
+	
 }
 
     // ==================== 重新顯示目前 Tab ====================
@@ -977,41 +1113,53 @@ function switchLang(lang) {
         else if (id === 'tab-power') n = 8;
         else if (id === 'tab-bmi') n = 9;
         else if (id === 'tab-bmr') n = 10;
+        else if (id === 'tab-calorie') n = 11;   // ← 必須是 calorie，不是 bmr
+        
         showTab(n);
     }
 }
 
-// ==================== TAB 切換 (修正版) ====================
-    function showTab(n) {
-        console.log("切換到 Tab:", n);
-
-        // 隱藏所有 Tab
-        document.querySelectorAll('.tab-content').forEach(tab => {
-            tab.style.display = 'none';
-        });
-
-        // 顯示對應 Tab
-        const tabIds = ['tab-currency','tab-discount','tab-length','tab-weight','tab-temp',
-                       'tab-area','tab-volume','tab-speed','tab-power','tab-bmi','tab-bmr'];
-
-        const activeTab = document.getElementById(tabIds[n]);
-        if (activeTab) {
-            activeTab.style.display = 'block';
-        }
-
-        // 更新 TAB 按鈕顏色
-        document.querySelectorAll('.tab-button').forEach(btn => {
-            btn.classList.remove('active');
-            if (parseInt(btn.getAttribute('data-tab')) === n) {
-                btn.classList.add('active');
-            }
-        });
-
-        // 重新計算當前 Tab
-        if (n === 1) calcDiscount();
-        if (n === 9) calcBMI();
-        if (n === 10) calcBMR();
+// ==================== TAB 切換 (最終加強除錯版) ====================
+function showTab(n) {
+    console.log("=== 切換到 Tab:", n, " ===");
+    
+    // 隱藏所有 Tab
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.style.display = 'none';
+    });
+    
+    // Tab ID 對應表
+    const tabIds = [
+        'tab-currency','tab-discount','tab-length','tab-weight','tab-temp',
+        'tab-area','tab-volume','tab-speed','tab-power','tab-bmi',
+        'tab-bmr','tab-calorie'
+    ];
+    
+    const activeTab = document.getElementById(tabIds[n]);
+    if (activeTab) {
+        activeTab.style.display = 'block';
+        console.log("✅ 已顯示:", tabIds[n]);
+    } else {
+        console.log("❌ 找不到 Tab:", tabIds[n]);
     }
+    
+    // 更新按鈕顏色
+    document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+        if (parseInt(btn.getAttribute('data-tab')) === n) {
+            btn.classList.add('active');
+        }
+    });
+    
+    // 即時計算結果
+    if (n === 1) calcDiscount();
+    if (n === 9) calcBMI();
+    if (n === 10) calcBMR();
+    if (n === 11) {
+        console.log("正在執行 calcCalorie()");
+        calcCalorie();
+    }
+}
 
         // ==================== 所有計算功能 ====================
 function calcDiscount() {
@@ -1278,18 +1426,54 @@ function calcBMR() {
     } else {
         bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
     }
-
     const tdee = (bmr * 1.2).toFixed(0);
 
     resultDiv.innerHTML = `
         <strong>BMR: ${bmr.toFixed(0)} kcal/day</strong><br>
         <span style="color:#4CAF50;">TDEE (${currentLang === 'zh' ? '輕度活動' : 'Light Activity'}): ${tdee} kcal/day</span><br><br>
         <small style="color:#666;">
-            ${currentLang === 'zh' ? 
-            'BMR = 基礎代謝率<br>TDEE = 每日總熱量消耗' : 
+            ${currentLang === 'zh' ?
+            'BMR = 基礎代謝率<br>TDEE = 每日總熱量消耗' :
             'BMR = Basal Metabolic Rate<br>TDEE = Total Daily Energy Expenditure'}
         </small>
     `;
+}
+
+// ====================== 卡路里計算器 ======================
+function calcCalorie() {
+    console.log("✅ calcCalorie() 被成功呼叫！");
+    
+    const gender = document.getElementById('calGender').value;
+    const age = parseFloat(document.getElementById('calAge').value) || 30;
+    const height = parseFloat(document.getElementById('calHeight').value) || 170;
+    const weight = parseFloat(document.getElementById('calWeight').value) || 65;
+    const activity = parseFloat(document.getElementById('calActivity').value) || 1.375;
+
+    let bmr = 0;
+    if (gender === 'male') {
+        bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+    } else {
+        bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+    }
+    const tdee = Math.round(bmr * activity);
+
+    if (currentLang === 'en') {
+        document.getElementById('calorieResult').innerHTML = `
+            <strong>BMR: ${bmr.toFixed(0)} kcal/day</strong><br>
+            TDEE: ${tdee} kcal/day<br><br>
+            Maintain: ${tdee} kcal<br>
+            <span style="color:#FF9800;">Lose Weight: ${tdee - 500} kcal</span><br>
+            <span style="color:#4CAF50;">Gain Muscle: ${tdee + 500} kcal</span>
+        `;
+    } else {
+        document.getElementById('calorieResult').innerHTML = `
+            <strong>BMR: ${bmr.toFixed(0)} kcal/天</strong><br>
+            TDEE: ${tdee} kcal/天<br><br>
+            維持體重：${tdee} kcal<br>
+            <span style="color:#FF9800;">減脂：${tdee - 500} kcal</span><br>
+            <span style="color:#4CAF50;">增肌：${tdee + 500} kcal</span>
+        `;
+    }
 }
 		
 		
