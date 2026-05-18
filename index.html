@@ -44,16 +44,72 @@
         h1 { margin: 0; font-size: 2rem; }
         .subtitle { color: #333; margin: 5px 0 0; }
         .lang-select { padding: 9px 14px; font-size: 1rem; background: #FF8C00; color: white; border: none; border-radius: 8px; width: 100%; max-width: 300px; }
-        .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 15px 0; overflow-x: auto; }
-        .tab-button { padding: 10px 16px; background: #555; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; white-space: nowrap; }
-        .tab-button.active { background: #FF8C00; font-weight: bold; }
-        .calculator { display: none; background: #EDEDED; border: 8px solid #333; border-radius: 12px; padding: 20px; margin: 15px 0; }
-        .calculator.active { display: block; }
-         .converter-box { 
-            background: white; 
-            border: 3px solid #333; 
-            border-radius: 12px; 
-            padding: 20px; 
+               .tabs { 
+            display: flex;
+            overflow-x: auto;
+            overflow-y: hidden;
+            gap: 8px;
+            padding: 12px 8px;
+            margin: 15px 0 20px 0;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; 
+        }
+        
+        .tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-button { 
+            padding: 11px 18px; 
+            background: #555; 
+            color: white; 
+            border: none;
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 1rem; 
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        .tab-button.active { 
+            background: #FF8C00; 
+            font-weight: bold; 
+            box-shadow: 0 4px 10px rgba(255, 140, 0, 0.4);
+        }
+
+        .converter-box {
+            background: white;
+            border: 3px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        /* ==================== 手機版優化 ==================== */
+        @media (max-width: 600px) {
+            .container {
+                padding: 12px;
+                border-width: 8px;
+            }
+            
+            .tabs {
+                padding: 10px 6px;
+                gap: 6px;
+            }
+            
+            .tab-button {
+                padding: 9px 14px;
+                font-size: 0.95rem;
+            }
+            
+            .converter-box {
+                padding: 18px 15px;
+            }
+            
+            input, select, button {
+                font-size: 1.2rem;
+                padding: 12px;
+            }
         }
         input, select { 
             width: 100%; 
@@ -446,81 +502,72 @@
     </div>
 </div>
 		
-<!-- Tab 9: BMI 計算器 -->
+<!-- Tab 9: BMI -->
 <div id="tab-bmi" class="tab-content" style="display: none;">
     <h3 id="bmiTitle">BMI 身體質量指數計算器</h3>
     
     <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
         <div style="margin-bottom:20px;">
-            <label id="bmiHeightLabel">身高 (厘米)</label>
-            <input id="bmiHeight" type="number" value="170" oninput="calcBMI()" style="width:100%; padding:12px; margin-top:8px;">
+            <label id="bmiHeightLabel">Height (cm) / 身高 (厘米)</label>
+            <input id="bmiHeight" type="number" value="170" oninput="calcBMI()" style="width:100%; padding:12px; font-size:1.1rem;">
         </div>
         <div style="margin-bottom:25px;">
-            <label id="bmiWeightLabel">體重 (公斤)</label>
-            <input id="bmiWeight" type="number" value="65" oninput="calcBMI()" style="width:100%; padding:12px; margin-top:8px;">
+            <label id="bmiWeightLabel">Weight (kg) / 體重 (公斤)</label>
+            <input id="bmiWeight" type="number" value="65" oninput="calcBMI()" style="width:100%; padding:12px; font-size:1.1rem;">
         </div>
-        <button onclick="calcBMI()" style="width:100%; padding:14px; background:#FF8C00; color:white; border:none; border-radius:8px; font-size:1.1rem;">
-            計算 BMI
-        </button>
-        <div id="bmiResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:90px; padding:15px; background:#f9f9f9; border-radius:8px;"></div>
+        
+        <div id="bmiResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:90px; padding:15px; background:#f9f9f9; border-radius:8px;">
+        </div>
     </div>
 
-    <!-- BMI 說明文字 -->
-    <div id="bmiDescription" class="description" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
-        <h3 id="desc-bmi-title">BMI 是什麼？</h3>
-        <p id="desc-bmi-text">BMI（身體質量指數）是用來評估體重是否健康的常用指標。透過身高和體重計算得出，能幫助判斷是否偏瘦、正常、過重或肥胖。</p>
-        <p><strong id="desc-bmi-tip">使用提示：</strong> <span id="desc-bmi-tip-text">BMI 只供參考，運動員或肌肉量高的人可能會顯示較高數值，建議結合體脂率一起參考。</span></p>
+    <!-- 說明文字 -->
+    <div id="bmiDescription" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-bmi-title">BMI 計算器</h3>
+        <p id="desc-bmi-text">Body Mass Index 身體質量指數，常用來評估體重是否健康。</p>
+        <p><strong id="desc-bmi-tip">使用提示：</strong> <span id="desc-bmi-tip-text">輸入身高和體重即時顯示 BMI 及對應體重分類。</span></p>
     </div>
 </div>
-</div>
 
-<!-- ====================== BMR & TDEE Tab ====================== -->
+<!-- Tab 10: BMR & TDEE -->
 <div id="tab-bmr" class="tab-content" style="display: none;">
     <h3 id="bmrTitle">BMR & TDEE 計算器</h3>
-    <p id="bmrSubtitle" style="text-align:center; color:#555; margin-bottom:25px;">Basal Metabolic Rate & Total Daily Energy Expenditure</p>
-   
+    <p id="bmrSubtitle" style="text-align:center; color:#555; margin:0 0 25px 0;">Basal Metabolic Rate & Total Daily Energy Expenditure</p>
+    
     <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
-       
         <div style="margin-bottom:18px;">
-            <label id="bmrGenderLabel">性別</label>
+            <label id="bmrGenderLabel">Gender / 性別</label>
             <select id="bmrGender" onchange="calcBMR()" style="width:100%; padding:12px; margin-top:8px;">
-                <option value="male" id="maleOption">男性</option>
-                <option value="female" id="femaleOption">女性</option>
+                <option value="male" id="maleOption">Male / 男性</option>
+                <option value="female" id="femaleOption">Female / 女性</option>
             </select>
         </div>
-       
+        
         <div style="margin-bottom:18px;">
-            <label id="bmrAgeLabel">年齡 (歲)</label>
+            <label id="bmrAgeLabel">Age (years) / 年齡 (歲)</label>
             <input id="bmrAge" type="number" value="30" oninput="calcBMR()" style="width:100%; padding:12px; margin-top:8px;">
         </div>
-       
+        
         <div style="margin-bottom:18px;">
-            <label id="bmrHeightLabel">身高 (cm)</label>
+            <label id="bmrHeightLabel">Height (cm) / 身高 (cm)</label>
             <input id="bmrHeight" type="number" value="170" oninput="calcBMR()" style="width:100%; padding:12px; margin-top:8px;">
         </div>
-       
+        
         <div style="margin-bottom:25px;">
-            <label id="bmrWeightLabel">體重 (kg)</label>
+            <label id="bmrWeightLabel">Weight (kg) / 體重 (kg)</label>
             <input id="bmrWeight" type="number" value="65" oninput="calcBMR()" style="width:100%; padding:12px; margin-top:8px;">
         </div>
-       
-        <button onclick="calcBMR()" style="width:100%; padding:14px; background:#FF8C00; color:white; border:none; border-radius:8px; font-size:1.1rem;">
-            計算
-        </button>
-       
+        
         <div id="bmrResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:140px; padding:15px; background:#f9f9f9; border-radius:8px;">
         </div>
+    </div>
 
-        <!-- ✅ 說明文字放在 converter-box 內部，最後面 -->
-        <div id="bmrDescription" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
-            <h3 id="desc-bmr-title">BMR & TDEE 是什麼？</h3>
-            <p id="desc-bmr-text">BMR（基礎代謝率）是指人在休息狀態下維持生命所需的最低熱量。TDEE（每日總熱量消耗）則是包含日常活動後的總熱量消耗，是減肥、增肌的重要參考數據。</p>
-            <p><strong id="desc-bmr-tip">使用提示：</strong> <span id="desc-bmr-tip-text">想減肥可將每日熱量控制在 TDEE 以下，想增肌則控制在 TDEE 以上。建議配合運動和均衡飲食。</span></p>
-        </div>
+    <!-- 說明文字 -->
+    <div id="bmrDescription" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-bmr-title">BMR & TDEE 計算器</h3>
+        <p id="desc-bmr-text">計算基礎代謝率 (BMR) 和每日總熱量消耗 (TDEE)。</p>
+        <p><strong id="desc-bmr-tip">使用提示：</strong> <span id="desc-bmr-tip-text">輸入資料後即時顯示結果。減肥建議熱量低於 TDEE，增肌則高於 TDEE。</span></p>
     </div>
 </div>
-
-		    </div> <!-- 結束 container -->
 
     <script>
         let currentLang = 'en';
