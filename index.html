@@ -223,11 +223,11 @@
     </div>
 
     <!-- ✅ 中英文切換的說明文字 -->
-    <div id="currencyDescription" class="description" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
-        <h3 id="desc-currency-title">貨幣換算工具</h3>
-        <p id="desc-currency-text">提供即時匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等主要貨幣。適合旅行、網購、匯款或投資使用。</p>
-        <p><strong id="desc-currency-tip">使用提示：</strong> <span id="desc-currency-tip-text">匯率會定期更新，請以最新匯率為準進行大額交易。</span></p>
-    </div>
+    <div id="currencyDescription" style="margin-top:25px; padding:25px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+    <h3 id="desc-currency-title">貨幣換算工具</h3>
+    <p id="desc-currency-text">提供即時最新匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等主要貨幣。適合旅行前兌換、網購比價、匯款轉帳或投資理財使用。匯率每日更新，讓你隨時掌握最新市場行情。</p>
+    <p><strong id="desc-currency-tip">使用提示：</strong> <span id="desc-currency-tip-text">大額交易前建議確認最新匯率，避免匯率波動造成損失。支援雙向即時換算，非常方便。</span></p>
+</div>
 </div>
        
 
@@ -250,11 +250,11 @@
         <div class="result" id="discountResult" style="min-height:80px;"></div>
     </div>
 
-    <!-- 說明文字 -->
-    <div id="discountDescription" style="margin-top:30px; padding:25px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+    <!-- 說明文字（豐富版） -->
+    <div id="discountDescription" style="margin-top:25px; padding:25px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
         <h3 id="desc-discount-title">百分比折扣計算機</h3>
-        <p id="desc-discount-text">快速計算折扣後價格和節省金額。適合網購、促銷活動、定價策略使用。</p>
-        <p><strong id="desc-discount-tip">使用提示：</strong> <span id="desc-discount-tip-text">輸入原價和折扣百分比，即時顯示最終價格和節省金額。</span></p>
+        <p id="desc-discount-text">快速計算折扣後的最終價格和節省金額。適合網購比價、促銷活動定價、商店打折計算或個人預算管理使用。輸入原價和折扣百分比即可即時看到結果，非常實用。</p>
+        <p><strong id="desc-discount-tip">使用提示：</strong> <span id="desc-discount-tip-text">網購時可快速比較不同折扣方案，幫助你做出最划算的購買決定，也適合商家計算促銷活動的實際收益。</span></p>
     </div>
 </div>
 		
@@ -290,12 +290,11 @@
         <div class="result" id="lengthResult"></div>
     </div>
 
-    <!-- 說明文字 -->
-    <div id="lengthDescription" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
-        <h3 id="desc-length-title">長度換算工具</h3>
-        <p id="desc-length-text">支援公分、英吋、公尺、英尺、公里、英里等多種單位換算，適合購物、裝修、旅行或工程使用。</p>
-        <p><strong id="desc-length-tip">使用提示：</strong> <span id="desc-length-tip-text">可即時雙向換算，常用於國際購物尺寸轉換或地圖距離計算。</span></p>
-    </div>
+<div id="lengthDescription" style="margin-top:25px; padding:25px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+    <h3 id="desc-length-title">長度換算工具</h3>
+    <p id="desc-length-text">專業的長度單位換算器，支援公分、英吋、公尺、英尺、公里、英里、台尺等多種常見單位。適合國際購物、室內裝修、旅行測量、工程計算或地圖距離轉換使用，即時雙向換算非常方便。</p>
+    <p><strong id="desc-length-tip">使用提示：</strong> <span id="desc-length-tip-text">網購衣服或家具時，可快速將英吋轉公分；旅行時也可即時轉換距離單位，避免混亂。</span></p>
+</div>
 </div>
 
 <!-- Tab 3: 重量換算 -->
@@ -848,76 +847,76 @@ function calcCalorie() {
             : "匯率會定期更新，請以最新匯率為準進行大額交易。";
     }
 
-    // 折扣
+     // ==================== 折扣計算 說明文字 ====================
     if (document.getElementById('desc-discount-title')) {
         document.getElementById('desc-discount-title').textContent = (lang === 'en') ? "Percentage Discount Calculator" : "百分比折扣計算機";
     }
     if (document.getElementById('desc-discount-text')) {
         document.getElementById('desc-discount-text').textContent = (lang === 'en') 
-            ? "Quickly calculate final price and savings after discount." 
-            : "快速計算折扣後的實際價格和節省金額。";
+            ? "Quickly calculate the final price and savings after discount. Suitable for online shopping comparison, promotion pricing, store discount calculation or personal budget management." 
+            : "快速計算折扣後的最終價格和節省金額。適合網購比價、促銷活動定價、商店打折計算或個人預算管理使用。";
     }
     if (document.getElementById('desc-discount-tip')) {
         document.getElementById('desc-discount-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
     }
     if (document.getElementById('desc-discount-tip-text')) {
         document.getElementById('desc-discount-tip-text').textContent = (lang === 'en') 
-            ? "Enter original price and discount rate to see result instantly." 
-            : "輸入原價和折扣百分比即可即時看到結果。";
+            ? "When shopping online, quickly compare different discount plans to make the most cost-effective purchase decision. Also suitable for merchants to calculate actual revenue from promotions." 
+            : "網購時可快速比較不同折扣方案，幫助你做出最划算的購買決定，也適合商家計算促銷活動的實際收益。";
     }
 
-    // 長度
+ // ==================== 長度換算 說明文字 ====================
     if (document.getElementById('desc-length-title')) {
         document.getElementById('desc-length-title').textContent = (lang === 'en') ? "Length Converter" : "長度換算工具";
     }
     if (document.getElementById('desc-length-text')) {
         document.getElementById('desc-length-text').textContent = (lang === 'en') 
-            ? "Supports cm, inch, meter, feet, km, mile and more." 
-            : "支援公分、英吋、公尺、英尺、公里、英里等多種單位換算。";
+            ? "Professional length unit converter supporting cm, inch, meter, feet, km, mile and more. Ideal for international shopping, renovation, travel measurement and engineering calculations."
+            : "專業的長度單位換算器，支援公分、英吋、公尺、英尺、公里、英里等多種單位。適合國際購物、室內裝修、旅行測量或工程計算使用。";
     }
     if (document.getElementById('desc-length-tip')) {
         document.getElementById('desc-length-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
     }
     if (document.getElementById('desc-length-tip-text')) {
         document.getElementById('desc-length-tip-text').textContent = (lang === 'en') 
-            ? "Instant bidirectional conversion." 
-            : "可即時雙向換算。";
+            ? "Quickly convert sizes when shopping online or measuring distance during travel."
+            : "網購衣服或家具時，可快速將英吋轉公分；旅行時也可即時轉換距離單位。";
     }
 
-    // 重量
+ // ==================== 重量換算 說明文字 ====================
     if (document.getElementById('desc-weight-title')) {
         document.getElementById('desc-weight-title').textContent = (lang === 'en') ? "Weight Converter" : "重量換算工具";
     }
     if (document.getElementById('desc-weight-text')) {
         document.getElementById('desc-weight-text').textContent = (lang === 'en') 
-            ? "Supports kg, lb, g, oz and more." 
-            : "支援公斤、磅、公克、盎司等多種重量單位換算。";
+            ? "Supports kg, lb, g, oz, catty and more. Perfect for cooking recipes, online shopping, fitness tracking, logistics and daily use."
+            : "支援公斤、磅、公克、盎司、台斤等多種重量單位換算。適合烹飪配方、國際網購、健身追蹤、物流或日常購物使用。";
     }
     if (document.getElementById('desc-weight-tip')) {
         document.getElementById('desc-weight-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
     }
     if (document.getElementById('desc-weight-tip-text')) {
         document.getElementById('desc-weight-tip-text').textContent = (lang === 'en') 
-            ? "Common for shopping and cooking." 
-            : "國際購物常用公斤轉磅。";
+            ? "Commonly used for converting recipe units and international shopping weights."
+            : "國際購物常用公斤轉磅，烹飪食譜常用公克與盎司轉換。";
     }
 
-    // 溫度
+ // ==================== 溫度換算 說明文字 ====================
     if (document.getElementById('desc-temp-title')) {
         document.getElementById('desc-temp-title').textContent = (lang === 'en') ? "Temperature Converter" : "溫度換算工具";
     }
     if (document.getElementById('desc-temp-text')) {
         document.getElementById('desc-temp-text').textContent = (lang === 'en') 
-            ? "Supports °C, °F, K." 
-            : "支援攝氏、華氏、克耳文等多種溫度單位。";
+            ? "Supports Celsius (°C), Fahrenheit (°F) and Kelvin (K). Useful for travel weather check, cooking, scientific experiments and daily temperature conversion."
+            : "支援攝氏 (°C)、華氏 (°F)、克耳文 (K) 三種溫度單位即時換算。適合旅行查天氣、烹飪烘焙、科學實驗或日常氣溫轉換使用。";
     }
     if (document.getElementById('desc-temp-tip')) {
         document.getElementById('desc-temp-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
     }
     if (document.getElementById('desc-temp-tip-text')) {
         document.getElementById('desc-temp-tip-text').textContent = (lang === 'en') 
-            ? "US uses °F, Asia uses °C." 
-            : "歐美多用華氏，亞洲多用攝氏。";
+            ? "Most countries use °C, US uses °F, scientific calculations often use Kelvin."
+            : "歐美國家多用華氏，亞洲和科學計算常用攝氏，克耳文常用於物理和工程。";
     }
 
     // ==================== 面積說明文字 ====================
@@ -938,67 +937,67 @@ function calcCalorie() {
             : "香港、台灣常用「坪」，國際多用平方公尺或平方英尺。買樓時可即時轉換不同單位價格進行比較。";
     }
 
-    // 體積
+ // ==================== 體積換算 說明文字 ====================
     if (document.getElementById('desc-volume-title')) {
         document.getElementById('desc-volume-title').textContent = (lang === 'en') ? "Volume Converter" : "體積換算工具";
     }
     if (document.getElementById('desc-volume-text')) {
         document.getElementById('desc-volume-text').textContent = (lang === 'en') 
-            ? "Supports L, ml, gal, m³ and more." 
-            : "支援公升、毫升、加侖、立方公尺等多種體積單位。";
+            ? "Professional volume unit converter supporting liter, milliliter, gallon, cup, cubic meter and more. Ideal for cooking recipes, beverage purchasing, logistics and scientific experiments."
+            : "專業的體積單位換算器，支援公升、毫升、加侖、杯、立方公尺等多種單位。適合烹飪食譜轉換、飲料購買、物流或科學實驗使用。";
     }
     if (document.getElementById('desc-volume-tip')) {
         document.getElementById('desc-volume-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
     }
     if (document.getElementById('desc-volume-tip-text')) {
         document.getElementById('desc-volume-tip-text').textContent = (lang === 'en') 
-            ? "Common for cooking and logistics." 
-            : "烹飪和物流常用。";
+            ? "International recipes often use ml and gallon, logistics use cubic meter."
+            : "國際食譜常用毫升與加侖轉換，物流常用立方公尺計算空間。";
     }
 
-    // 速度
+  // ==================== 速度換算 說明文字 ====================
     if (document.getElementById('desc-speed-title')) {
         document.getElementById('desc-speed-title').textContent = (lang === 'en') ? "Speed Converter" : "速度換算工具";
     }
     if (document.getElementById('desc-speed-text')) {
         document.getElementById('desc-speed-text').textContent = (lang === 'en') 
-            ? "Supports km/h, mph, m/s, knot and more." 
-            : "支援公里/小時、英里/小時、公尺/秒、節等多種速度單位。";
+            ? "Supports km/h, mph, m/s, knot and more. Suitable for driving, navigation, aviation, sports training and scientific calculations."
+            : "支援公里/小時、英里/小時、公尺/秒、節等多種速度單位即時換算。適合駕駛、航海、飛行、運動訓練或科學計算使用。";
     }
     if (document.getElementById('desc-speed-tip')) {
         document.getElementById('desc-speed-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
     }
     if (document.getElementById('desc-speed-tip-text')) {
         document.getElementById('desc-speed-tip-text').textContent = (lang === 'en') 
-            ? "Cars use km/h, ships use knot." 
-            : "汽車常用 km/h，船隻常用 knot。";
+            ? "Cars use km/h, ships and planes use knot."
+            : "汽車常用 km/h，船隻和飛機常用 knot。";
     }
 
-    // 能量
+  // ==================== 能量 / 功率換算 說明文字 ====================
     if (document.getElementById('desc-power-title')) {
         document.getElementById('desc-power-title').textContent = (lang === 'en') ? "Power / Energy Converter" : "能量 / 功率換算工具";
     }
     if (document.getElementById('desc-power-text')) {
         document.getElementById('desc-power-text').textContent = (lang === 'en') 
-            ? "Supports J, kJ, kcal, Wh and more." 
-            : "支援焦耳、千焦、卡路里、瓦時等多種能量單位。";
+            ? "Supports Joule (J), Kilojoule (kJ), Kilocalorie (kcal), Watt-hour (Wh) and more. Useful for physics, nutrition, fitness tracking and engineering."
+            : "支援焦耳 (J)、千焦 (kJ)、卡路里 (kcal)、瓦時 (Wh) 等能量與功率單位換算。適合物理計算、營養學、健身追蹤或工程使用。";
     }
     if (document.getElementById('desc-power-tip')) {
         document.getElementById('desc-power-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
     }
     if (document.getElementById('desc-power-tip-text')) {
         document.getElementById('desc-power-tip-text').textContent = (lang === 'en') 
-            ? "Food energy uses kcal, physics uses J/kJ." 
-            : "食物熱量常用 kcal，物理計算常用 J 或 kJ。";
-			
+            ? "Food energy uses kcal, physics uses J/kJ."
+            : "食物熱量常用 kcal，物理和工程計算常用 J 或 kJ。";
+    
 		
-		    // ==================== BMI 說明文字切換 ====================
+    // ==================== BMI 說明文字 ====================
     if (document.getElementById('desc-bmi-title')) {
-        document.getElementById('desc-bmi-title').textContent = (lang === 'en') ? "What is BMI?" : "BMI 是什麼？";
+        document.getElementById('desc-bmi-title').textContent = (lang === 'en') ? "BMI Calculator" : "BMI 身體質量指數計算器";
     }
     if (document.getElementById('desc-bmi-text')) {
         document.getElementById('desc-bmi-text').textContent = (lang === 'en') 
-            ? "BMI (Body Mass Index) is a common indicator used to assess whether your weight is healthy based on height and weight." 
+            ? "Body Mass Index (BMI) is a common indicator to assess whether your weight is healthy based on height and weight." 
             : "BMI（身體質量指數）是用來評估體重是否健康的常用指標，透過身高和體重計算得出。";
     }
     if (document.getElementById('desc-bmi-tip')) {
@@ -1006,26 +1005,44 @@ function calcCalorie() {
     }
     if (document.getElementById('desc-bmi-tip-text')) {
         document.getElementById('desc-bmi-tip-text').textContent = (lang === 'en') 
-            ? "BMI is for reference only. Athletes or people with high muscle mass may show higher values." 
+            ? "BMI is for reference only. Athletes or people with high muscle mass may show higher values. Combine with body fat percentage for better assessment."
             : "BMI 只供參考，運動員或肌肉量高的人可能會顯示較高數值，建議結合體脂率一起參考。";
     }
 
-    // ==================== BMR 說明文字切換 ====================
+    // ==================== BMR & TDEE 說明文字 ====================
     if (document.getElementById('desc-bmr-title')) {
-        document.getElementById('desc-bmr-title').textContent = (lang === 'en') ? "What is BMR & TDEE?" : "BMR & TDEE 是什麼？";
+        document.getElementById('desc-bmr-title').textContent = (lang === 'en') ? "BMR & TDEE Calculator" : "BMR & TDEE 計算器";
     }
     if (document.getElementById('desc-bmr-text')) {
         document.getElementById('desc-bmr-text').textContent = (lang === 'en') 
-            ? "BMR (Basal Metabolic Rate) is the minimum calories needed to maintain life at rest. TDEE (Total Daily Energy Expenditure) is the total calories burned including daily activities." 
-            : "BMR（基礎代謝率）是指人在休息狀態下維持生命所需的最低熱量。TDEE（每日總熱量消耗）則是包含日常活動後的總熱量消耗。";
+            ? "BMR (Basal Metabolic Rate) is the calories needed at rest. TDEE (Total Daily Energy Expenditure) includes daily activities. Useful for weight management."
+            : "BMR（基礎代謝率）是指休息狀態下維持生命所需熱量。TDEE（每日總熱量消耗）包含日常活動後的總熱量。適合減肥、維持或增肌使用。";
     }
     if (document.getElementById('desc-bmr-tip')) {
         document.getElementById('desc-bmr-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
     }
     if (document.getElementById('desc-bmr-tip-text')) {
         document.getElementById('desc-bmr-tip-text').textContent = (lang === 'en') 
-            ? "To lose weight, keep daily calories below TDEE. To gain muscle, keep above TDEE. Combine with exercise and balanced diet." 
+            ? "To lose weight: eat below TDEE. To gain muscle: eat above TDEE. Combine with exercise."
             : "想減肥可將每日熱量控制在 TDEE 以下，想增肌則控制在 TDEE 以上。建議配合運動和均衡飲食。";
+    }
+
+    // ==================== 卡路里計算器 說明文字 ====================
+    if (document.getElementById('desc-calorie-title')) {
+        document.getElementById('desc-calorie-title').textContent = (lang === 'en') ? "Daily Calorie Needs Calculator" : "每日卡路里需求計算器";
+    }
+    if (document.getElementById('desc-calorie-text')) {
+        document.getElementById('desc-calorie-text').textContent = (lang === 'en') 
+            ? "Calculate your daily calorie requirement based on age, gender, height, weight and activity level. Useful for weight loss, maintenance and muscle gain."
+            : "根據年齡、性別、身高、體重和活動水平計算每日所需熱量。適合減脂、維持體重或增肌使用。";
+    }
+    if (document.getElementById('desc-calorie-tip')) {
+        document.getElementById('desc-calorie-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-calorie-tip-text')) {
+        document.getElementById('desc-calorie-tip-text').textContent = (lang === 'en') 
+            ? "For weight loss: eat 300-500 kcal below TDEE. For muscle gain: eat 300-500 kcal above TDEE."
+            : "減脂建議每日少吃 300-500 kcal，增肌則多吃 300-500 kcal。";
     }
 	
 	    // ==================== 卡路里 Tab 下拉選項語言 ====================
