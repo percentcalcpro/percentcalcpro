@@ -1028,6 +1028,30 @@ function calcCalorie() {
             : "想減肥可將每日熱量控制在 TDEE 以下，想增肌則控制在 TDEE 以上。建議配合運動和均衡飲食。";
     }
 	
+	    // ==================== 卡路里 Tab 下拉選項語言 ====================
+    if (document.getElementById('calMaleOption')) {
+        document.getElementById('calMaleOption').textContent = (lang === 'en') ? "Male" : "男性";
+    }
+    if (document.getElementById('calFemaleOption')) {
+        document.getElementById('calFemaleOption').textContent = (lang === 'en') ? "Female" : "女性";
+    }
+    if (document.getElementById('act1')) {
+        document.getElementById('act1').textContent = (lang === 'en') ? "Sedentary" : "久坐";
+    }
+    if (document.getElementById('act2')) {
+        document.getElementById('act2').textContent = (lang === 'en') ? "Light Exercise" : "輕度運動";
+    }
+    if (document.getElementById('act3')) {
+        document.getElementById('act3').textContent = (lang === 'en') ? "Moderate" : "中度運動";
+    }
+    if (document.getElementById('act4')) {
+        document.getElementById('act4').textContent = (lang === 'en') ? "Active" : "活躍";
+    }
+    if (document.getElementById('act5')) {
+        document.getElementById('act5').textContent = (lang === 'en') ? "Extra Active" : "非常活躍";
+    }
+	
+	
 		
 		// ←←←←← 在這裡貼上 Footer 程式碼 ←←←←←
     // ==================== Footer 連結文字切換 ====================
@@ -1054,8 +1078,6 @@ function calcCalorie() {
             : "匯率會定期更新，請以最新匯率為準進行大額交易。";
     }
 	
-	// 保存語言設定
-    localStorage.setItem('siteLang', currentLang);
 	
 		    // ==================== 卡路里 Tab 語言切換 ====================
     if (document.getElementById('calorieTitle')) {
@@ -1094,6 +1116,10 @@ function calcCalorie() {
         document.getElementById('desc-calorie-tip-text').textContent = (lang === 'en') 
             ? "For weight loss: eat 300-500 kcal below TDEE. For muscle gain: eat 300-500 kcal above TDEE." 
             : "減脂建議每日少吃 300-500 kcal，增肌則多吃 300-500 kcal。";
+			
+			
+				// 保存語言設定
+    localStorage.setItem('siteLang', currentLang);
     }
 	
 }
