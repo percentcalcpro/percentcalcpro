@@ -223,11 +223,11 @@
     </div>
 
     <!-- ✅ 中英文切換的說明文字 -->
-    <div id="currencyDescription" style="margin-top:25px; padding:25px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
-    <h3 id="desc-currency-title">貨幣換算工具</h3>
-    <p id="desc-currency-text">提供即時最新匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等主要貨幣。適合旅行前兌換、網購比價、匯款轉帳或投資理財使用。匯率每日更新，讓你隨時掌握最新市場行情。</p>
-    <p><strong id="desc-currency-tip">使用提示：</strong> <span id="desc-currency-tip-text">大額交易前建議確認最新匯率，避免匯率波動造成損失。支援雙向即時換算，非常方便。</span></p>
-</div>
+    <div id="currencyDescription" class="description" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-currency-title">貨幣換算工具</h3>
+        <p id="desc-currency-text">提供即時匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等主要貨幣。適合旅行、網購、匯款或投資使用。</p>
+        <p><strong id="desc-currency-tip">使用提示：</strong> <span id="desc-currency-tip-text">匯率會定期更新，請以最新匯率為準進行大額交易。</span></p>
+    </div>
 </div>
        
 
@@ -250,11 +250,11 @@
         <div class="result" id="discountResult" style="min-height:80px;"></div>
     </div>
 
-    <!-- 說明文字（豐富版） -->
-    <div id="discountDescription" style="margin-top:25px; padding:25px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+    <!-- 說明文字 -->
+    <div id="discountDescription" style="margin-top:30px; padding:25px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
         <h3 id="desc-discount-title">百分比折扣計算機</h3>
-        <p id="desc-discount-text">快速計算折扣後的最終價格和節省金額。適合網購比價、促銷活動定價、商店打折計算或個人預算管理使用。輸入原價和折扣百分比即可即時看到結果，非常實用。</p>
-        <p><strong id="desc-discount-tip">使用提示：</strong> <span id="desc-discount-tip-text">網購時可快速比較不同折扣方案，幫助你做出最划算的購買決定，也適合商家計算促銷活動的實際收益。</span></p>
+        <p id="desc-discount-text">快速計算折扣後價格和節省金額。適合網購、促銷活動、定價策略使用。</p>
+        <p><strong id="desc-discount-tip">使用提示：</strong> <span id="desc-discount-tip-text">輸入原價和折扣百分比，即時顯示最終價格和節省金額。</span></p>
     </div>
 </div>
 		
@@ -290,11 +290,12 @@
         <div class="result" id="lengthResult"></div>
     </div>
 
-<div id="lengthDescription" style="margin-top:25px; padding:25px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
-    <h3 id="desc-length-title">長度換算工具</h3>
-    <p id="desc-length-text">專業的長度單位換算器，支援公分、英吋、公尺、英尺、公里、英里、台尺等多種常見單位。適合國際購物、室內裝修、旅行測量、工程計算或地圖距離轉換使用，即時雙向換算非常方便。</p>
-    <p><strong id="desc-length-tip">使用提示：</strong> <span id="desc-length-tip-text">網購衣服或家具時，可快速將英吋轉公分；旅行時也可即時轉換距離單位，避免混亂。</span></p>
-</div>
+    <!-- 說明文字 -->
+    <div id="lengthDescription" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-length-title">長度換算工具</h3>
+        <p id="desc-length-text">支援公分、英吋、公尺、英尺、公里、英里等多種單位換算，適合購物、裝修、旅行或工程使用。</p>
+        <p><strong id="desc-length-tip">使用提示：</strong> <span id="desc-length-tip-text">可即時雙向換算，常用於國際購物尺寸轉換或地圖距離計算。</span></p>
+    </div>
 </div>
 
 <!-- Tab 3: 重量換算 -->
@@ -573,33 +574,32 @@
 <div id="tab-calorie" class="tab-content" style="display: none;">
     <h3 id="calorieTitle">每日卡路里需求計算器</h3>
     <p id="calorieSubtitle" style="text-align:center; color:#555; margin:0 0 25px 0;">Daily Calorie Needs Calculator</p>
-    
+   
     <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
- <div style="margin-bottom:18px;">
+        <div style="margin-bottom:18px;">
             <label id="calGenderLabel">Gender / 性別</label>
             <select id="calGender" onchange="calcCalorie()" style="width:100%; padding:12px; margin-top:8px;">
                 <option value="male" id="calMaleOption">Male</option>
                 <option value="female" id="calFemaleOption">Female</option>
             </select>
         </div>
-        
+       
         <div style="margin-bottom:18px;">
             <label id="calAgeLabel">Age (years) / 年齡 (歲)</label>
             <input id="calAge" type="number" value="30" oninput="calcCalorie()" style="width:100%; padding:12px; margin-top:8px;">
         </div>
-        
+       
         <div style="margin-bottom:18px;">
             <label id="calHeightLabel">Height (cm) / 身高 (cm)</label>
             <input id="calHeight" type="number" value="170" oninput="calcCalorie()" style="width:100%; padding:12px; margin-top:8px;">
         </div>
-        
+       
         <div style="margin-bottom:18px;">
             <label id="calWeightLabel">Weight (kg) / 體重 (kg)</label>
             <input id="calWeight" type="number" value="65" oninput="calcCalorie()" style="width:100%; padding:12px; margin-top:8px;">
         </div>
-        
+       
         <div style="margin-bottom:25px;">
-  <div style="margin-bottom:25px;">
             <label id="calActivityLabel">Activity Level / 活動水平</label>
             <select id="calActivity" onchange="calcCalorie()" style="width:100%; padding:12px; margin-top:8px;">
                 <option value="1.2" id="act1">Sedentary</option>
@@ -609,11 +609,11 @@
                 <option value="1.9" id="act5">Extra Active</option>
             </select>
         </div>
-        
+       
         <div id="calorieResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:160px; padding:15px; background:#f9f9f9; border-radius:8px;">
         </div>
     </div>
-
+    
     <!-- 說明文字 -->
     <div id="calorieDescription" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
         <h3 id="desc-calorie-title">每日卡路里需求計算器</h3>
@@ -622,7 +622,10 @@
     </div>
 </div>
 
-    <script>
+
+
+
+  <script>
         let currentLang = 'en';
 
 const translations = {
@@ -1069,8 +1072,6 @@ function calcCalorie() {
     }
 	
 	
-		
-		// ←←←←← 在這裡貼上 Footer 程式碼 ←←←←←
     // ==================== Footer 連結文字切換 ====================
     if (document.getElementById('footerPrivacy')) {
         document.getElementById('footerPrivacy').textContent = (lang === 'en') ? "Privacy Policy" : "隱私權政策";
@@ -1485,13 +1486,12 @@ function calcBMR() {
 // ====================== 卡路里計算器 ======================
 function calcCalorie() {
     console.log("✅ calcCalorie() 被成功呼叫！");
-    
+ 
     const gender = document.getElementById('calGender').value;
     const age = parseFloat(document.getElementById('calAge').value) || 30;
     const height = parseFloat(document.getElementById('calHeight').value) || 170;
     const weight = parseFloat(document.getElementById('calWeight').value) || 65;
     const activity = parseFloat(document.getElementById('calActivity').value) || 1.375;
-
     let bmr = 0;
     if (gender === 'male') {
         bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
@@ -1499,7 +1499,6 @@ function calcCalorie() {
         bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
     }
     const tdee = Math.round(bmr * activity);
-
     if (currentLang === 'en') {
         document.getElementById('calorieResult').innerHTML = `
             <strong>BMR: ${bmr.toFixed(0)} kcal/day</strong><br>
@@ -1518,21 +1517,18 @@ function calcCalorie() {
         `;
     }
 }
-		
-		
     </script>
-<!-- ==================== Footer ==================== -->
-<div style="text-align:center; margin-top:40px; padding:25px; border-top:3px solid #333; background:#EDEDED;">
-    <a href="privacy.html" style="margin:0 12px; color:#FF8C00; text-decoration:none; font-weight:bold;" id="footerPrivacy">Privacy Policy</a>
-    <a href="contact.html" style="margin:0 12px; color:#FF8C00; text-decoration:none; font-weight:bold;" id="footerContact">Contact Us</a>
-    <a href="about.html" style="margin:0 12px; color:#FF8C00; text-decoration:none; font-weight:bold;" id="footerAbout">About Us</a>
-    <p style="margin-top:15px; font-size:0.9rem; color:#555;">
-        © 2026 PercentCalc Pro. All calculations are performed locally in your browser.
-    </p>
-</div>
-    </div>   <!-- container 結束 -->
 
-</body>
-</html>
+    <!-- ==================== Footer (全站顯示 - 正確位置) ==================== -->
+    <div style="text-align:center; margin-top:80px; padding:40px; border-top:5px solid #333; background:#EDEDED;">
+        <a href="privacy.html" style="margin:0 20px; color:#FF8C00; text-decoration:none; font-weight:bold;" id="footerPrivacy">Privacy Policy</a>
+        <a href="contact.html" style="margin:0 20px; color:#FF8C00; text-decoration:none; font-weight:bold;" id="footerContact">Contact Us</a>
+        <a href="about.html" style="margin:0 20px; color:#FF8C00; text-decoration:none; font-weight:bold;" id="footerAbout">About Us</a>
+        <p style="margin-top:30px; font-size:0.95rem; color:#555;">
+            © 2026 PercentCalc Pro. All calculations are performed locally in your browser.
+        </p>
+    </div>
+</div>   <!-- container 結束 -->
+
 </body>
 </html>
