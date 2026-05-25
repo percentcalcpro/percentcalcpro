@@ -182,6 +182,7 @@
     <button class="tab-button" data-tab="9" onclick="showTab(9)" id="btn9">BMI</button>
     <button class="tab-button" data-tab="10" onclick="showTab(10)" id="btn10">BMR</button>
     <button class="tab-button" data-tab="11" onclick="showTab(11)" id="btn11">卡路里</button>
+	<button class="tab-button" data-tab="12" onclick="showTab(12)" id="btn12">寵物年齡</button>
 </div>
 
 <!-- Tab 0: 貨幣換算 -->
@@ -622,7 +623,41 @@
     </div>
 </div>
 
-
+<!-- ====================== Tab 12: 寵物年齡計算器 ====================== -->
+<div id="tab-pet" class="tab-content" style="display: none;">
+    <h3 id="petTitle">寵物年齡轉人類年齡</h3>
+    <p id="petSubtitle" style="text-align:center; color:#555; margin:0 0 25px 0;">Pet Age to Human Age Calculator</p>
+   
+    <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
+ <div style="margin-bottom:20px;">
+    <label id="petTypeLabel">寵物種類 / Pet Type</label>
+    <select id="petType" onchange="calcPetAge()" style="width:100%; padding:12px; margin-top:8px;">
+        <option value="dog" id="petDogOption">狗 Dog</option>
+        <option value="cat" id="petCatOption" selected>貓 Cat</option>
+        <option value="rabbit" id="petRabbitOption">兔子 Rabbit</option>
+        <option value="hamster" id="petHamsterOption">倉鼠 Hamster</option>
+        <option value="bird" id="petBirdOption">鳥類 Bird</option>
+        <option value="turtle" id="petTurtleOption">烏龜 Turtle</option>
+        <option value="horse" id="petHorseOption">馬 Horse</option>
+    </select>
+</div>
+       
+        <div style="margin-bottom:25px;">
+            <label id="petAgeLabel">寵物年齡 (歲) / Pet Age (years)</label>
+            <input id="petAge" type="number" value="5" oninput="calcPetAge()" style="width:100%; padding:12px; margin-top:8px;">
+        </div>
+       
+        <div id="petResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:140px; padding:20px; background:#f9f9f9; border-radius:8px;">
+        </div>
+    </div>
+    
+    <!-- 說明文字 -->
+    <div id="petDescription" style="margin-top:25px; padding:25px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-pet-title">寵物年齡轉人類年齡</h3>
+<p id="desc-pet-text">將狗、貓、兔子、倉鼠、鳥類、烏龜、馬等寵物的實際年齡，轉換成相當於人類的年齡。不同動物衰老速度差異很大。</p>
+<p><strong id="desc-pet-tip">使用提示：</strong> <span id="desc-pet-tip-text">小型動物通常老得比較快。此工具適合了解寵物目前生命階段、安排生日或健康檢查。</span></p>
+    </div>
+</div>
 
 
   <script>
@@ -646,6 +681,7 @@ const translations = {
         btn9: "BMI",
         btn10: "BMR",           // 新增
 		btn11: "卡路里",
+		btn12: "寵物年齡",
         
         // 各計算器標題
         currencyTitle: "貨幣換算",
@@ -689,6 +725,7 @@ const translations = {
         btn9: "BMI",
         btn10: "BMR",           // 新增
 		btn11: "Calories",
+		btn12: "Pet Age",
         
         // 各計算器標題
         currencyTitle: "Currency Converter",
@@ -720,16 +757,17 @@ function switchLang(lang) {
     currentLang = lang;
     const t = translations[lang];
 
-    // 主標題與 Tab 按鈕
+    // 主標題與副標題
     if (document.getElementById('title')) document.getElementById('title').textContent = t.title;
     if (document.getElementById('subTitle')) document.getElementById('subTitle').textContent = t.subTitle;
 
- for (let i = 0; i <= 11; i++) {
-    const btn = document.getElementById('btn' + i);
-    if (btn) btn.textContent = t['btn' + i];
-}
+    // Tab 按鈕 (0~12)
+    for (let i = 0; i <= 12; i++) {
+        const btn = document.getElementById('btn' + i);
+        if (btn) btn.textContent = t['btn' + i];
+    }
 
-    // ==================== 各計算器標題 ====================
+    // 各計算器標題
     if (document.getElementById('currencyTitle')) document.getElementById('currencyTitle').textContent = t.currencyTitle;
     if (document.getElementById('discountTitle')) document.getElementById('discountTitle').textContent = t.discountTitle;
     if (document.getElementById('lengthTitle')) document.getElementById('lengthTitle').textContent = t.lengthTitle;
@@ -741,15 +779,20 @@ function switchLang(lang) {
     if (document.getElementById('powerTitle')) document.getElementById('powerTitle').textContent = t.powerTitle;
     if (document.getElementById('bmiTitle')) document.getElementById('bmiTitle').textContent = t.bmiTitle;
     if (document.getElementById('bmrTitle')) document.getElementById('bmrTitle').textContent = t.bmrTitle;
+    if (document.getElementById('calorieTitle')) document.getElementById('calorieTitle').textContent = t.calorieTitle;
+    if (document.getElementById('petTitle')) document.getElementById('petTitle').textContent = t.petTitle;   // ← 新增這一行
 	
 	    // About Us 連結切換
     if (document.getElementById('footerAbout')) {
         document.getElementById('footerAbout').textContent = (lang === 'en') ? "About Us" : "關於我們";
     }
+	
 
     // ==================== Discount 專用 ====================
     if (document.getElementById('originalLabel')) document.getElementById('originalLabel').textContent = t.originalLabel;
     if (document.getElementById('rateLabel')) document.getElementById('rateLabel').textContent = t.rateLabel;
+	
+
 
     // ==================== BMR 專用 ====================
     if (document.getElementById('bmrSubtitle')) document.getElementById('bmrSubtitle').textContent = t.bmrSubtitle;
@@ -831,6 +874,8 @@ function calcCalorie() {
             ? "Rates are updated regularly. Please use the latest rate for large transactions."
             : "匯率會定期更新，請以最新匯率為準進行大額交易。";
     }
+	
+	
 
 // 貨幣
     if (document.getElementById('desc-currency-title')) {
@@ -1048,6 +1093,24 @@ function calcCalorie() {
             : "減脂建議每日少吃 300-500 kcal，增肌則多吃 300-500 kcal。";
     }
 	
+     // ==================== 寵物年齡說明文字 ====================
+    if (document.getElementById('desc-pet-title')) {
+        document.getElementById('desc-pet-title').textContent = (lang === 'en') ? "Pet Age to Human Age Calculator" : "寵物年齡轉人類年齡";
+    }
+    if (document.getElementById('desc-pet-text')) {
+        document.getElementById('desc-pet-text').textContent = (lang === 'en')
+            ? "Convert your pet's real age (dog, cat, rabbit, hamster, bird, turtle, horse) to equivalent human age using scientific formulas. Different animals age at different rates."
+            : "根據科學公式將狗、貓、兔子、倉鼠、鳥類、烏龜、馬等寵物的實際年齡，轉換成相當於人類的年齡。不同動物衰老速度有明顯差異。";
+    }
+    if (document.getElementById('desc-pet-tip')) {
+        document.getElementById('desc-pet-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-pet-tip-text')) {
+        document.getElementById('desc-pet-tip-text').textContent = (lang === 'en')
+            ? "Small animals tend to age faster. Useful for understanding your pet's health stage and planning birthdays or vet visits."
+            : "小型動物通常衰老較快。此工具適合了解寵物目前生命階段、安排生日或健康檢查。";
+    }
+	
 	    // ==================== 卡路里 Tab 下拉選項語言 ====================
     if (document.getElementById('calMaleOption')) {
         document.getElementById('calMaleOption').textContent = (lang === 'en') ? "Male" : "男性";
@@ -1079,7 +1142,32 @@ function calcCalorie() {
     if (document.getElementById('footerContact')) {
         document.getElementById('footerContact').textContent = (lang === 'en') ? "Contact Us" : "聯絡我們";
     }
-		
+	
+	    // ==================== 寵物選項語言切換 ====================
+    if (document.getElementById('petDogOption')) {
+        document.getElementById('petDogOption').textContent = (lang === 'en') ? "Dog" : "狗 Dog";
+    }
+    if (document.getElementById('petCatOption')) {
+        document.getElementById('petCatOption').textContent = (lang === 'en') ? "Cat" : "貓 Cat";
+    }
+    if (document.getElementById('petRabbitOption')) {
+        document.getElementById('petRabbitOption').textContent = (lang === 'en') ? "Rabbit" : "兔子 Rabbit";
+    }
+    if (document.getElementById('petHamsterOption')) {
+        document.getElementById('petHamsterOption').textContent = (lang === 'en') ? "Hamster" : "倉鼠 Hamster";
+    }
+    if (document.getElementById('petBirdOption')) {
+        document.getElementById('petBirdOption').textContent = (lang === 'en') ? "Bird" : "鳥類 Bird";
+    }
+    if (document.getElementById('petTurtleOption')) {
+        document.getElementById('petTurtleOption').textContent = (lang === 'en') ? "Turtle" : "烏龜 Turtle";
+    }
+    if (document.getElementById('petHorseOption')) {
+        document.getElementById('petHorseOption').textContent = (lang === 'en') ? "Horse" : "馬 Horse";
+    }
+	
+
+
 		
     }
     if (document.getElementById('desc-currency-text')) {
@@ -1136,6 +1224,50 @@ function calcCalorie() {
             : "減脂建議每日少吃 300-500 kcal，增肌則多吃 300-500 kcal。";
 			
 			
+    // ==================== 寵物年齡 Tab 語言切換 ====================
+    if (document.getElementById('petTitle')) {
+        document.getElementById('petTitle').textContent = (lang === 'en') ? "Pet Age to Human Age Calculator" : "寵物年齡轉人類年齡";
+    }
+    if (document.getElementById('petSubtitle')) {
+        document.getElementById('petSubtitle').textContent = (lang === 'en') ? "Pet Age to Human Age Calculator" : "";
+    }
+    if (document.getElementById('petTypeLabel')) {
+        document.getElementById('petTypeLabel').textContent = (lang === 'en') ? "Pet Type" : "寵物種類";
+    }
+    if (document.getElementById('petAgeLabel')) {
+        document.getElementById('petAgeLabel').textContent = (lang === 'en') ? "Pet Age (years)" : "寵物年齡 (歲)";
+    }
+    if (document.getElementById('petDogOption')) {
+        document.getElementById('petDogOption').textContent = (lang === 'en') ? "Dog" : "狗";
+    }
+    if (document.getElementById('petCatOption')) {
+        document.getElementById('petCatOption').textContent = (lang === 'en') ? "Cat" : "貓";
+    }
+	
+	    // ==================== 寵物下拉選項語言切換 ====================
+    if (document.getElementById('petDogOption')) {
+        document.getElementById('petDogOption').textContent = (lang === 'en') ? "Dog" : "狗";
+    }
+    if (document.getElementById('petCatOption')) {
+        document.getElementById('petCatOption').textContent = (lang === 'en') ? "Cat" : "貓";
+    }
+    if (document.getElementById('petRabbitOption')) {
+        document.getElementById('petRabbitOption').textContent = (lang === 'en') ? "Rabbit" : "兔子";
+    }
+    if (document.getElementById('petHamsterOption')) {
+        document.getElementById('petHamsterOption').textContent = (lang === 'en') ? "Hamster" : "倉鼠";
+    }
+    if (document.getElementById('petBirdOption')) {
+        document.getElementById('petBirdOption').textContent = (lang === 'en') ? "Bird" : "鳥類";
+    }
+    if (document.getElementById('petTurtleOption')) {
+        document.getElementById('petTurtleOption').textContent = (lang === 'en') ? "Turtle" : "烏龜";
+    }
+    if (document.getElementById('petHorseOption')) {
+        document.getElementById('petHorseOption').textContent = (lang === 'en') ? "Horse" : "馬";
+    }
+			
+			
 				// 保存語言設定
     localStorage.setItem('siteLang', currentLang);
     }
@@ -1158,6 +1290,7 @@ function calcCalorie() {
         else if (id === 'tab-bmi') n = 9;
         else if (id === 'tab-bmr') n = 10;
         else if (id === 'tab-calorie') n = 11;   // ← 必須是 calorie，不是 bmr
+		else if (id === 'tab-pet') n = 12;
         
         showTab(n);
     }
@@ -1166,19 +1299,19 @@ function calcCalorie() {
 // ==================== TAB 切換 (最終加強除錯版) ====================
 function showTab(n) {
     console.log("=== 切換到 Tab:", n, " ===");
-    
+   
     // 隱藏所有 Tab
     document.querySelectorAll('.tab-content').forEach(tab => {
         tab.style.display = 'none';
     });
-    
-    // Tab ID 對應表
+   
+    // Tab ID 對應表（已加入 tab-pet）
     const tabIds = [
         'tab-currency','tab-discount','tab-length','tab-weight','tab-temp',
         'tab-area','tab-volume','tab-speed','tab-power','tab-bmi',
-        'tab-bmr','tab-calorie'
+        'tab-bmr','tab-calorie','tab-pet'   // ← 新增
     ];
-    
+   
     const activeTab = document.getElementById(tabIds[n]);
     if (activeTab) {
         activeTab.style.display = 'block';
@@ -1186,7 +1319,7 @@ function showTab(n) {
     } else {
         console.log("❌ 找不到 Tab:", tabIds[n]);
     }
-    
+   
     // 更新按鈕顏色
     document.querySelectorAll('.tab-button').forEach(btn => {
         btn.classList.remove('active');
@@ -1194,7 +1327,7 @@ function showTab(n) {
             btn.classList.add('active');
         }
     });
-    
+   
     // 即時計算結果
     if (n === 1) calcDiscount();
     if (n === 9) calcBMI();
@@ -1202,6 +1335,10 @@ function showTab(n) {
     if (n === 11) {
         console.log("正在執行 calcCalorie()");
         calcCalorie();
+    }
+    if (n === 12) {
+        console.log("正在執行 calcPetAge()");
+        calcPetAge();
     }
 }
 
@@ -1517,6 +1654,65 @@ function calcCalorie() {
         `;
     }
 }
+
+// ====================== 寵物年齡計算器 (推薦科學版) ======================
+function calcPetAge() {
+    const type = document.getElementById('petType').value;
+    const age = parseFloat(document.getElementById('petAge').value) || 0;
+    const resultDiv = document.getElementById('petResult');
+   
+    if (age <= 0) {
+        resultDiv.innerHTML = currentLang === 'en' ? "Please enter a valid age" : "請輸入有效年齡";
+        return;
+    }
+   
+    let humanAge = 0;
+    let animalName = "";
+   
+    switch(type) {
+        case "dog":
+            humanAge = age <= 2 ? Math.round(age * 10.5) : Math.round(21 + (age - 2) * 4.5); // 5歲 ≈ 34-35歲
+            animalName = currentLang === 'en' ? "dog" : "狗狗";
+            break;
+        case "cat":
+            humanAge = Math.round(age * 6);
+            animalName = currentLang === 'en' ? "cat" : "貓貓";
+            break;
+        case "rabbit":
+            humanAge = Math.round(age * 6);
+            animalName = currentLang === 'en' ? "rabbit" : "兔子";
+            break;
+        case "hamster":
+            humanAge = Math.round(age * 6);
+            animalName = currentLang === 'en' ? "hamster" : "倉鼠";
+            break;
+        case "bird":
+            humanAge = Math.round(age * 8);
+            animalName = currentLang === 'en' ? "bird" : "鳥類";
+            break;
+        case "turtle":
+            humanAge = Math.round(age * 15);   // 烏龜調整為更長壽
+            animalName = currentLang === 'en' ? "turtle" : "烏龜";
+            break;
+        case "horse":
+            humanAge = Math.round(age * 6.4);
+            animalName = currentLang === 'en' ? "horse" : "馬";
+            break;
+    }
+   
+    if (currentLang === 'en') {
+        resultDiv.innerHTML = `
+            Your <strong>${animalName}</strong> is <strong>${age}</strong> years old.<br>
+            Equivalent to <strong>${humanAge}</strong> human years.
+        `;
+    } else {
+        resultDiv.innerHTML = `
+            你的<strong>${animalName}</strong> ${age} 歲<br>
+            相當於人類 <strong>${humanAge}</strong> 歲
+        `;
+    }
+}
+
     </script>
 
     <!-- ==================== Footer (全站顯示 - 正確位置) ==================== -->
