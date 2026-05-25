@@ -44,39 +44,40 @@
         h1 { margin: 0; font-size: 2rem; }
         .subtitle { color: #333; margin: 5px 0 0; }
         .lang-select { padding: 9px 14px; font-size: 1rem; background: #FF8C00; color: white; border: none; border-radius: 8px; width: 100%; max-width: 300px; }
-               .tabs { 
-            display: flex;
-            overflow-x: auto;
-            overflow-y: hidden;
-            gap: 8px;
-            padding: 12px 8px;
-            margin: 15px 0 20px 0;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; 
-        }
-        
-        .tabs::-webkit-scrollbar {
-            display: none;
-        }
+      .tabs {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 10px;
+    padding: 12px 8px 15px 8px;
+    margin: 15px 0 20px 0;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
 
-        .tab-button { 
-            padding: 11px 18px; 
-            background: #555; 
-            color: white; 
-            border: none;
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-size: 1rem; 
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-        
-        .tab-button.active { 
-            background: #FF8C00; 
-            font-weight: bold; 
-            box-shadow: 0 4px 10px rgba(255, 140, 0, 0.4);
-        }
+.tabs::-webkit-scrollbar { 
+    display: none; 
+}
+
+.tab-button {
+    padding: 12px 18px;
+    background: #555;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 105px;
+    text-align: center;
+}
+
+.tab-button.active {
+    background: #FF8C00;
+    font-weight: bold;
+}
 
         .converter-box {
             background: white;
@@ -183,6 +184,12 @@
     <button class="tab-button" data-tab="10" onclick="showTab(10)" id="btn10">BMR</button>
     <button class="tab-button" data-tab="11" onclick="showTab(11)" id="btn11">卡路里</button>
 	<button class="tab-button" data-tab="12" onclick="showTab(12)" id="btn12">寵物年齡</button>
+	<button class="tab-button" data-tab="13" onclick="showTab(13)" id="btn13">寵物食量</button>
+</div>
+
+<!-- Tab 下面滑動提示 -->
+<div id="slideHint" style="text-align: center; color: #666; font-size: 1rem; margin: 8px 0 20px 0; user-select: none;">
+    ← 左右滑動查看更多 →
 </div>
 
 <!-- Tab 0: 貨幣換算 -->
@@ -659,6 +666,40 @@
     </div>
 </div>
 
+<!-- ====================== Tab 13: 寵物每日食量 ====================== -->
+<div id="tab-pet-food" class="tab-content" style="display: none;">
+    <h3 id="petFoodTitle">寵物每日食量計算器</h3>
+    <p id="petFoodSubtitle" style="text-align:center; color:#555; margin:0 0 25px 0;">Pet Daily Food Calculator</p>
+   
+    <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
+        <div style="margin-bottom:20px;">
+            <label id="petFoodTypeLabel">寵物種類 / Pet Type</label>
+            <select id="petFoodType" onchange="calcPetFood()" style="width:100%; padding:12px; margin-top:8px;">
+                <option value="dog" id="foodDogOption">狗 Dog</option>
+                <option value="cat" id="foodCatOption" selected>貓 Cat</option>
+                <option value="rabbit" id="foodRabbitOption">兔子 Rabbit</option>
+            </select>
+        </div>
+       
+        <div style="margin-bottom:20px;">
+            <label id="petFoodWeightLabel">體重 (kg) / Weight (kg)</label>
+            <input id="petFoodWeight" type="number" value="5" oninput="calcPetFood()" style="width:100%; padding:12px; margin-top:8px;">
+        </div>
+       
+        <div style="margin-bottom:25px;">
+            <label id="petFoodStageLabel">生命階段 / Life Stage</label>
+            <select id="petFoodStage" onchange="calcPetFood()" style="width:100%; padding:12px; margin-top:8px;">
+                <option value="adult" id="stageAdult">成年 Adult</option>
+                <option value="puppy" id="stagePuppy">幼年 Puppy / Kitten</option>
+                <option value="senior" id="stageSenior">老年 Senior</option>
+            </select>
+        </div>
+       
+        <div id="petFoodResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:160px; padding:20px; background:#f9f9f9; border-radius:8px;">
+        </div>
+    </div>
+</div>
+
 
   <script>
         let currentLang = 'en';
@@ -766,6 +807,12 @@ function switchLang(lang) {
         const btn = document.getElementById('btn' + i);
         if (btn) btn.textContent = t['btn' + i];
     }
+	
+	
+	// ==================== 新增 Tab 13 語言切換 ====================
+    if (document.getElementById('btn13')) {
+        document.getElementById('btn13').textContent = (lang === 'en') ? "Pet Food" : "寵物食量";
+    }
 
     // 各計算器標題
     if (document.getElementById('currencyTitle')) document.getElementById('currencyTitle').textContent = t.currencyTitle;
@@ -852,6 +899,13 @@ function calcCalorie() {
         `;
     }
 }
+
+    // ==================== 滑動提示文字切換 ====================
+    if (document.getElementById('slideHint')) {
+        document.getElementById('slideHint').textContent = (lang === 'en') 
+            ? "← Swipe left and right for more →" 
+            : "← 左右滑動查看更多 →";
+    }
 
     // ==================== 貨幣說明文字 - 中英文切換 ====================
     if (document.getElementById('desc-currency-title')) {
@@ -1266,6 +1320,42 @@ function calcCalorie() {
     if (document.getElementById('petHorseOption')) {
         document.getElementById('petHorseOption').textContent = (lang === 'en') ? "Horse" : "馬";
     }
+	
+     // ==================== 寵物食量 Tab 語言切換 ====================
+    if (document.getElementById('petFoodTitle')) {
+        document.getElementById('petFoodTitle').textContent = (lang === 'en') ? "Pet Daily Food Calculator" : "寵物每日食量計算器";
+    }
+    if (document.getElementById('petFoodTypeLabel')) {
+        document.getElementById('petFoodTypeLabel').textContent = (lang === 'en') ? "Pet Type" : "寵物種類";
+    }
+    if (document.getElementById('petFoodWeightLabel')) {
+        document.getElementById('petFoodWeightLabel').textContent = (lang === 'en') ? "Weight (kg)" : "體重 (kg)";
+    }
+    if (document.getElementById('petFoodStageLabel')) {
+        document.getElementById('petFoodStageLabel').textContent = (lang === 'en') ? "Life Stage" : "生命階段";
+    }
+
+    // 寵物種類選項 - 純語言顯示
+    if (document.getElementById('foodDogOption')) {
+        document.getElementById('foodDogOption').textContent = (lang === 'en') ? "Dog" : "狗";
+    }
+    if (document.getElementById('foodCatOption')) {
+        document.getElementById('foodCatOption').textContent = (lang === 'en') ? "Cat" : "貓";
+    }
+    if (document.getElementById('foodRabbitOption')) {
+        document.getElementById('foodRabbitOption').textContent = (lang === 'en') ? "Rabbit" : "兔子";
+    }
+
+    // 生命階段選項 - 純語言顯示
+    if (document.getElementById('stageAdult')) {
+        document.getElementById('stageAdult').textContent = (lang === 'en') ? "Adult" : "成年";
+    }
+    if (document.getElementById('stagePuppy')) {
+        document.getElementById('stagePuppy').textContent = (lang === 'en') ? "Puppy / Kitten" : "幼年";
+    }
+    if (document.getElementById('stageSenior')) {
+        document.getElementById('stageSenior').textContent = (lang === 'en') ? "Senior" : "老年";
+    }
 			
 			
 				// 保存語言設定
@@ -1305,11 +1395,11 @@ function showTab(n) {
         tab.style.display = 'none';
     });
    
-    // Tab ID 對應表（已加入 tab-pet）
+    // Tab ID 對應表（已加入 tab-pet 和 tab-pet-food）
     const tabIds = [
         'tab-currency','tab-discount','tab-length','tab-weight','tab-temp',
         'tab-area','tab-volume','tab-speed','tab-power','tab-bmi',
-        'tab-bmr','tab-calorie','tab-pet'   // ← 新增
+        'tab-bmr','tab-calorie','tab-pet','tab-pet-food'   // ← 新增 tab-pet-food
     ];
    
     const activeTab = document.getElementById(tabIds[n]);
@@ -1339,6 +1429,10 @@ function showTab(n) {
     if (n === 12) {
         console.log("正在執行 calcPetAge()");
         calcPetAge();
+    }
+    if (n === 13) {
+        console.log("正在執行 calcPetFood()");
+        calcPetFood();
     }
 }
 
@@ -1709,6 +1803,52 @@ function calcPetAge() {
         resultDiv.innerHTML = `
             你的<strong>${animalName}</strong> ${age} 歲<br>
             相當於人類 <strong>${humanAge}</strong> 歲
+        `;
+    }
+}
+
+// ====================== 寵物每日食量計算器 ======================
+function calcPetFood() {
+    const type = document.getElementById('petFoodType').value;
+    const weight = parseFloat(document.getElementById('petFoodWeight').value) || 0;
+    const stage = document.getElementById('petFoodStage').value;
+    const resultDiv = document.getElementById('petFoodResult');
+    
+    if (weight <= 0) {
+        resultDiv.innerHTML = currentLang === 'en' ? "Please enter valid weight" : "請輸入有效體重";
+        return;
+    }
+    
+    let dailyKcal = 0;
+    
+    // 基礎計算（RER公式）
+    let rer = 70 * Math.pow(weight, 0.75);
+    
+    if (type === "dog") {
+        if (stage === "puppy") dailyKcal = rer * 3;
+        else if (stage === "senior") dailyKcal = rer * 1.4;
+        else dailyKcal = rer * 1.8;
+    } else if (type === "cat") {
+        if (stage === "puppy") dailyKcal = rer * 2.5;
+        else if (stage === "senior") dailyKcal = rer * 1.2;
+        else dailyKcal = rer * 1.6;
+    } else { // rabbit
+        dailyKcal = weight * 50; // 兔子每日約50kcal/kg
+    }
+    
+    const grams = Math.round(dailyKcal / 4); // 假設乾糧每克約4kcal
+    
+    if (currentLang === 'en') {
+        resultDiv.innerHTML = `
+            <strong>Daily Energy Needs: ${Math.round(dailyKcal)} kcal</strong><br>
+            Recommended dry food: <strong>${grams} grams</strong> per day<br><br>
+            <small>Adjust according to activity level and vet advice.</small>
+        `;
+    } else {
+        resultDiv.innerHTML = `
+            <strong>每日所需熱量：${Math.round(dailyKcal)} kcal</strong><br>
+            建議乾糧餵食量：<strong>${grams} 克</strong>/天<br><br>
+            <small>請根據實際活動量及獸醫建議調整。</small>
         `;
     }
 }
