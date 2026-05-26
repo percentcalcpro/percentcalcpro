@@ -670,7 +670,7 @@
 <div id="tab-pet-food" class="tab-content" style="display: none;">
     <h3 id="petFoodTitle">寵物每日食量計算器</h3>
     <p id="petFoodSubtitle" style="text-align:center; color:#555; margin:0 0 25px 0;">Pet Daily Food Calculator</p>
-   
+  
     <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
         <div style="margin-bottom:20px;">
             <label id="petFoodTypeLabel">寵物種類 / Pet Type</label>
@@ -680,12 +680,12 @@
                 <option value="rabbit" id="foodRabbitOption">兔子 Rabbit</option>
             </select>
         </div>
-       
+      
         <div style="margin-bottom:20px;">
             <label id="petFoodWeightLabel">體重 (kg) / Weight (kg)</label>
             <input id="petFoodWeight" type="number" value="5" oninput="calcPetFood()" style="width:100%; padding:12px; margin-top:8px;">
         </div>
-       
+      
         <div style="margin-bottom:25px;">
             <label id="petFoodStageLabel">生命階段 / Life Stage</label>
             <select id="petFoodStage" onchange="calcPetFood()" style="width:100%; padding:12px; margin-top:8px;">
@@ -694,11 +694,20 @@
                 <option value="senior" id="stageSenior">老年 Senior</option>
             </select>
         </div>
-       
+      
         <div id="petFoodResult" style="margin-top:25px; text-align:center; font-size:1.35rem; min-height:160px; padding:20px; background:#f9f9f9; border-radius:8px;">
         </div>
     </div>
+
+    <!-- 寵物食量說明文字（已加入） -->
+    <div id="petFoodDescription" style="margin-top:30px; padding:25px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-petfood-title">寵物每日食量計算器</h3>
+        <p id="desc-petfood-text">根據寵物種類、體重和生命階段，科學計算每日所需熱量及建議乾糧餵食量。幫助主人避免過量餵食或營養不足，維持寵物理想體重和健康。</p>
+        <p><strong id="desc-petfood-tip">使用提示：</strong> <span id="desc-petfood-tip-text">成年寵物與幼年、老年需求不同，建議定期調整餵食量，並結合獸醫意見使用。</span></p>
+    </div>
 </div>
+
+
 
 
   <script>
@@ -915,39 +924,21 @@ function calcCalorie() {
     if (document.getElementById('desc-currency-title')) {
         document.getElementById('desc-currency-title').textContent = (lang === 'en') ? "Currency Converter" : "貨幣換算工具";
     }
-    if (document.getElementById('desc-currency-text')) {
-        document.getElementById('desc-currency-text').textContent = (lang === 'en')
-            ? "Real-time exchange rates for major currencies (USD, HKD, TWD, JPY, KRW, EUR, GBP, CAD, AUD). Ideal for travel, online shopping, remittance and investment."
-            : "提供即時匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等主要貨幣。適合旅行、網購、匯款或投資使用。";
-    }
-    if (document.getElementById('desc-currency-tip')) {
-        document.getElementById('desc-currency-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-currency-tip-text')) {
-        document.getElementById('desc-currency-tip-text').textContent = (lang === 'en')
-            ? "Rates are updated regularly. Please use the latest rate for large transactions."
-            : "匯率會定期更新，請以最新匯率為準進行大額交易。";
-    }
-	
-	
+if (document.getElementById('desc-currency-text')) {
+    document.getElementById('desc-currency-text').textContent = (lang === 'en')
+        ? "Real-time and accurate currency exchange rates supporting major currencies (USD, HKD, TWD, JPY, KRW, EUR, GBP, CAD, AUD). Perfect for travel, online shopping, remittances, and investment."
+        : "提供即時、準確的國際貨幣匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等主要貨幣。無論是旅行前換錢、網購付款、跨境匯款還是投資理財，都能快速得到最新換算結果。";
+}
+if (document.getElementById('desc-currency-tip')) {
+    document.getElementById('desc-currency-tip').textContent = (lang === 'en') 
+        ? "Usage Tip:" : "使用提示：";
+}
+if (document.getElementById('desc-currency-tip-text')) {
+    document.getElementById('desc-currency-tip-text').textContent = (lang === 'en')
+        ? "For large transactions, always confirm the latest rate to avoid losses due to fluctuations."
+        : "大額交易前建議確認最新匯率，避免波動造成損失。支援雙向即時換算，非常適合商務人士、留學生和經常出國的旅客使用。";
+}
 
-// 貨幣
-    if (document.getElementById('desc-currency-title')) {
-        document.getElementById('desc-currency-title').textContent = (lang === 'en') ? "Currency Converter" : "貨幣換算工具";
-    }
-    if (document.getElementById('desc-currency-text')) {
-        document.getElementById('desc-currency-text').textContent = (lang === 'en')
-            ? "Real-time exchange rates for major currencies (USD, HKD, TWD, JPY, KRW, EUR, GBP, CAD, AUD). Ideal for travel, online shopping, remittance and investment."
-            : "提供即時匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等主要貨幣。適合旅行、網購、匯款或投資使用。";
-    }
-    if (document.getElementById('desc-currency-tip')) {
-        document.getElementById('desc-currency-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-currency-tip-text')) {
-        document.getElementById('desc-currency-tip-text').textContent = (lang === 'en')
-            ? "Rates are updated regularly. Please use the latest rate for large transactions."
-            : "匯率會定期更新，請以最新匯率為準進行大額交易。";
-    }
 
      // ==================== 折扣計算 說明文字 ====================
     if (document.getElementById('desc-discount-title')) {
@@ -1099,17 +1090,17 @@ function calcCalorie() {
     }
     if (document.getElementById('desc-bmi-text')) {
         document.getElementById('desc-bmi-text').textContent = (lang === 'en') 
-            ? "Body Mass Index (BMI) is a common indicator to assess whether your weight is healthy based on height and weight." 
-            : "BMI（身體質量指數）是用來評估體重是否健康的常用指標，透過身高和體重計算得出。";
+           ? "Calculate your Body Mass Index to assess if your weight is in a healthy range. Important for understanding health risks related to being underweight or overweight."
+        : "計算你的身體質量指數，評估體重是否處於健康範圍。了解偏瘦或過重相關的健康風險非常重要。";
     }
     if (document.getElementById('desc-bmi-tip')) {
         document.getElementById('desc-bmi-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
     }
     if (document.getElementById('desc-bmi-tip-text')) {
         document.getElementById('desc-bmi-tip-text').textContent = (lang === 'en') 
-            ? "BMI is for reference only. Athletes or people with high muscle mass may show higher values. Combine with body fat percentage for better assessment."
-            : "BMI 只供參考，運動員或肌肉量高的人可能會顯示較高數值，建議結合體脂率一起參考。";
-    }
+           ? "Maintain BMI between 18.5-24 for most adults."
+        : "成人 BMI 建議維持在 18.5-24 之間。";
+}
 
     // ==================== BMR & TDEE 說明文字 ====================
     if (document.getElementById('desc-bmr-title')) {
@@ -1135,9 +1126,9 @@ function calcCalorie() {
     }
     if (document.getElementById('desc-calorie-text')) {
         document.getElementById('desc-calorie-text').textContent = (lang === 'en') 
-            ? "Calculate your daily calorie requirement based on age, gender, height, weight and activity level. Useful for weight loss, maintenance and muscle gain."
-            : "根據年齡、性別、身高、體重和活動水平計算每日所需熱量。適合減脂、維持體重或增肌使用。";
-    }
+         ? "Calculate your daily calorie requirement based on age, gender, height, weight and activity level. Helps with weight loss, maintenance or muscle gain goals."
+        : "根據年齡、性別、身高、體重和活動水平計算每日所需熱量。幫助你達成減脂、維持體重或增肌目標。";
+}
     if (document.getElementById('desc-calorie-tip')) {
         document.getElementById('desc-calorie-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
     }
@@ -1224,19 +1215,24 @@ function calcCalorie() {
 
 		
     }
-    if (document.getElementById('desc-currency-text')) {
-        document.getElementById('desc-currency-text').textContent = (lang === 'en') 
-            ? "Real-time exchange rates for major currencies (USD, HKD, TWD, JPY, KRW, EUR, GBP, CAD, AUD). Ideal for travel, online shopping, remittance and investment." 
-            : "提供即時匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等主要貨幣。適合旅行、網購、匯款或投資使用。";
-    }
-    if (document.getElementById('desc-currency-tip')) {
-        document.getElementById('desc-currency-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-currency-tip-text')) {
-        document.getElementById('desc-currency-tip-text').textContent = (lang === 'en') 
-            ? "Rates are updated regularly. Please use the latest rate for large transactions." 
-            : "匯率會定期更新，請以最新匯率為準進行大額交易。";
-    }
+ if (document.getElementById('desc-currency-title')) {
+    document.getElementById('desc-currency-title').textContent = (lang === 'en') 
+        ? "Currency Converter" : "貨幣換算工具";
+}
+if (document.getElementById('desc-currency-text')) {
+    document.getElementById('desc-currency-text').textContent = (lang === 'en')
+        ? "Real-time and accurate currency exchange rates supporting major currencies (USD, HKD, TWD, JPY, KRW, EUR, GBP, CAD, AUD). Perfect for travel, online shopping, remittances, and investment."
+        : "提供即時、準確的國際貨幣匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等主要貨幣。無論是旅行前換錢、網購付款、跨境匯款還是投資理財，都能快速得到最新換算結果。";
+}
+if (document.getElementById('desc-currency-tip')) {
+    document.getElementById('desc-currency-tip').textContent = (lang === 'en') 
+        ? "Usage Tip:" : "使用提示：";
+}
+if (document.getElementById('desc-currency-tip-text')) {
+    document.getElementById('desc-currency-tip-text').textContent = (lang === 'en')
+        ? "For large transactions, always confirm the latest rate to avoid losses due to fluctuations."
+        : "大額交易前建議確認最新匯率，避免波動造成損失。支援雙向即時換算，非常適合商務人士、留學生和經常出國的旅客使用。";
+}
 	
 	
 		    // ==================== 卡路里 Tab 語言切換 ====================
@@ -1362,6 +1358,26 @@ function calcCalorie() {
     localStorage.setItem('siteLang', currentLang);
     }
 	
+}
+
+// ==================== 寵物食量說明文字 ====================
+if (document.getElementById('desc-petfood-title')) {
+    document.getElementById('desc-petfood-title').textContent = (lang === 'en') 
+        ? "Pet Daily Food Calculator" : "寵物每日食量計算器";
+}
+if (document.getElementById('desc-petfood-text')) {
+    document.getElementById('desc-petfood-text').textContent = (lang === 'en')
+        ? "Calculate daily calorie needs and recommended dry food amount based on pet type, weight and life stage. Helps maintain healthy weight and nutrition."
+        : "根據寵物種類、體重和生命階段，計算每日所需熱量及建議乾糧餵食量。幫助主人科學餵食，避免過胖或營養不足，維持寵物健康。";
+}
+if (document.getElementById('desc-petfood-tip')) {
+    document.getElementById('desc-petfood-tip').textContent = (lang === 'en') 
+        ? "Usage Tip:" : "使用提示：";
+}
+if (document.getElementById('desc-petfood-tip-text')) {
+    document.getElementById('desc-petfood-tip-text').textContent = (lang === 'en')
+        ? "Adjust feeding amount regularly according to activity level and consult a vet."
+        : "建議定期調整餵食量，並結合獸醫建議。";
 }
 
     // ==================== 重新顯示目前 Tab ====================
