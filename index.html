@@ -44,115 +44,147 @@
         h1 { margin: 0; font-size: 2rem; }
         .subtitle { color: #333; margin: 5px 0 0; }
         .lang-select { padding: 9px 14px; font-size: 1rem; background: #FF8C00; color: white; border: none; border-radius: 8px; width: 100%; max-width: 300px; }
-      .tabs {
+   .tabs {
     display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
-    gap: 10px;
-    padding: 12px 8px 15px 8px;
-    margin: 15px 0 20px 0;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 18px 10px 25px 10px;
+    margin: 15px 0 30px 0;
+    justify-content: center;
+    align-items: center;
 }
 
-.tabs::-webkit-scrollbar { 
-    display: none; 
+.tabs::-webkit-scrollbar {
+    display: none;
 }
 
+/* Tab 按鈕 */
 .tab-button {
-    padding: 12px 18px;
-    background: #555;
+    padding: 14px 20px;
+    background: #444;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.02rem;
+    font-weight: 500;
     white-space: nowrap;
-    flex-shrink: 0;
-    min-width: 105px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    transition: all 0.25s;
+    min-width: 115px;
     text-align: center;
+}
+
+.tab-button:hover {
+    background: #555;
+    transform: translateY(-3px);
 }
 
 .tab-button.active {
     background: #FF8C00;
     font-weight: bold;
+    box-shadow: 0 6px 18px rgba(255, 140, 0, 0.55);
+    transform: scale(1.06);
 }
 
-        .converter-box {
-            background: white;
-            border: 3px solid #333;
-            border-radius: 12px;
-            padding: 20px;
-        }
+/* converter-box 保持不變 */
+.converter-box {
+    background: white;
+    border: 3px solid #333;
+    border-radius: 12px;
+    padding: 20px;
+}
 
-        /* ==================== 手機版優化 ==================== */
-        @media (max-width: 600px) {
-            .container {
-                padding: 12px;
-                border-width: 8px;
-            }
-            
-            .tabs {
-                padding: 10px 6px;
-                gap: 6px;
-            }
-            
-            .tab-button {
-                padding: 9px 14px;
-                font-size: 0.95rem;
-            }
-            
-            .converter-box {
-                padding: 18px 15px;
-            }
-            
-            input, select, button {
-                font-size: 1.2rem;
-                padding: 12px;
-            }
-        }
-        input, select { 
-            width: 100%; 
-            max-width: 100%; 
-            padding: 14px; 
-            font-size: 1.35rem; 
-            border: 2px solid #333; 
-            border-radius: 8px; 
-            text-align: center; 
-            margin-bottom: 10px; 
-            box-sizing: border-box; 
-        }
+/* ==================== 只改手機版 Tab 滑動 ==================== */
+@media (max-width: 600px) {
+    .tabs {
+        gap: 10px;
+        padding: 16px 8px 22px 8px;
+    }
+    
+    /* 左邊漸層調到最弱 */
+    .tabs::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 12px;
+        background: linear-gradient(to right, #EDEDED 70%, transparent);
+        z-index: 2;
+    }
+    
+    .tabs::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 30px;
+        background: linear-gradient(to left, #EDEDED, transparent);
+        z-index: 2;
+    }
+    
+   .tab-button {
+        padding: 12px 16px;
+        font-size: 0.98rem;
+        min-width: 105px;
+    }
+    
+ .converter-box {
+        padding: 22px 18px;
+    }
 
-        /* 特別針對 Discount 頁面的輸入框優化 */
-        #originalPrice, #discountRate {
-            max-width: 280px;
-            margin: 8px auto;
-            display: block;
-        }
+    
+    input, select, button {
+        font-size: 1.25rem;
+        padding: 13px 12px;
+    }
+    
+    h5 {
+        font-size: 1rem;
+    }
+}
 
-               /* 結果黑色框樣式 - 修復版 */
-        .result { 
-            margin-top: 20px; 
-            padding: 22px; 
-            background: #222; 
-            color: #FFCC00; 
-            font-size: 1.8rem; 
-            border-radius: 12px; 
-            text-align: center; 
-            font-weight: bold; 
-            min-height: 80px; 
-            width: 100%; 
-            box-sizing: border-box; 
-        }
+/* 通用輸入框樣式 */
+input, select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2rem;
+    border: 2px solid #333;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
 
-        @media (max-width: 600px) {
-            .result { 
-                font-size: 1.6rem; 
-                padding: 18px; 
-                min-height: 70px; 
-            }
-        }
+/* Discount 專用 */
+#originalPrice, #discountRate {
+    max-width: 280px;
+    margin: 10px auto;
+    display: block;
+}
+
+/* 結果框樣式 */
+.result {
+    margin-top: 25px;
+    padding: 22px;
+    background: #222;
+    color: #FFCC00;
+    font-size: 1.6rem;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: bold;
+    min-height: 80px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    .result {
+        font-size: 1rem;
+        padding: 18px;
+        min-height: 60px;
+    }
+}
     </style>
 	
 	
@@ -185,6 +217,7 @@
     <button class="tab-button" data-tab="11" onclick="showTab(11)" id="btn11">卡路里</button>
 	<button class="tab-button" data-tab="12" onclick="showTab(12)" id="btn12">寵物年齡</button>
 	<button class="tab-button" data-tab="13" onclick="showTab(13)" id="btn13">寵物食量</button>
+	<button class="tab-button" data-tab="14" onclick="showTab(14)" id="btn14">Random Decision</button>
 </div>
 
 <!-- Tab 下面滑動提示 -->
@@ -708,16 +741,50 @@
 </div>
 
 
+<!-- ====================== Tab 14: Random Decision Maker ====================== -->
+<div id="tab-random" class="tab-content" style="display: none;">
+    <h3 id="randomTitle">Random Decision Maker</h3>
+    <p id="randomSubtitle" style="text-align:center; color:#555; margin:0 0 25px 0;">幫你做決定！</p>
+  
+    <div class="converter-box" style="max-width:520px; margin:0 auto; padding:25px;">
+        
+        <div style="margin-bottom:15px;">
+            <input id="newOption" type="text" placeholder="輸入一個選項 (例如：吃火鍋、看電影)" 
+                   style="width:100%; padding:14px; font-size:1.1rem;" onkeypress="if(event.key==='Enter') addOption()">
+        </div>
+        
+        <button onclick="addOption()" style="width:100%; padding:14px; background:#FF8C00; color:white; border:none; border-radius:8px; margin-bottom:20px; font-size:1.1rem;">
+            + 新增選項
+        </button>
+
+        <div id="optionsList" style="min-height:180px; background:#f9f9f9; border-radius:8px; padding:15px; margin-bottom:20px;"></div>
+
+        <button onclick="makeDecision()" style="width:100%; padding:16px; background:#FF8C00; color:white; border:none; border-radius:8px; font-size:1.35rem; font-weight:bold;">
+            🎲 幫我決定！
+        </button>
+
+        <div id="result" style="margin-top:25px; text-align:center; font-size:1.9rem; min-height:100px; padding:25px; background:#222; color:#FFCC00; border-radius:12px; display:none;">
+        </div>
+    </div>
+
+    <!-- 說明文字 -->
+    <div id="randomDescription" style="margin-top:30px; padding:25px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+        <h3 id="desc-random-title">隨機決定器</h3>
+        <p id="desc-random-text">不知道該吃什麼、看什麼電影、週末要做什麼？輸入多個選項，讓它隨機幫你決定！超適合猶豫不決的時候使用。</p>
+        <p><strong id="desc-random-tip">使用提示：</strong> <span id="desc-random-tip-text">可以輸入吃什麼、看什麼、去哪裡玩等，支援即時新增和清除。</span></p>
+    </div>
+</div>
+
 
 
   <script>
-        let currentLang = 'en';
+ let currentLang = 'en';
 
 const translations = {
     zh: {
         title: "PercentCalc Pro",
         subTitle: "專業單位換算工具",
-        
+       
         // Tab 按鈕
         btn0: "貨幣",
         btn1: "折扣",
@@ -729,10 +796,12 @@ const translations = {
         btn7: "速度",
         btn8: "能量",
         btn9: "BMI",
-        btn10: "BMR",           // 新增
-		btn11: "卡路里",
-		btn12: "寵物年齡",
-        
+        btn10: "BMR",
+        btn11: "卡路里",
+        btn12: "寵物年齡",
+        btn13: "寵物食量",
+        btn14: "隨機決定",           // 新增
+
         // 各計算器標題
         currencyTitle: "貨幣換算",
         discountTitle: "百分比折扣計算機",
@@ -742,14 +811,18 @@ const translations = {
         areaTitle: "面積換算",
         volumeTitle: "體積換算",
         speedTitle: "速度換算",
-        powerTitle: "能量換算",
+        powerTitle: "能量 / 功率換算",
         bmiTitle: "BMI 身體質量指數計算器",
-        bmrTitle: "BMR & TDEE 計算器",     // 新增
-        
+        bmrTitle: "BMR & TDEE 計算器",
+        calorieTitle: "每日卡路里需求計算器",
+        petTitle: "寵物年齡轉人類年齡",
+        petFoodTitle: "寵物每日食量計算器",
+        randomTitle: "隨機決定器",
+
         // Discount 專用
         originalLabel: "原價金額",
         rateLabel: "折扣百分比 (%)",
-        
+
         // BMR 專用
         bmrSubtitle: "基礎代謝率 & 每日總熱量消耗",
         bmrGenderLabel: "性別",
@@ -757,11 +830,11 @@ const translations = {
         bmrHeightLabel: "身高 (cm)",
         bmrWeightLabel: "體重 (kg)"
     },
-    
+
     en: {
         title: "PercentCalc Pro",
         subTitle: "Professional Converters",
-        
+       
         // Tab 按鈕
         btn0: "Currency",
         btn1: "Discount",
@@ -773,10 +846,12 @@ const translations = {
         btn7: "Speed",
         btn8: "Power",
         btn9: "BMI",
-        btn10: "BMR",           // 新增
-		btn11: "Calories",
-		btn12: "Pet Age",
-        
+        btn10: "BMR",
+        btn11: "Calories",
+        btn12: "Pet Age",
+        btn13: "Pet Food",
+        btn14: "Random Decision",           // 新增
+
         // 各計算器標題
         currencyTitle: "Currency Converter",
         discountTitle: "Percentage Discount Calculator",
@@ -788,12 +863,16 @@ const translations = {
         speedTitle: "Speed Converter",
         powerTitle: "Power / Energy Converter",
         bmiTitle: "BMI Calculator",
-        bmrTitle: "BMR & TDEE Calculator",     // 新增
-        
+        bmrTitle: "BMR & TDEE Calculator",
+        calorieTitle: "Daily Calorie Needs Calculator",
+        petTitle: "Pet Age to Human Age Calculator",
+        petFoodTitle: "Pet Daily Food Calculator",
+        randomTitle: "Random Decision Maker",
+
         // Discount 專用
         originalLabel: "Original Price",
         rateLabel: "Discount Rate (%)",
-        
+
         // BMR 專用
         bmrSubtitle: "Basal Metabolic Rate & Total Daily Energy Expenditure",
         bmrGenderLabel: "Gender",
@@ -811,10 +890,17 @@ function switchLang(lang) {
     if (document.getElementById('title')) document.getElementById('title').textContent = t.title;
     if (document.getElementById('subTitle')) document.getElementById('subTitle').textContent = t.subTitle;
 
-    // Tab 按鈕 (0~12)
-    for (let i = 0; i <= 12; i++) {
-        const btn = document.getElementById('btn' + i);
-        if (btn) btn.textContent = t['btn' + i];
+ // Tab 按鈕 (0~14)
+for (let i = 0; i <= 14; i++) {
+    const btn = document.getElementById('btn' + i);
+    if (btn) btn.textContent = t['btn' + i];
+}
+	
+
+    // Random Decision Tab 按鈕文字
+    if (document.getElementById('btn14')) {
+        document.getElementById('btn14').textContent = (lang === 'en') 
+            ? "Random Decision" : "隨機決定";
     }
 	
 	
@@ -836,7 +922,12 @@ function switchLang(lang) {
     if (document.getElementById('bmiTitle')) document.getElementById('bmiTitle').textContent = t.bmiTitle;
     if (document.getElementById('bmrTitle')) document.getElementById('bmrTitle').textContent = t.bmrTitle;
     if (document.getElementById('calorieTitle')) document.getElementById('calorieTitle').textContent = t.calorieTitle;
-    if (document.getElementById('petTitle')) document.getElementById('petTitle').textContent = t.petTitle;   // ← 新增這一行
+    if (document.getElementById('petTitle')) document.getElementById('petTitle').textContent = t.petTitle;
+    if (document.getElementById('petFoodTitle')) document.getElementById('petFoodTitle').textContent = t.petFoodTitle;
+    if (document.getElementById('randomTitle')) document.getElementById('randomTitle').textContent = t.randomTitle;
+	
+	
+	
 	
 	    // About Us 連結切換
     if (document.getElementById('footerAbout')) {
@@ -909,12 +1000,7 @@ function calcCalorie() {
     }
 }
 
-    // ==================== 滑動提示文字切換 ====================
-    if (document.getElementById('slideHint')) {
-        document.getElementById('slideHint').textContent = (lang === 'en') 
-            ? "← Swipe left and right for more →" 
-            : "← 左右滑動查看更多 →";
-    }
+
 
     // ==================== 貨幣說明文字 - 中英文切換 ====================
     if (document.getElementById('desc-currency-title')) {
@@ -1029,6 +1115,8 @@ if (document.getElementById('desc-currency-tip-text')) {
             ? "Ping is commonly used in HK/Taiwan for property. Use square meters or square feet for international comparison when buying properties." 
             : "香港、台灣常用「坪」，國際多用平方公尺或平方英尺。買樓時可即時轉換不同單位價格進行比較。";
     }
+	
+	
 
  // ==================== 體積換算 說明文字 ====================
     if (document.getElementById('desc-volume-title')) {
@@ -1082,7 +1170,7 @@ if (document.getElementById('desc-currency-tip-text')) {
         document.getElementById('desc-power-tip-text').textContent = (lang === 'en') 
             ? "Food energy uses kcal, physics uses J/kJ."
             : "食物熱量常用 kcal，物理和工程計算常用 J 或 kJ。";
-    
+ 
 		
     // ==================== BMI 說明文字 ====================
     if (document.getElementById('desc-bmi-title')) {
@@ -1101,6 +1189,52 @@ if (document.getElementById('desc-currency-tip-text')) {
            ? "Maintain BMI between 18.5-24 for most adults."
         : "成人 BMI 建議維持在 18.5-24 之間。";
 }
+
+// ==================== Area 單位語言切換（完整修正） ====================
+if (document.getElementById('fromArea')) {
+    const from = document.getElementById('fromArea');
+    if (lang === 'en') {
+        from.innerHTML = `
+            <option value="m2">m²</option>
+            <option value="ft2">ft²</option>
+            <option value="yd2">yd²</option>
+            <option value="ping">Ping</option>
+            <option value="hectare">Hectare</option>
+        `;
+    } else {
+        from.innerHTML = `
+            <option value="m2">平方米</option>
+            <option value="ft2">平方尺</option>
+            <option value="yd2">平方碼</option>
+            <option value="ping">坪</option>
+            <option value="hectare">公頃</option>
+        `;
+    }
+}
+
+if (document.getElementById('toArea')) {
+    const to = document.getElementById('toArea');
+    if (lang === 'en') {
+        to.innerHTML = `
+            <option value="ft2">ft²</option>
+            <option value="m2">m²</option>
+            <option value="yd2">yd²</option>
+            <option value="ping">Ping</option>
+            <option value="hectare">Hectare</option>
+        `;
+    } else {
+        to.innerHTML = `
+            <option value="ft2">平方尺</option>
+            <option value="m2">平方米</option>
+            <option value="yd2">平方碼</option>
+            <option value="ping">坪</option>
+            <option value="hectare">公頃</option>
+        `;
+    }
+}
+
+
+
 
     // ==================== BMR & TDEE 說明文字 ====================
     if (document.getElementById('desc-bmr-title')) {
@@ -1180,13 +1314,7 @@ if (document.getElementById('desc-currency-tip-text')) {
     }
 	
 	
-    // ==================== Footer 連結文字切換 ====================
-    if (document.getElementById('footerPrivacy')) {
-        document.getElementById('footerPrivacy').textContent = (lang === 'en') ? "Privacy Policy" : "隱私權政策";
-    }
-    if (document.getElementById('footerContact')) {
-        document.getElementById('footerContact').textContent = (lang === 'en') ? "Contact Us" : "聯絡我們";
-    }
+
 	
 	    // ==================== 寵物選項語言切換 ====================
     if (document.getElementById('petDogOption')) {
@@ -1352,11 +1480,62 @@ if (document.getElementById('desc-currency-tip-text')) {
     if (document.getElementById('stageSenior')) {
         document.getElementById('stageSenior').textContent = (lang === 'en') ? "Senior" : "老年";
     }
-			
-			
-				// 保存語言設定
-    localStorage.setItem('siteLang', currentLang);
+	
+// ==================== Random Decision Maker 說明文字 ====================
+    if (document.getElementById('randomTitle')) {
+        document.getElementById('randomTitle').textContent = (lang === 'en') ? "Random Decision Maker" : "隨機決定器";
     }
+    if (document.getElementById('randomSubtitle')) {
+        document.getElementById('randomSubtitle').textContent = (lang === 'en') ? "Let me help you decide!" : "幫你做決定！";
+    }
+    if (document.getElementById('desc-random-title')) {
+        document.getElementById('desc-random-title').textContent = (lang === 'en') ? "Random Decision Maker" : "隨機決定器";
+    }
+    if (document.getElementById('desc-random-text')) {
+        document.getElementById('desc-random-text').textContent = (lang === 'en')
+            ? "Don't know what to eat, watch, or do? Enter multiple options and let it randomly decide for you! Perfect for when you're indecisive."
+            : "不知道該吃什麼、看什麼電影、週末要做什麼？輸入多個選項，讓它隨機幫你決定！超適合猶豫不決的時候使用。";
+    }
+    if (document.getElementById('desc-random-tip')) {
+        document.getElementById('desc-random-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+    }
+    if (document.getElementById('desc-random-tip-text')) {
+        document.getElementById('desc-random-tip-text').textContent = (lang === 'en')
+            ? "You can add as many options as you want. Great for food choices, movie selection, weekend plans, or any decision."
+            : "可以輸入很多選項。適合決定吃什麼、看什麼電影、週末要做什麼等。";
+    }
+
+    // ==================== Random Decision Maker 動態文字切換 ====================
+    if (document.getElementById('newOption')) {
+        document.getElementById('newOption').placeholder = (lang === 'en') 
+            ? "Enter an option (e.g. eat hotpot, watch movie)" 
+            : "輸入一個選項 (例如：吃火鍋、看電影)";
+    }
+
+    // 新增選項按鈕
+    const addBtn = document.querySelector('button[onclick="addOption()"]');
+    if (addBtn) {
+        addBtn.textContent = (lang === 'en') ? "+ Add Option" : "+ 新增選項";
+    }
+
+    // 幫我決定按鈕
+    const decideBtn = document.querySelector('button[onclick="makeDecision()"]');
+    if (decideBtn) {
+        decideBtn.innerHTML = (lang === 'en') 
+            ? '🎲 Make Decision!' 
+            : '🎲 幫我決定！';
+    }
+
+    // ==================== 滑動提示文字 ====================
+    if (document.getElementById('slideHint')) {
+        document.getElementById('slideHint').textContent = (lang === 'en')
+            ? "← Swipe left and right for more →"
+            : "← 左右滑動查看更多 →";
+    }
+
+    // 保存語言設定
+    localStorage.setItem('siteLang', currentLang);
+}
 	
 }
 
@@ -1411,11 +1590,11 @@ function showTab(n) {
         tab.style.display = 'none';
     });
    
-    // Tab ID 對應表（已加入 tab-pet 和 tab-pet-food）
+  // Tab ID 對應表（必須包含 tab-random）
     const tabIds = [
-        'tab-currency','tab-discount','tab-length','tab-weight','tab-temp',
-        'tab-area','tab-volume','tab-speed','tab-power','tab-bmi',
-        'tab-bmr','tab-calorie','tab-pet','tab-pet-food'   // ← 新增 tab-pet-food
+        'tab-currency', 'tab-discount', 'tab-length', 'tab-weight', 'tab-temp',
+        'tab-area', 'tab-volume', 'tab-speed', 'tab-power', 'tab-bmi',
+        'tab-bmr', 'tab-calorie', 'tab-pet', 'tab-pet-food', 'tab-random'  // ← 一定要有這一行
     ];
    
     const activeTab = document.getElementById(tabIds[n]);
@@ -1608,10 +1787,28 @@ function convertArea() {
     let from = document.getElementById('fromArea').value;
     let to = document.getElementById('toArea').value;
     
-    const factors = {m2:1, ft2:0.092903, yd2:0.836127, ping:3.305785, hectare:10000};
-    let result = (val * (factors[from] || 1) / (factors[to] || 1)).toFixed(4);
+    const factors = {
+        m2: 1, 
+        ft2: 10.7639, 
+        yd2: 1.19599, 
+        ping: 0.3025, 
+        hectare: 0.0001
+    };
     
-    document.getElementById('resultArea').innerHTML = `${val} ${from} = ${result} ${to}`;
+    let result = (val * factors[from] / factors[to]).toFixed(4);
+    
+    // 中英文單位顯示
+    let unitFrom, unitTo;
+    
+    if (currentLang === 'en') {
+        unitFrom = from === 'm2' ? 'm²' : from === 'ft2' ? 'ft²' : from === 'yd2' ? 'yd²' : from === 'ping' ? 'Ping' : 'Hectare';
+        unitTo   = to   === 'm2' ? 'm²' : to   === 'ft2' ? 'ft²' : to   === 'yd2' ? 'yd²' : to   === 'ping' ? 'Ping' : 'Hectare';
+    } else {
+        unitFrom = from === 'm2' ? '平方米' : from === 'ft2' ? '平方英尺' : from === 'yd2' ? '平方碼' : from === 'ping' ? '坪' : '公頃';
+        unitTo   = to   === 'm2' ? '平方米' : to   === 'ft2' ? '平方英尺' : to   === 'yd2' ? '平方碼' : to   === 'ping' ? '坪' : '公頃';
+    }
+    
+    document.getElementById('resultArea').innerHTML = `${val} ${unitFrom} = ${result} ${unitTo}`;
 }
 
 function swapArea() {
@@ -1868,6 +2065,74 @@ function calcPetFood() {
         `;
     }
 }
+
+
+// ====================== Random Decision Maker 功能 ======================
+let options = [];
+
+function addOption() {
+    const input = document.getElementById('newOption');
+    if (!input) return;
+    
+    const value = input.value.trim();
+    if (value === '') {
+        alert(currentLang === 'en' ? "Please enter an option!" : "請輸入選項！");
+        return;
+    }
+    
+    options.push(value);
+    renderOptions();
+    input.value = '';
+}
+
+function renderOptions() {
+    const list = document.getElementById('optionsList');
+    if (!list) return;
+    
+    list.innerHTML = '';
+    
+    if (options.length === 0) {
+        list.innerHTML = currentLang === 'en' 
+            ? '<p style="color:#999; text-align:center; padding:40px;">No options yet...</p>' 
+            : '<p style="color:#999; text-align:center; padding:40px;">尚未新增選項...</p>';
+        return;
+    }
+    
+    options.forEach((opt, index) => {
+        const div = document.createElement('div');
+        div.style.cssText = 'padding:12px; background:white; margin:6px 0; border-radius:6px; display:flex; justify-content:space-between; align-items:center;';
+        div.innerHTML = `
+            ${opt}
+            <button onclick="removeOption(${index})" style="color:red; border:none; background:none; font-size:1.4rem; cursor:pointer; padding:0 8px;">×</button>
+        `;
+        list.appendChild(div);
+    });
+}
+
+function removeOption(index) {
+    options.splice(index, 1);
+    renderOptions();
+}
+
+function makeDecision() {
+    const resultDiv = document.getElementById('result');
+    if (!resultDiv) return;
+    
+    if (options.length === 0) {
+        resultDiv.innerHTML = currentLang === 'en' 
+            ? "Please add some options first!" 
+            : "請先新增一些選項！";
+        resultDiv.style.display = 'block';
+        return;
+    }
+    
+    const randomIndex = Math.floor(Math.random() * options.length);
+    resultDiv.innerHTML = currentLang === 'en' 
+        ? `🎉 Decision: <strong>${options[randomIndex]}</strong>` 
+        : `🎉 決定是： <strong>${options[randomIndex]}</strong>`;
+    resultDiv.style.display = 'block';
+}
+
 
     </script>
 
