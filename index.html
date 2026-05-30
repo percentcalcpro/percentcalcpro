@@ -5,15 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="google-site-verification" content="googleef6389131" />
     
-    <!-- 中文 SEO -->
-    <meta name="description" content="專業單位換算工具，提供百分比計算、貨幣換算、長度、重量、溫度、面積、體積、速度、能量等多種實用計算器，免費即時使用">
-    <meta name="keywords" content="單位換算, 百分比計算器, 貨幣換算, 長度換算, 重量換算, 溫度換算, BMI計算器, 免費計算工具">
+<!-- 中文 SEO -->
+<meta name="description" content="免費專業單位換算工具與計算器，提供即時貨幣匯率、百分比折扣、長度重量溫度面積體積、BMI、BMR、卡路里、寵物年齡等15種實用工具。中英雙語，無廣告干擾，快速準確。">
+<meta name="keywords" content="單位換算, 貨幣換算, 百分比計算器, BMI計算, BMR計算, 免費計算工具, 寵物年齡換算">
 
-    <!-- 英文 SEO -->
-	<meta name="description" content="Free online Currency Converter with Live Exchange Rate. Instantly convert USD, HKD, TWD, JPY, EUR, GBP and more. Updated daily.">
-    <meta name="keywords" lang="en" content="unit converter, percentage calculator, currency converter, length converter, weight converter, free online tools">
+<!-- 英文 SEO -->
+<meta name="description" content="Free online professional unit converters and calculators. Real-time currency exchange, percentage discount, BMI, BMR, pet age, and 15+ useful tools. Fast, accurate, no registration required.">
+<meta name="keywords" content="unit converter, currency converter, percentage calculator, BMI calculator, BMR calculator, free online tools">
 
-    <title>Currency Converter & Live Exchange Rate | PercentCalc Pro</title>
+<!-- 其他 meta -->
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.percentcalcpro.com/index.html">
+
+
+    <title>PercentCalc Pro - Free Unit Converter & Calculators</title>
 
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1YLY45EW58"></script>
@@ -43,36 +48,37 @@
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
         h1 { margin: 0; font-size: 2rem; }
         .subtitle { color: #333; margin: 5px 0 0; }
-        .lang-select { padding: 9px 14px; font-size: 1rem; background: #FF8C00; color: white; border: none; border-radius: 8px; width: 100%; max-width: 300px; }
-   .tabs {
+ .tabs {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    padding: 18px 10px 25px 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 10px;
+    padding: 16px 10px 22px 10px;
     margin: 15px 0 30px 0;
-    justify-content: center;
-    align-items: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    position: relative;
 }
 
-.tabs::-webkit-scrollbar {
-    display: none;
+.tabs::-webkit-scrollbar { 
+    display: none; 
 }
 
-/* Tab 按鈕 */
 .tab-button {
-    padding: 14px 20px;
-    background: #444;
+    padding: 13px 18px;
+    background: #333;
     color: white;
     border: none;
     border-radius: 12px;
     cursor: pointer;
-    font-size: 1.02rem;
-    font-weight: 500;
+    font-size: 1rem;
     white-space: nowrap;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    transition: all 0.25s;
-    min-width: 115px;
+    flex-shrink: 0;
+    min-width: 108px;
     text-align: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+    transition: all 0.2s;
 }
 
 .tab-button:hover {
@@ -83,8 +89,7 @@
 .tab-button.active {
     background: #FF8C00;
     font-weight: bold;
-    box-shadow: 0 6px 18px rgba(255, 140, 0, 0.55);
-    transform: scale(1.06);
+    box-shadow: 0 5px 14px rgba(255, 140, 0, 0.5);
 }
 
 /* converter-box 保持不變 */
@@ -98,8 +103,8 @@
 /* ==================== 只改手機版 Tab 滑動 ==================== */
 @media (max-width: 600px) {
     .tabs {
-        gap: 10px;
-        padding: 16px 8px 22px 8px;
+        padding: 14px 8px 20px 8px;
+        gap: 9px;
     }
     
     /* 左邊漸層調到最弱 */
@@ -125,10 +130,10 @@
         z-index: 2;
     }
     
-   .tab-button {
+ .tab-button {
         padding: 12px 16px;
-        font-size: 0.98rem;
-        min-width: 105px;
+        font-size: 0.97rem;
+        min-width: 102px;
     }
     
  .converter-box {
@@ -180,10 +185,32 @@ input, select {
 
 @media (max-width: 600px) {
     .result {
-        font-size: 1rem;
+        font-size: 1.2rem;
         padding: 18px;
         min-height: 60px;
     }
+}
+
+
+/* ==================== 語言切換 - 右上角小型版 ==================== */
+.lang-select {
+    padding: 8px 16px;
+    font-size: 1rem;
+    background: #FF8C00;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: auto;
+    min-width: 130px;
+}
+
+/* ==================== Swipe 提示文字拉近 ==================== */
+.slide-hint {
+    text-align: center;
+    margin: 5px 0 18px 0;   /* 調小 margin，讓它更靠近 TAB */
+    color: #666;
+    font-size: 0.93rem;
 }
     </style>
 	
@@ -221,9 +248,7 @@ input, select {
 </div>
 
 <!-- Tab 下面滑動提示 -->
-<div id="slideHint" style="text-align: center; color: #666; font-size: 1rem; margin: 8px 0 20px 0; user-select: none;">
-    ← 左右滑動查看更多 →
-</div>
+<p id="slideHint" class="slide-hint">← 左右滑動查看更多 →</p>
 
 <!-- Tab 0: 貨幣換算 -->
 <div id="tab-currency" class="tab-content active">
@@ -263,12 +288,12 @@ input, select {
         <div class="result" id="currencyResult"></div>
     </div>
 
-    <!-- ✅ 中英文切換的說明文字 -->
-    <div id="currencyDescription" class="description" style="margin-top:25px; padding:20px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
-        <h3 id="desc-currency-title">貨幣換算工具</h3>
-        <p id="desc-currency-text">提供即時匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等主要貨幣。適合旅行、網購、匯款或投資使用。</p>
-        <p><strong id="desc-currency-tip">使用提示：</strong> <span id="desc-currency-tip-text">匯率會定期更新，請以最新匯率為準進行大額交易。</span></p>
-    </div>
+ <!-- 貨幣換算說明文字 -->
+<div id="currencyDescription" style="margin-top:30px; padding:25px; background:#f9f9f9; border-radius:12px; border-left:5px solid #FF8C00;">
+    <h3 id="desc-currency-title">貨幣換算工具</h3>
+    <p id="desc-currency-text">提供即時、準確的國際貨幣匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等全球主要貨幣。無論是旅行前換錢、網購跨境付款、海外匯款還是投資理財，都能快速得到最新換算結果。</p>
+    <p><strong id="desc-currency-tip">使用提示：</strong> <span id="desc-currency-tip-text">大額交易前建議確認最新匯率，避免波動造成損失。支援雙向即時換算，非常適合商務人士、留學生、經常出國的旅客以及投資者使用。</span></p>
+</div>
 </div>
        
 
@@ -777,6 +802,7 @@ input, select {
 
 
 
+
   <script>
  let currentLang = 'en';
 
@@ -1006,188 +1032,211 @@ function calcCalorie() {
     if (document.getElementById('desc-currency-title')) {
         document.getElementById('desc-currency-title').textContent = (lang === 'en') ? "Currency Converter" : "貨幣換算工具";
 		
-// 貨幣說明文字
-    if (document.getElementById('desc-currency-title')) {
-        document.getElementById('desc-currency-title').textContent = (lang === 'en') ? "Currency Converter" : "貨幣換算工具";
-    }
+// ==================== 貨幣說明文字 - 中英文切換（加強版） ====================
+if (document.getElementById('desc-currency-title')) {
+    document.getElementById('desc-currency-title').textContent = (lang === 'en') 
+        ? "Currency Converter" : "貨幣換算工具";
+}
+
 if (document.getElementById('desc-currency-text')) {
     document.getElementById('desc-currency-text').textContent = (lang === 'en')
-        ? "Real-time and accurate currency exchange rates supporting major currencies (USD, HKD, TWD, JPY, KRW, EUR, GBP, CAD, AUD). Perfect for travel, online shopping, remittances, and investment."
-        : "提供即時、準確的國際貨幣匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等主要貨幣。無論是旅行前換錢、網購付款、跨境匯款還是投資理財，都能快速得到最新換算結果。";
+        ? "Real-time and accurate currency exchange rates supporting major global currencies (USD, HKD, TWD, JPY, KRW, EUR, GBP, CAD, AUD). Perfect for travel planning, online shopping, international remittances, investment, and business transactions."
+        : "提供即時、準確的國際貨幣匯率換算，支援 USD、HKD、TWD、JPY、KRW、EUR、GBP、CAD、AUD 等全球主要貨幣。無論是旅行前換錢、網購跨境付款、海外匯款還是投資理財，都能快速得到最新換算結果。";
 }
+
 if (document.getElementById('desc-currency-tip')) {
     document.getElementById('desc-currency-tip').textContent = (lang === 'en') 
         ? "Usage Tip:" : "使用提示：";
 }
+
 if (document.getElementById('desc-currency-tip-text')) {
     document.getElementById('desc-currency-tip-text').textContent = (lang === 'en')
-        ? "For large transactions, always confirm the latest rate to avoid losses due to fluctuations."
-        : "大額交易前建議確認最新匯率，避免波動造成損失。支援雙向即時換算，非常適合商務人士、留學生和經常出國的旅客使用。";
+        ? "For large transactions, always confirm the latest rate to avoid losses due to fluctuations. Bidirectional conversion makes it ideal for business professionals, students studying abroad, frequent travelers, and investors."
+        : "大額交易前建議確認最新匯率，避免波動造成損失。支援雙向即時換算，非常適合商務人士、留學生、經常出國的旅客以及投資者使用。";
 }
 
 
-     // ==================== 折扣計算 說明文字 ====================
-    if (document.getElementById('desc-discount-title')) {
-        document.getElementById('desc-discount-title').textContent = (lang === 'en') ? "Percentage Discount Calculator" : "百分比折扣計算機";
-    }
-    if (document.getElementById('desc-discount-text')) {
-        document.getElementById('desc-discount-text').textContent = (lang === 'en') 
-            ? "Quickly calculate the final price and savings after discount. Suitable for online shopping comparison, promotion pricing, store discount calculation or personal budget management." 
-            : "快速計算折扣後的最終價格和節省金額。適合網購比價、促銷活動定價、商店打折計算或個人預算管理使用。";
-    }
-    if (document.getElementById('desc-discount-tip')) {
-        document.getElementById('desc-discount-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-discount-tip-text')) {
-        document.getElementById('desc-discount-tip-text').textContent = (lang === 'en') 
-            ? "When shopping online, quickly compare different discount plans to make the most cost-effective purchase decision. Also suitable for merchants to calculate actual revenue from promotions." 
-            : "網購時可快速比較不同折扣方案，幫助你做出最划算的購買決定，也適合商家計算促銷活動的實際收益。";
-    }
+// ==================== 折扣計算 說明文字（加強版） ====================
+if (document.getElementById('desc-discount-title')) {
+    document.getElementById('desc-discount-title').textContent = (lang === 'en') 
+        ? "Percentage Discount Calculator" : "百分比折扣計算機";
+}
 
- // ==================== 長度換算 說明文字 ====================
-    if (document.getElementById('desc-length-title')) {
-        document.getElementById('desc-length-title').textContent = (lang === 'en') ? "Length Converter" : "長度換算工具";
-    }
-    if (document.getElementById('desc-length-text')) {
-        document.getElementById('desc-length-text').textContent = (lang === 'en') 
-            ? "Professional length unit converter supporting cm, inch, meter, feet, km, mile and more. Ideal for international shopping, renovation, travel measurement and engineering calculations."
-            : "專業的長度單位換算器，支援公分、英吋、公尺、英尺、公里、英里等多種單位。適合國際購物、室內裝修、旅行測量或工程計算使用。";
-    }
-    if (document.getElementById('desc-length-tip')) {
-        document.getElementById('desc-length-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-length-tip-text')) {
-        document.getElementById('desc-length-tip-text').textContent = (lang === 'en') 
-            ? "Quickly convert sizes when shopping online or measuring distance during travel."
-            : "網購衣服或家具時，可快速將英吋轉公分；旅行時也可即時轉換距離單位。";
-    }
+if (document.getElementById('desc-discount-text')) {
+    document.getElementById('desc-discount-text').textContent = (lang === 'en')
+        ? "Quickly and accurately calculate the final price and savings amount after discount. Ideal for online shopping price comparison, promotion pricing, store discount calculations, personal budget management, and business sales analysis."
+        : "快速準確計算折扣後的最終價格和節省金額。適合網購比價、促銷活動定價、商店打折計算、個人預算管理以及商家銷售分析使用。";
+}
 
- // ==================== 重量換算 說明文字 ====================
-    if (document.getElementById('desc-weight-title')) {
-        document.getElementById('desc-weight-title').textContent = (lang === 'en') ? "Weight Converter" : "重量換算工具";
-    }
-    if (document.getElementById('desc-weight-text')) {
-        document.getElementById('desc-weight-text').textContent = (lang === 'en') 
-            ? "Supports kg, lb, g, oz, catty and more. Perfect for cooking recipes, online shopping, fitness tracking, logistics and daily use."
-            : "支援公斤、磅、公克、盎司、台斤等多種重量單位換算。適合烹飪配方、國際網購、健身追蹤、物流或日常購物使用。";
-    }
-    if (document.getElementById('desc-weight-tip')) {
-        document.getElementById('desc-weight-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-weight-tip-text')) {
-        document.getElementById('desc-weight-tip-text').textContent = (lang === 'en') 
-            ? "Commonly used for converting recipe units and international shopping weights."
-            : "國際購物常用公斤轉磅，烹飪食譜常用公克與盎司轉換。";
-    }
+if (document.getElementById('desc-discount-tip')) {
+    document.getElementById('desc-discount-tip').textContent = (lang === 'en') 
+        ? "Usage Tip:" : "使用提示：";
+}
 
- // ==================== 溫度換算 說明文字 ====================
-    if (document.getElementById('desc-temp-title')) {
-        document.getElementById('desc-temp-title').textContent = (lang === 'en') ? "Temperature Converter" : "溫度換算工具";
-    }
-    if (document.getElementById('desc-temp-text')) {
-        document.getElementById('desc-temp-text').textContent = (lang === 'en') 
-            ? "Supports Celsius (°C), Fahrenheit (°F) and Kelvin (K). Useful for travel weather check, cooking, scientific experiments and daily temperature conversion."
-            : "支援攝氏 (°C)、華氏 (°F)、克耳文 (K) 三種溫度單位即時換算。適合旅行查天氣、烹飪烘焙、科學實驗或日常氣溫轉換使用。";
-    }
-    if (document.getElementById('desc-temp-tip')) {
-        document.getElementById('desc-temp-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-temp-tip-text')) {
-        document.getElementById('desc-temp-tip-text').textContent = (lang === 'en') 
-            ? "Most countries use °C, US uses °F, scientific calculations often use Kelvin."
-            : "歐美國家多用華氏，亞洲和科學計算常用攝氏，克耳文常用於物理和工程。";
-    }
+if (document.getElementById('desc-discount-tip-text')) {
+    document.getElementById('desc-discount-tip-text').textContent = (lang === 'en')
+        ? "When shopping online, quickly compare different discount schemes to find the best deal. Merchants can also use it to calculate actual revenue after promotions and optimize pricing strategies."
+        : "網購時可快速比較不同折扣方案，幫助你做出最划算的購買決定。商家亦可計算促銷活動後的實際收益，並優化定價策略。";
+}
 
-    // ==================== 面積說明文字 ====================
-    if (document.getElementById('desc-area-title')) {
-        document.getElementById('desc-area-title').textContent = (lang === 'en') ? "Area Converter" : "面積換算工具";
-    }
-    if (document.getElementById('desc-area-text')) {
-        document.getElementById('desc-area-text').textContent = (lang === 'en') 
-            ? "Professional area unit converter supporting square meters, square feet, ping, hectares, acres and more. Ideal for real estate, renovation, land survey and international property comparison." 
-            : "專業的面積單位換算器，支援平方公尺、平方英尺、坪、公頃、英畝等多種單位。適合房地產買賣、室內裝修、土地測量、農業規劃或國際物業比較使用。";
-    }
-    if (document.getElementById('desc-area-tip')) {
-        document.getElementById('desc-area-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-area-tip-text')) {
-        document.getElementById('desc-area-tip-text').textContent = (lang === 'en') 
-            ? "Ping is commonly used in HK/Taiwan for property. Use square meters or square feet for international comparison when buying properties." 
-            : "香港、台灣常用「坪」，國際多用平方公尺或平方英尺。買樓時可即時轉換不同單位價格進行比較。";
-    }
+// ==================== 長度換算 說明文字（加強版） ====================
+if (document.getElementById('desc-length-title')) {
+    document.getElementById('desc-length-title').textContent = (lang === 'en') 
+        ? "Length Converter" : "長度換算工具";
+}
+
+if (document.getElementById('desc-length-text')) {
+    document.getElementById('desc-length-text').textContent = (lang === 'en')
+        ? "Professional length unit converter supporting cm, inch, meter, feet, km, mile, and many more. Ideal for international online shopping, home renovation, travel measurements, construction projects, and engineering calculations."
+        : "專業的長度單位換算器，支援公分、英吋、公尺、英尺、公里、英里等多種常見單位。適合國際網購、室內裝修、旅行測量、建築工程以及日常尺寸轉換使用。";
+}
+
+if (document.getElementById('desc-length-tip')) {
+    document.getElementById('desc-length-tip').textContent = (lang === 'en') 
+        ? "Usage Tip:" : "使用提示：";
+}
+
+if (document.getElementById('desc-length-tip-text')) {
+    document.getElementById('desc-length-tip-text').textContent = (lang === 'en')
+        ? "Quickly convert sizes when shopping for clothes, furniture, or electronics from overseas. Also useful for measuring room dimensions during renovation or understanding distances while traveling."
+        : "網購衣服、家具或電子產品時，可快速將英吋轉公分；裝修量尺寸或旅行時，也能即時轉換不同長度單位，非常實用。";
+}
+
+// ==================== 重量換算 說明文字（加強版） ====================
+if (document.getElementById('desc-weight-title')) {
+    document.getElementById('desc-weight-title').textContent = (lang === 'en') 
+        ? "Weight Converter" : "重量換算工具";
+}
+
+if (document.getElementById('desc-weight-text')) {
+    document.getElementById('desc-weight-text').textContent = (lang === 'en')
+        ? "Professional weight unit converter supporting kg, lb, g, oz, catty (斤), and more. Ideal for cooking recipes, international online shopping, fitness and body weight tracking, logistics, and daily life."
+        : "專業的重量單位換算器，支援公斤、磅、公克、盎司、台斤（斤）等多種常見單位。適合烹飪食譜轉換、國際網購、健身體重追蹤、物流運輸或日常購物使用。";
+}
+
+if (document.getElementById('desc-weight-tip')) {
+    document.getElementById('desc-weight-tip').textContent = (lang === 'en') 
+        ? "Usage Tip:" : "使用提示：";
+}
+
+if (document.getElementById('desc-weight-tip-text')) {
+    document.getElementById('desc-weight-tip-text').textContent = (lang === 'en')
+        ? "Commonly used when buying groceries overseas (kg to lb) or following international cooking recipes (grams to ounces). Also helpful for tracking body weight progress."
+        : "國際網購時常用公斤轉磅，烹飪食譜常用公克與盎司轉換。健身人士也可追蹤體重變化，非常實用。";
+}
+
+// ==================== 溫度換算 說明文字（加強版） ====================
+if (document.getElementById('desc-temp-title')) {
+    document.getElementById('desc-temp-title').textContent = (lang === 'en') 
+        ? "Temperature Converter" : "溫度換算工具";
+}
+if (document.getElementById('desc-temp-text')) {
+    document.getElementById('desc-temp-text').textContent = (lang === 'en')
+        ? "Convert between Celsius (°C), Fahrenheit (°F), and Kelvin (K) instantly. Useful for checking weather when traveling, cooking and baking, scientific experiments, and daily temperature understanding."
+        : "支援攝氏 (°C)、華氏 (°F)、克耳文 (K) 三種溫度單位即時換算。適合旅行查詢天氣、烹飪烘焙、科學實驗或日常氣溫轉換使用。";
+}
+if (document.getElementById('desc-temp-tip')) {
+    document.getElementById('desc-temp-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+}
+if (document.getElementById('desc-temp-tip-text')) {
+    document.getElementById('desc-temp-tip-text').textContent = (lang === 'en')
+        ? "Most countries use °C, while the US uses °F. Kelvin is commonly used in science and engineering."
+        : "歐美國家多用華氏，亞洲和大部分地區常用攝氏，克耳文則常用於物理和工程計算。";
+}
+
+// ==================== 面積換算 說明文字（加強版） ====================
+if (document.getElementById('desc-area-title')) {
+    document.getElementById('desc-area-title').textContent = (lang === 'en') 
+        ? "Area Converter" : "面積換算工具";
+}
+if (document.getElementById('desc-area-text')) {
+    document.getElementById('desc-area-text').textContent = (lang === 'en')
+        ? "Professional area unit converter supporting square meters, square feet, ping, hectares, acres and more. Ideal for real estate buying/selling, home renovation, land measurement, agriculture planning, and international property comparison."
+        : "專業的面積單位換算器，支援平方公尺、平方英尺、坪、公頃、英畝等多種單位。適合房地產買賣、室內裝修、土地測量、農業規劃或國際物業比較使用。";
+}
+if (document.getElementById('desc-area-tip')) {
+    document.getElementById('desc-area-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+}
+if (document.getElementById('desc-area-tip-text')) {
+    document.getElementById('desc-area-tip-text').textContent = (lang === 'en')
+        ? "Ping is commonly used in Hong Kong and Taiwan. Use square meters or square feet when comparing international properties."
+        : "香港、台灣常用「坪」，國際多用平方公尺或平方英尺。買樓時可即時轉換不同單位價格進行比較。";
+}
 	
-	
+// ==================== 體積換算 說明文字（加強版） ====================
+if (document.getElementById('desc-volume-title')) {
+    document.getElementById('desc-volume-title').textContent = (lang === 'en') 
+        ? "Volume Converter" : "體積換算工具";
+}
+if (document.getElementById('desc-volume-text')) {
+    document.getElementById('desc-volume-text').textContent = (lang === 'en')
+        ? "Professional volume unit converter supporting liter, milliliter, gallon, cup, cubic meter and more. Ideal for cooking recipes, beverage purchasing, logistics, scientific experiments, and daily use."
+        : "專業的體積單位換算器，支援公升、毫升、加侖、杯、立方公尺等多種單位。適合烹飪食譜轉換、飲料購買、物流運輸、科學實驗或日常使用。";
+}
+if (document.getElementById('desc-volume-tip')) {
+    document.getElementById('desc-volume-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+}
+if (document.getElementById('desc-volume-tip-text')) {
+    document.getElementById('desc-volume-tip-text').textContent = (lang === 'en')
+        ? "International recipes often use ml and gallon. Logistics companies use cubic meter for space calculation."
+        : "國際食譜常用毫升與加侖轉換，物流常用立方公尺計算貨物空間。";
+}
 
- // ==================== 體積換算 說明文字 ====================
-    if (document.getElementById('desc-volume-title')) {
-        document.getElementById('desc-volume-title').textContent = (lang === 'en') ? "Volume Converter" : "體積換算工具";
-    }
-    if (document.getElementById('desc-volume-text')) {
-        document.getElementById('desc-volume-text').textContent = (lang === 'en') 
-            ? "Professional volume unit converter supporting liter, milliliter, gallon, cup, cubic meter and more. Ideal for cooking recipes, beverage purchasing, logistics and scientific experiments."
-            : "專業的體積單位換算器，支援公升、毫升、加侖、杯、立方公尺等多種單位。適合烹飪食譜轉換、飲料購買、物流或科學實驗使用。";
-    }
-    if (document.getElementById('desc-volume-tip')) {
-        document.getElementById('desc-volume-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-volume-tip-text')) {
-        document.getElementById('desc-volume-tip-text').textContent = (lang === 'en') 
-            ? "International recipes often use ml and gallon, logistics use cubic meter."
-            : "國際食譜常用毫升與加侖轉換，物流常用立方公尺計算空間。";
-    }
+// ==================== 速度換算 說明文字（加強版） ====================
+if (document.getElementById('desc-speed-title')) {
+    document.getElementById('desc-speed-title').textContent = (lang === 'en') 
+        ? "Speed Converter" : "速度換算工具";
+}
+if (document.getElementById('desc-speed-text')) {
+    document.getElementById('desc-speed-text').textContent = (lang === 'en')
+        ? "Professional speed unit converter supporting km/h, mph, m/s, knot and more. Ideal for driving, navigation, aviation, sports training, scientific research and daily travel calculations."
+        : "專業的速度單位換算器，支援公里/小時、英里/小時、公尺/秒、節等多種單位。適合駕駛、航海、飛行、運動訓練、科學研究或日常旅行使用。";
+}
+if (document.getElementById('desc-speed-tip')) {
+    document.getElementById('desc-speed-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+}
+if (document.getElementById('desc-speed-tip-text')) {
+    document.getElementById('desc-speed-tip-text').textContent = (lang === 'en')
+        ? "Cars and motorcycles use km/h, while ships and aircraft commonly use knots. Useful when traveling abroad or reading international sports data."
+        : "汽車和摩托車常用 km/h，船隻和飛機常用 knot。出國旅行或查看國際運動數據時非常實用。";
+}
 
-  // ==================== 速度換算 說明文字 ====================
-    if (document.getElementById('desc-speed-title')) {
-        document.getElementById('desc-speed-title').textContent = (lang === 'en') ? "Speed Converter" : "速度換算工具";
-    }
-    if (document.getElementById('desc-speed-text')) {
-        document.getElementById('desc-speed-text').textContent = (lang === 'en') 
-            ? "Supports km/h, mph, m/s, knot and more. Suitable for driving, navigation, aviation, sports training and scientific calculations."
-            : "支援公里/小時、英里/小時、公尺/秒、節等多種速度單位即時換算。適合駕駛、航海、飛行、運動訓練或科學計算使用。";
-    }
-    if (document.getElementById('desc-speed-tip')) {
-        document.getElementById('desc-speed-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-speed-tip-text')) {
-        document.getElementById('desc-speed-tip-text').textContent = (lang === 'en') 
-            ? "Cars use km/h, ships and planes use knot."
-            : "汽車常用 km/h，船隻和飛機常用 knot。";
-    }
+// ==================== 能量 / 功率換算 說明文字（加強版） ====================
+if (document.getElementById('desc-power-title')) {
+    document.getElementById('desc-power-title').textContent = (lang === 'en') 
+        ? "Power / Energy Converter" : "能量 / 功率換算工具";
+}
+if (document.getElementById('desc-power-text')) {
+    document.getElementById('desc-power-text').textContent = (lang === 'en')
+        ? "Convert between Joule (J), Kilojoule (kJ), Kilocalorie (kcal), Watt-hour (Wh) and more. Useful for physics, nutrition, fitness tracking, engineering, and energy consumption calculations."
+        : "支援焦耳 (J)、千焦 (kJ)、卡路里 (kcal)、瓦時 (Wh) 等能量與功率單位換算。適合物理計算、營養學、健身追蹤、工程應用及能源消耗分析使用。";
+}
+if (document.getElementById('desc-power-tip')) {
+    document.getElementById('desc-power-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+}
+if (document.getElementById('desc-power-tip-text')) {
+    document.getElementById('desc-power-tip-text').textContent = (lang === 'en')
+        ? "Food energy is usually in kcal, while physics and engineering use J or kJ. Helpful for comparing nutritional values and device power consumption."
+        : "食物熱量常用 kcal，物理和工程計算常用 J 或 kJ。可用來比較食物熱量與電器功率消耗。";
 
-  // ==================== 能量 / 功率換算 說明文字 ====================
-    if (document.getElementById('desc-power-title')) {
-        document.getElementById('desc-power-title').textContent = (lang === 'en') ? "Power / Energy Converter" : "能量 / 功率換算工具";
-    }
-    if (document.getElementById('desc-power-text')) {
-        document.getElementById('desc-power-text').textContent = (lang === 'en') 
-            ? "Supports Joule (J), Kilojoule (kJ), Kilocalorie (kcal), Watt-hour (Wh) and more. Useful for physics, nutrition, fitness tracking and engineering."
-            : "支援焦耳 (J)、千焦 (kJ)、卡路里 (kcal)、瓦時 (Wh) 等能量與功率單位換算。適合物理計算、營養學、健身追蹤或工程使用。";
-    }
-    if (document.getElementById('desc-power-tip')) {
-        document.getElementById('desc-power-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-power-tip-text')) {
-        document.getElementById('desc-power-tip-text').textContent = (lang === 'en') 
-            ? "Food energy uses kcal, physics uses J/kJ."
-            : "食物熱量常用 kcal，物理和工程計算常用 J 或 kJ。";
- 
 		
-    // ==================== BMI 說明文字 ====================
-    if (document.getElementById('desc-bmi-title')) {
-        document.getElementById('desc-bmi-title').textContent = (lang === 'en') ? "BMI Calculator" : "BMI 身體質量指數計算器";
-    }
-    if (document.getElementById('desc-bmi-text')) {
-        document.getElementById('desc-bmi-text').textContent = (lang === 'en') 
-           ? "Calculate your Body Mass Index to assess if your weight is in a healthy range. Important for understanding health risks related to being underweight or overweight."
-        : "計算你的身體質量指數，評估體重是否處於健康範圍。了解偏瘦或過重相關的健康風險非常重要。";
-    }
-    if (document.getElementById('desc-bmi-tip')) {
-        document.getElementById('desc-bmi-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-bmi-tip-text')) {
-        document.getElementById('desc-bmi-tip-text').textContent = (lang === 'en') 
-           ? "Maintain BMI between 18.5-24 for most adults."
-        : "成人 BMI 建議維持在 18.5-24 之間。";
+// ==================== BMI 說明文字（加強版） ====================
+if (document.getElementById('desc-bmi-title')) {
+    document.getElementById('desc-bmi-title').textContent = (lang === 'en') 
+        ? "BMI Calculator" : "BMI 身體質量指數計算器";
+}
+if (document.getElementById('desc-bmi-text')) {
+    document.getElementById('desc-bmi-text').textContent = (lang === 'en')
+        ? "Calculate your Body Mass Index (BMI) to assess whether your weight is in a healthy range. An important indicator for understanding health risks related to being underweight or overweight."
+        : "計算你的身體質量指數（BMI），評估體重是否處於健康範圍。是了解偏瘦或過重相關健康風險的重要指標。";
+}
+if (document.getElementById('desc-bmi-tip')) {
+    document.getElementById('desc-bmi-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+}
+if (document.getElementById('desc-bmi-tip-text')) {
+    document.getElementById('desc-bmi-tip-text').textContent = (lang === 'en')
+        ? "For most adults, a BMI between 18.5 and 24.9 is considered healthy. Combine with other health indicators for better assessment."
+        : "成人 BMI 建議維持在 18.5–24.9 之間。建議結合其他健康指標一起評估。";
 }
 
 // ==================== Area 單位語言切換（完整修正） ====================
@@ -1236,59 +1285,62 @@ if (document.getElementById('toArea')) {
 
 
 
-    // ==================== BMR & TDEE 說明文字 ====================
-    if (document.getElementById('desc-bmr-title')) {
-        document.getElementById('desc-bmr-title').textContent = (lang === 'en') ? "BMR & TDEE Calculator" : "BMR & TDEE 計算器";
-    }
-    if (document.getElementById('desc-bmr-text')) {
-        document.getElementById('desc-bmr-text').textContent = (lang === 'en') 
-            ? "BMR (Basal Metabolic Rate) is the calories needed at rest. TDEE (Total Daily Energy Expenditure) includes daily activities. Useful for weight management."
-            : "BMR（基礎代謝率）是指休息狀態下維持生命所需熱量。TDEE（每日總熱量消耗）包含日常活動後的總熱量。適合減肥、維持或增肌使用。";
-    }
-    if (document.getElementById('desc-bmr-tip')) {
-        document.getElementById('desc-bmr-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-bmr-tip-text')) {
-        document.getElementById('desc-bmr-tip-text').textContent = (lang === 'en') 
-            ? "To lose weight: eat below TDEE. To gain muscle: eat above TDEE. Combine with exercise."
-            : "想減肥可將每日熱量控制在 TDEE 以下，想增肌則控制在 TDEE 以上。建議配合運動和均衡飲食。";
-    }
-
-    // ==================== 卡路里計算器 說明文字 ====================
-    if (document.getElementById('desc-calorie-title')) {
-        document.getElementById('desc-calorie-title').textContent = (lang === 'en') ? "Daily Calorie Needs Calculator" : "每日卡路里需求計算器";
-    }
-    if (document.getElementById('desc-calorie-text')) {
-        document.getElementById('desc-calorie-text').textContent = (lang === 'en') 
-         ? "Calculate your daily calorie requirement based on age, gender, height, weight and activity level. Helps with weight loss, maintenance or muscle gain goals."
-        : "根據年齡、性別、身高、體重和活動水平計算每日所需熱量。幫助你達成減脂、維持體重或增肌目標。";
+// ==================== BMR & TDEE 說明文字（加強版） ====================
+if (document.getElementById('desc-bmr-title')) {
+    document.getElementById('desc-bmr-title').textContent = (lang === 'en') 
+        ? "BMR & TDEE Calculator" : "BMR & TDEE 計算器";
 }
-    if (document.getElementById('desc-calorie-tip')) {
-        document.getElementById('desc-calorie-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-calorie-tip-text')) {
-        document.getElementById('desc-calorie-tip-text').textContent = (lang === 'en') 
-            ? "For weight loss: eat 300-500 kcal below TDEE. For muscle gain: eat 300-500 kcal above TDEE."
-            : "減脂建議每日少吃 300-500 kcal，增肌則多吃 300-500 kcal。";
-    }
+if (document.getElementById('desc-bmr-text')) {
+    document.getElementById('desc-bmr-text').textContent = (lang === 'en')
+        ? "Calculate your Basal Metabolic Rate (BMR) — the calories your body needs at rest — and Total Daily Energy Expenditure (TDEE) which includes daily activities. Essential for effective weight management, fat loss, or muscle gain."
+        : "計算你的基礎代謝率（BMR）——休息狀態下維持生命所需熱量，以及包含日常活動的每日總熱量消耗（TDEE）。是有效減脂、維持體重或增肌的重要工具。";
+}
+if (document.getElementById('desc-bmr-tip')) {
+    document.getElementById('desc-bmr-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+}
+if (document.getElementById('desc-bmr-tip-text')) {
+    document.getElementById('desc-bmr-tip-text').textContent = (lang === 'en')
+        ? "To lose weight: consume 300-500 kcal below TDEE. To gain muscle: consume 300-500 kcal above TDEE. Combine with regular exercise and balanced diet for best results."
+        : "想減肥可將每日熱量控制在 TDEE 以下 300-500 kcal，想增肌則控制在 TDEE 以上 300-500 kcal。建議配合運動和均衡飲食，效果更好。";
+}
+
+// ==================== 卡路里計算器 說明文字（加強版） ====================
+if (document.getElementById('desc-calorie-title')) {
+    document.getElementById('desc-calorie-title').textContent = (lang === 'en') 
+        ? "Daily Calorie Needs Calculator" : "每日卡路里需求計算器";
+}
+if (document.getElementById('desc-calorie-text')) {
+    document.getElementById('desc-calorie-text').textContent = (lang === 'en')
+        ? "Calculate your daily calorie requirement based on age, gender, height, weight, and activity level. Helps you create effective plans for weight loss, weight maintenance, or muscle building."
+        : "根據年齡、性別、身高、體重和活動水平，精準計算每日所需熱量。幫助你制定減脂、維持體重或增肌的科學飲食計劃。";
+}
+if (document.getElementById('desc-calorie-tip')) {
+    document.getElementById('desc-calorie-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+}
+if (document.getElementById('desc-calorie-tip-text')) {
+    document.getElementById('desc-calorie-tip-text').textContent = (lang === 'en')
+        ? "For weight loss: eat 300-500 kcal below your TDEE. For muscle gain: eat 300-500 kcal above TDEE. Adjust according to your progress and consult a professional if needed."
+        : "減脂建議每日少吃 300-500 kcal，增肌則多吃 300-500 kcal。建議根據實際進度調整，並在必要時咨詢醫生或營養師。";
+}
 	
-     // ==================== 寵物年齡說明文字 ====================
-    if (document.getElementById('desc-pet-title')) {
-        document.getElementById('desc-pet-title').textContent = (lang === 'en') ? "Pet Age to Human Age Calculator" : "寵物年齡轉人類年齡";
-    }
-    if (document.getElementById('desc-pet-text')) {
-        document.getElementById('desc-pet-text').textContent = (lang === 'en')
-            ? "Convert your pet's real age (dog, cat, rabbit, hamster, bird, turtle, horse) to equivalent human age using scientific formulas. Different animals age at different rates."
-            : "根據科學公式將狗、貓、兔子、倉鼠、鳥類、烏龜、馬等寵物的實際年齡，轉換成相當於人類的年齡。不同動物衰老速度有明顯差異。";
-    }
-    if (document.getElementById('desc-pet-tip')) {
-        document.getElementById('desc-pet-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-pet-tip-text')) {
-        document.getElementById('desc-pet-tip-text').textContent = (lang === 'en')
-            ? "Small animals tend to age faster. Useful for understanding your pet's health stage and planning birthdays or vet visits."
-            : "小型動物通常衰老較快。此工具適合了解寵物目前生命階段、安排生日或健康檢查。";
-    }
+ // ==================== 寵物年齡說明文字（加強版） ====================
+if (document.getElementById('desc-pet-title')) {
+    document.getElementById('desc-pet-title').textContent = (lang === 'en') 
+        ? "Pet Age to Human Age Calculator" : "寵物年齡轉人類年齡";
+}
+if (document.getElementById('desc-pet-text')) {
+    document.getElementById('desc-pet-text').textContent = (lang === 'en')
+        ? "Convert your pet's real age (dog, cat, rabbit, hamster, bird, turtle, horse) to equivalent human age using scientific formulas. Different animals age at different rates — understanding this helps with health care and life stage planning."
+        : "根據科學公式將狗、貓、兔子、倉鼠、鳥類、烏龜、馬等寵物的實際年齡，轉換成相當於人類的年齡。不同動物衰老速度差異很大，幫助主人更好地照顧寵物健康。";
+}
+if (document.getElementById('desc-pet-tip')) {
+    document.getElementById('desc-pet-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
+}
+if (document.getElementById('desc-pet-tip-text')) {
+    document.getElementById('desc-pet-tip-text').textContent = (lang === 'en')
+        ? "Small animals tend to age faster. Use this tool to better understand your pet's current life stage, plan birthdays, or schedule vet check-ups."
+        : "小型動物通常衰老較快。此工具適合了解寵物目前生命階段、安排生日慶祝或定期健康檢查。";
+}
 	
 	    // ==================== 卡路里 Tab 下拉選項語言 ====================
     if (document.getElementById('calMaleOption')) {
@@ -1481,29 +1533,38 @@ if (document.getElementById('desc-currency-tip-text')) {
         document.getElementById('stageSenior').textContent = (lang === 'en') ? "Senior" : "老年";
     }
 	
-// ==================== Random Decision Maker 說明文字 ====================
-    if (document.getElementById('randomTitle')) {
-        document.getElementById('randomTitle').textContent = (lang === 'en') ? "Random Decision Maker" : "隨機決定器";
-    }
-    if (document.getElementById('randomSubtitle')) {
-        document.getElementById('randomSubtitle').textContent = (lang === 'en') ? "Let me help you decide!" : "幫你做決定！";
-    }
-    if (document.getElementById('desc-random-title')) {
-        document.getElementById('desc-random-title').textContent = (lang === 'en') ? "Random Decision Maker" : "隨機決定器";
-    }
-    if (document.getElementById('desc-random-text')) {
-        document.getElementById('desc-random-text').textContent = (lang === 'en')
-            ? "Don't know what to eat, watch, or do? Enter multiple options and let it randomly decide for you! Perfect for when you're indecisive."
-            : "不知道該吃什麼、看什麼電影、週末要做什麼？輸入多個選項，讓它隨機幫你決定！超適合猶豫不決的時候使用。";
-    }
-    if (document.getElementById('desc-random-tip')) {
-        document.getElementById('desc-random-tip').textContent = (lang === 'en') ? "Usage Tip:" : "使用提示：";
-    }
-    if (document.getElementById('desc-random-tip-text')) {
-        document.getElementById('desc-random-tip-text').textContent = (lang === 'en')
-            ? "You can add as many options as you want. Great for food choices, movie selection, weekend plans, or any decision."
-            : "可以輸入很多選項。適合決定吃什麼、看什麼電影、週末要做什麼等。";
-    }
+// ==================== Random Decision Maker 說明文字（加強版） ====================
+if (document.getElementById('randomTitle')) {
+    document.getElementById('randomTitle').textContent = (lang === 'en') 
+        ? "Random Decision Maker" : "隨機決定器";
+}
+
+if (document.getElementById('randomSubtitle')) {
+    document.getElementById('randomSubtitle').textContent = (lang === 'en') 
+        ? "Let me help you decide!" : "幫你做決定！";
+}
+
+if (document.getElementById('desc-random-title')) {
+    document.getElementById('desc-random-title').textContent = (lang === 'en') 
+        ? "Random Decision Maker" : "隨機決定器";
+}
+
+if (document.getElementById('desc-random-text')) {
+    document.getElementById('desc-random-text').textContent = (lang === 'en')
+        ? "Can't decide what to eat, which movie to watch, where to go, or what to do? Simply enter your options and let the Random Decision Maker choose for you instantly! Fun and effective way to break decision paralysis."
+        : "不知道該吃什麼、看哪部電影、去哪裡玩、還是不知道要做什麼？只要輸入多個選項，讓隨機決定器立刻幫你做出選擇！輕鬆解決猶豫不決的煩惱。";
+}
+
+if (document.getElementById('desc-random-tip')) {
+    document.getElementById('desc-random-tip').textContent = (lang === 'en') 
+        ? "Usage Tip:" : "使用提示：";
+}
+
+if (document.getElementById('desc-random-tip-text')) {
+    document.getElementById('desc-random-tip-text').textContent = (lang === 'en')
+        ? "You can add as many options as you like. Great for choosing restaurants, movies, weekend activities, travel destinations, or even small daily decisions. The more options you add, the more fun it becomes!"
+        : "你可以加入越多選項越好。適合決定吃哪家餐廳、看哪部電影、週末活動、旅行目的地，甚至日常小決定。選項越多越有趣！";
+}
 
     // ==================== Random Decision Maker 動態文字切換 ====================
     if (document.getElementById('newOption')) {
@@ -1539,24 +1600,27 @@ if (document.getElementById('desc-currency-tip-text')) {
 	
 }
 
-// ==================== 寵物食量說明文字 ====================
+// ==================== 寵物食量說明文字（加強版） ====================
 if (document.getElementById('desc-petfood-title')) {
-    document.getElementById('desc-petfood-title').textContent = (lang === 'en') 
+    document.getElementById('desc-petfood-title').textContent = (lang === 'en')
         ? "Pet Daily Food Calculator" : "寵物每日食量計算器";
 }
+
 if (document.getElementById('desc-petfood-text')) {
     document.getElementById('desc-petfood-text').textContent = (lang === 'en')
-        ? "Calculate daily calorie needs and recommended dry food amount based on pet type, weight and life stage. Helps maintain healthy weight and nutrition."
-        : "根據寵物種類、體重和生命階段，計算每日所需熱量及建議乾糧餵食量。幫助主人科學餵食，避免過胖或營養不足，維持寵物健康。";
+        ? "Calculate the recommended daily calorie intake and dry food amount for your dog, cat, or other pets based on type, weight, age, and life stage. Helps prevent obesity, underfeeding, and nutritional imbalances."
+        : "根據寵物種類、體重、年齡和生命階段，精準計算每日所需熱量及建議乾糧餵食量。幫助主人科學餵食，避免寵物過胖、過瘦或營養不均衡。";
 }
+
 if (document.getElementById('desc-petfood-tip')) {
-    document.getElementById('desc-petfood-tip').textContent = (lang === 'en') 
+    document.getElementById('desc-petfood-tip').textContent = (lang === 'en')
         ? "Usage Tip:" : "使用提示：";
 }
+
 if (document.getElementById('desc-petfood-tip-text')) {
     document.getElementById('desc-petfood-tip-text').textContent = (lang === 'en')
-        ? "Adjust feeding amount regularly according to activity level and consult a vet."
-        : "建議定期調整餵食量，並結合獸醫建議。";
+        ? "Adjust the feeding amount according to your pet's activity level, body condition, and age. Always ensure fresh water is available and consult a veterinarian for puppies, kittens, or pets with special health needs."
+        : "應根據寵物的活動量、身體狀況和年齡定期調整餵食量。幼犬、幼貓或有特殊健康問題的寵物，建議咨詢獸醫後再決定餵食量，並確保隨時提供新鮮飲用水。";
 }
 
     // ==================== 重新顯示目前 Tab ====================
